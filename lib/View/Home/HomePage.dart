@@ -20,7 +20,12 @@ class _HomeState extends State<Home> {
           child: Icon(Icons.menu_open),
         ),
         centerTitle: true,
-        title: Text('Task Manager'),
+        title: Text(
+          'Task Manager',
+          style: TextStyle(
+            fontFamily: 'San Francisco',
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
