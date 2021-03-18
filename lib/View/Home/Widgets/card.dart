@@ -18,8 +18,9 @@ class CardTask extends StatelessWidget {
           top: 10,
           left: 15,
           bottom: 10,
+          right: 12,
         ),
-        width: 330.0,
+        width: 340.0,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(

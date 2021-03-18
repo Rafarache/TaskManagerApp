@@ -44,10 +44,12 @@ class _HomeState extends State<Home> {
             SizedBox(height: 40),
             Row(
               children: [
-                SizedBox(width: 20),
-                Text(
-                  'Upcoming(4)',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.only(left: 25.0),
+                  child: Text(
+                    'Upcoming(4)',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
                 SizedBox(width: 20),
                 Text('Done(13)')

@@ -5,9 +5,9 @@ class QuickTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20, left: 15, right: 15),
+      margin: EdgeInsets.only(top: 20),
       height: 120,
-      width: 330,
+      width: 360,
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20),
