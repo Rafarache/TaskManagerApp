@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'View/AddTask/TaskPage.dart';
 import 'View/Home/HomePage.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
       theme: ThemeData(
+        fontFamily: 'San Francisco',
         primaryColor: Color(0xFF024ACE),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'Widgets/card.dart';
 import 'Widgets/quickTask.dart';
 
@@ -24,12 +25,16 @@ class _HomeState extends State<Home> {
           'Task Manager',
           style: TextStyle(
             fontFamily: 'San Francisco',
+            fontWeight: FontWeight.w600,
           ),
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: null,
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => TaskPage()));
+            },
           ),
           IconButton(
             icon: Icon(Icons.search),
@@ -42,7 +47,8 @@ class _HomeState extends State<Home> {
           children: [
             GestureDetector(
               onTap: () {
-                print('Clicou');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TaskPage()));
               },
               child: QuickTask(),
             ),
