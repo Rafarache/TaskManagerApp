@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
   }
 
   int menu = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,6 +104,38 @@ class _HomeState extends State<Home> {
                     },
                   ),
                 ],
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 150),
+                      margin: menu == 1
+                          ? EdgeInsets.only(left: 25, top: 10)
+                          : EdgeInsets.only(left: 55, top: 5),
+                      height: 8,
+                      width: menu == 1 ? 105 : 50,
+                      decoration: BoxDecoration(
+                          color: menu == 1
+                              ? Theme.of(context).primaryColor
+                              : Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 150),
+                      margin: menu == 0
+                          ? EdgeInsets.only(left: 50, top: 10)
+                          : EdgeInsets.only(left: 40, top: 5),
+                      height: 8,
+                      width: menu == 0 ? 50 : 25,
+                      decoration: BoxDecoration(
+                          color: menu == 0
+                              ? Theme.of(context).primaryColor
+                              : Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(10)),
+                    )
+                  ],
+                ),
               ),
               SizedBox(height: 30),
               menu == 1
