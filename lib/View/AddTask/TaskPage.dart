@@ -149,7 +149,9 @@ class _TaskPageState extends State<TaskPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
-            Navigator.pop(context);
+            if (_editedTask.title.isNotEmpty && _editedTask.title != null) {
+              Navigator.pop(context, _editedTask);
+            } else {}
           },
           child: Icon(Icons.save),
         ),

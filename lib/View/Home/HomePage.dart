@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'Widgets/card.dart';
 import 'Widgets/quickTask.dart';
@@ -9,6 +10,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TaskHelper helper = TaskHelper();
+  List<Task> tasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _gestAllTasks();
+  }
+
+  void _gestAllTasks() {
+    helper.getAllTasks().then((list) {
+      setState(() {
+        tasks = list;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,5 +94,36 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Route _createRoute(Task task) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          TaskPage(task: task),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1, 0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  void _showTask({Task task}) async {
+    final recTask = await Navigator.push(context, _createRoute(task));
+    if (recTask != null) {
+      if (task != null) {
+        await helper.upDateTask(recTask);
+      } else {
+        await helper.saveTask(recTask);
+      }
+      _gestAllTasks();
+    }
   }
 }
