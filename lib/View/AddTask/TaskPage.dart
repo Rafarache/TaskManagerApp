@@ -60,6 +60,7 @@ class _TaskPageState extends State<TaskPage> {
                 child: TextField(
                   controller: _titleController,
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(right: 10),
                     hintText: 'Title',
                     border: InputBorder.none,
                   ),

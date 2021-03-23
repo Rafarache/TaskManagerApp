@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
-import 'Widgets/card.dart';
 import 'Widgets/quickTask.dart';
 
 class Home extends StatefulWidget {
@@ -29,11 +28,12 @@ class _HomeState extends State<Home> {
     });
   }
 
+  int menu = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: Color(0xFFEEF3F2),
-        backgroundColor: Colors.blue[200],
+        backgroundColor: Color(0xFFEEF3F2),
         appBar: AppBar(
           leading: GestureDetector(
             onTap: () {
@@ -75,25 +75,80 @@ class _HomeState extends State<Home> {
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: Text(
-                      'Upcoming(4)',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: GestureDetector(
+                        child: Text(
+                          "UpComming(${tasks.length})",
+                          style: TextStyle(
+                            fontWeight: menu == 1 ? FontWeight.bold : null,
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            menu = 1;
+                          });
+                        },
+                      )),
                   SizedBox(width: 20),
-                  Text('Done(13)')
+                  GestureDetector(
+                    child: Text(
+                      "Done(${tasks.length})",
+                      style: TextStyle(
+                        fontWeight: menu == 0 ? FontWeight.bold : null,
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        menu = 0;
+                      });
+                    },
+                  ),
                 ],
               ),
-              SizedBox(height: 30),
-              ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                itemCount: tasks.length,
-                itemBuilder: (context, index) {
-                  return _taskCard(context, index);
-                },
+              Container(
+                child: Row(
+                  children: [
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 150),
+                      margin: menu == 1
+                          ? EdgeInsets.only(left: 25, top: 10)
+                          : EdgeInsets.only(left: 55, top: 5),
+                      height: 8,
+                      width: menu == 1 ? 105 : 50,
+                      decoration: BoxDecoration(
+                          color: menu == 1
+                              ? Theme.of(context).primaryColor
+                              : Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 150),
+                      margin: menu == 0
+                          ? EdgeInsets.only(left: 50, top: 10)
+                          : EdgeInsets.only(left: 40, top: 5),
+                      height: 8,
+                      width: menu == 0 ? 50 : 25,
+                      decoration: BoxDecoration(
+                          color: menu == 0
+                              ? Theme.of(context).primaryColor
+                              : Colors.blueGrey,
+                          borderRadius: BorderRadius.circular(10)),
+                    )
+                  ],
+                ),
               ),
+              SizedBox(height: 30),
+              menu == 1
+                  ? ListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      itemCount: tasks.length,
+                      itemBuilder: (context, index) {
+                        return _taskCard(context, index);
+                      },
+                    )
+                  : Container(color: Colors.red),
+              Container(color: Colors.blue),
             ],
           ),
         ));
@@ -134,6 +189,8 @@ class _HomeState extends State<Home> {
                   fontWeight: FontWeight.w700,
                   fontSize: 15,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 20),
@@ -144,6 +201,8 @@ class _HomeState extends State<Home> {
                     color: Colors.grey,
                     fontSize: 13,
                   ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Row(
