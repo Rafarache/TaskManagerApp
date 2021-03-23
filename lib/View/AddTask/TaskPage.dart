@@ -32,6 +32,7 @@ class _TaskPageState extends State<TaskPage> {
     return WillPopScope(
       onWillPop: null,
       child: Scaffold(
+        backgroundColor: Colors.blue[200],
         appBar: AppBar(
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(
@@ -62,6 +63,11 @@ class _TaskPageState extends State<TaskPage> {
                     hintText: 'Title',
                     border: InputBorder.none,
                   ),
+                  onChanged: (text) {
+                    setState(() {
+                      _editedTask.title = text;
+                    });
+                  },
                 ),
               ),
             ),
@@ -80,6 +86,11 @@ class _TaskPageState extends State<TaskPage> {
                     border: InputBorder.none,
                     hintText: 'Subject',
                   ),
+                  onChanged: (text) {
+                    setState(() {
+                      _editedTask.subject = text;
+                    });
+                  },
                 ),
               ),
             ),
@@ -97,6 +108,11 @@ class _TaskPageState extends State<TaskPage> {
                     border: InputBorder.none,
                     hintText: 'Assigned',
                   ),
+                  onChanged: (text) {
+                    setState(() {
+                      _editedTask.assigned = text;
+                    });
+                  },
                 ),
               ),
             ),
