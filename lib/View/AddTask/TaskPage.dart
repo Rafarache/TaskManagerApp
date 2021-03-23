@@ -9,9 +9,23 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
+  Task _editedTask;
+
   final _titleController = TextEditingController();
   final _subjectController = TextEditingController();
   final _assignedController = TextEditingController();
+
+  void initState() {
+    super.initState();
+    if (widget.task == null) {
+      _editedTask = Task();
+    } else {
+      _editedTask = Task.fromMap(widget.task.toMap());
+      _titleController.text = _editedTask.title;
+      _subjectController.text = _editedTask.subject;
+      _assignedController.text = _editedTask.assigned;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
