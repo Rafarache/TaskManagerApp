@@ -36,9 +36,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Color(0xFFEEF3F2),
         appBar: AppBar(
           leading: GestureDetector(
-            onTap: () {
-              print("ola");
-            },
+            onTap: () {},
             child: Icon(Icons.menu_open),
           ),
           centerTitle: true,
@@ -174,7 +172,7 @@ class _HomeState extends State<Home> {
           ),
           width: 340.0,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.grey[300],
             border: Border(
               left: BorderSide(color: Colors.amber, width: 7.0),
             ),

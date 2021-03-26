@@ -8,6 +8,8 @@ class Task {
   String assigned;
   String due;
 
+  List<Task> done;
+
   Task();
 
   Task.fromMap(Map map) {
@@ -65,7 +67,7 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasksnew3.db");
+    final path = join(databasesPath, "tasksnew00001.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
@@ -133,7 +135,7 @@ class TaskHelper {
   Future<List> getAllTasks() async {
     Database dbTask = await db;
     List listMap = await dbTask.rawQuery("SELECT * FROM $taskTable");
-    List<Task> listTask = List();
+    List<Task> listTask = [];
 
     for (Map m in listMap) {
       listTask.add(Task.fromMap(m));
