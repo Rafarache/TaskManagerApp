@@ -32,7 +32,6 @@ class _TaskPageState extends State<TaskPage> {
     return WillPopScope(
       onWillPop: null,
       child: Scaffold(
-        backgroundColor: Colors.blue[200],
         appBar: AppBar(
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(
@@ -160,7 +159,7 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
