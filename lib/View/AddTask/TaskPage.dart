@@ -32,7 +32,6 @@ class _TaskPageState extends State<TaskPage> {
     return WillPopScope(
       onWillPop: null,
       child: Scaffold(
-        backgroundColor: Colors.blue[200],
         appBar: AppBar(
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(
@@ -49,29 +48,6 @@ class _TaskPageState extends State<TaskPage> {
         ),
         body: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0XFFEEF2FA),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: TextField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(right: 10),
-                    hintText: 'Title',
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (text) {
-                    setState(() {
-                      _editedTask.title = text;
-                    });
-                  },
-                ),
-              ),
-            ),
             Container(
               decoration: BoxDecoration(
                 color: Color(0XFFEEF2FA),
@@ -120,24 +96,6 @@ class _TaskPageState extends State<TaskPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
-                  child: Container(
-                    width: 170,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFEEF2FA),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: 'Start',
-                        border: InputBorder.none,
-                        suffixIcon: Icon(Icons.calendar_today),
-                        contentPadding: EdgeInsets.only(left: 10, top: 15),
-                      ),
-                    ),
-                  ),
-                ),
                 SizedBox(
                   width: 10,
                 ),
@@ -160,7 +118,7 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
