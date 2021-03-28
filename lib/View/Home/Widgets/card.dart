@@ -56,28 +56,6 @@ class CardTask extends StatelessWidget {
                   color: Colors.grey,
                   size: 20,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.0),
-                  child: Text(
-                    'Filipe Ilunga',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.calendar_today,
-                  color: Colors.grey,
-                  size: 16,
-                ),
-                Text(
-                  '16.03.2021',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey,
-                  ),
-                ),
               ],
             )
           ],
