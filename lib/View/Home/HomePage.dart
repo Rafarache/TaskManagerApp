@@ -1,4 +1,6 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'Widgets/quickTask.dart';
@@ -34,7 +36,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEEF3F2),
+      //backgroundColor: Color(0xFFEEF3F2),
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {},
@@ -166,91 +169,122 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        child: GestureDetector(
-          key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-          onTap: () {
-            setState(() {
-              cardTap = index;
-              cardBool = !cardBool;
-              print("index:$index");
-              print("cardTap:$cardTap");
-            });
-          },
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 150),
-            padding: EdgeInsets.only(
-              top: 10,
-              left: 15,
-              bottom: 10,
-              right: 12,
-            ),
-            width: 340.0,
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              border: Border(
-                left: BorderSide(color: Colors.amber, width: 7.0),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tasks[index]
-                      .title, // TITULO -------------------------------------
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15,
+        child: Container(
+          child: Column(
+            children: [
+              GestureDetector(
+                key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                onTap: () {
+                  setState(() {
+                    cardTap = index;
+                    cardBool = !cardBool;
+                    print("index:$index");
+                    print("cardTap:$cardTap");
+                  });
+                },
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 150),
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    left: 15,
+                    bottom: 10,
+                    right: 12,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 20),
-                  child: Text(
-                    tasks[index]
-                        .subject, // DESCRIÇÃO --------------------------------------------
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 13,
+                  width: 340.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      left: BorderSide(color: Colors.amber, width: 7.0),
                     ),
-                    maxLines: (cardTap == index) && (cardBool == true) ? 10 : 3,
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.person_outline_rounded,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.0),
-                      child: Text(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
                         tasks[index]
-                            .assigned, // AUTOR -------------------------------------
+                            .title, // TITULO -------------------------------------
                         style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 20),
+                        child: Text(
+                          tasks[index]
+                              .subject, // DESCRIÇÃO --------------------------------------------
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13,
+                          ),
+                          maxLines:
+                              (cardTap == index) && (cardBool == true) ? 10 : 3,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                    Icon(
-                      Icons.calendar_today,
-                      color: Colors.grey,
-                      size: 16,
-                    ),
-                    Text(
-                      '16.03.2021',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.person_outline_rounded,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              tasks[index]
+                                  .assigned, // AUTOR -------------------------------------
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.calendar_today,
+                            color: Colors.grey,
+                            size: 16,
+                          ),
+                          Text(
+                            '16.03.2021',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+                    ],
+                  ),
+                ),
+              ),
+              (cardTap == index) && (cardBool == true)
+                  ? Container(
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      height: 50,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.red[100],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(icon: Icon(Icons.edit), onPressed: null),
+                          IconButton(
+                              icon: Icon(Icons.offline_pin_sharp),
+                              onPressed: null),
+                          IconButton(
+                              icon: Icon(Icons.favorite), onPressed: null),
+                          IconButton(icon: Icon(Icons.delete), onPressed: null),
+                        ],
+                      ),
+                    )
+                  : SizedBox(height: 0)
+            ],
           ),
         ),
       ),
