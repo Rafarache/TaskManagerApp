@@ -33,6 +33,7 @@ class _HomeState extends State<Home> {
   int menu = 1;
   int cardTap = -1;
   bool cardBool = false;
+  bool favorite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,6 +171,12 @@ class _HomeState extends State<Home> {
           ),
         ),
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              left: BorderSide(color: Colors.amber, width: 7.0),
+            ),
+          ),
           child: Column(
             children: [
               GestureDetector(
@@ -183,7 +190,7 @@ class _HomeState extends State<Home> {
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 150),
+                  duration: Duration(seconds: 2),
                   padding: EdgeInsets.only(
                     top: 10,
                     left: 15,
@@ -191,12 +198,6 @@ class _HomeState extends State<Home> {
                     right: 12,
                   ),
                   width: 340.0,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      left: BorderSide(color: Colors.amber, width: 7.0),
-                    ),
-                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -262,23 +263,33 @@ class _HomeState extends State<Home> {
               ),
               (cardTap == index) && (cardBool == true)
                   ? Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       height: 50,
                       width: 400,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.red[100],
+                        color: Colors.blue[200],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          IconButton(
+                            icon: Icon(Icons.offline_pin_sharp),
+                            onPressed: null,
+                          ),
                           IconButton(icon: Icon(Icons.edit), onPressed: null),
                           IconButton(
-                              icon: Icon(Icons.offline_pin_sharp),
-                              onPressed: null),
-                          IconButton(
-                              icon: Icon(Icons.favorite), onPressed: null),
+                              icon: Icon(Icons.favorite,
+                                  color: favorite == true
+                                      ? Colors.red
+                                      : Colors.white),
+                              onPressed: () {
+                                setState(() {
+                                  favorite = !favorite;
+                                });
+                              }),
                           IconButton(icon: Icon(Icons.delete), onPressed: null),
                         ],
                       ),
