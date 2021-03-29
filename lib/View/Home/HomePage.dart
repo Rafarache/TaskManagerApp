@@ -10,29 +10,36 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+enum MenuOption { Prority, Date, Inserion }
+
 class _HomeState extends State<Home> {
-  TaskHelper helper = TaskHelper();
-  List<Task> tasks = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _gestAllTasks();
-    tasks.removeRange(0, tasks.length);
-  }
-
-  void _gestAllTasks() {
-    helper.getAllTasks().then((list) {
-      print(list);
-      setState(() {
-        tasks = list;
-      });
+  Widget popMenu(context) {
+    return PopupMenuButton<MenuOption>(itemBuilder: (BuildContext context) {
+      return <PopupMenuEntry<MenuOption>>[
+        PopupMenuItem(
+          child: Text("Order By Priority"),
+          value: MenuOption.Prority,
+        ),
+        PopupMenuItem(
+          child: Text("Order By Date"),
+          value: MenuOption.Date,
+        ),
+        PopupMenuItem(
+          child: Text("Order By Insertion"),
+          value: MenuOption.Inserion,
+        ),
+      ];
     });
   }
 
-  int menu = 1;
-  int cardTap = -1;
-  bool cardBool = false;
+  TaskHelper helper = TaskHelper();
+  List<Task> tasks = [];
+
+  int _menuIndex = 1;
+  int _cardTap = -1;
+  bool _cardBool = false;
+  bool _favoriteTap = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,73 +82,54 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 40),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: GestureDetector(
-                      child: Text(
-                        "UpComming(${tasks.length})",
-                        style: TextStyle(
-                          fontWeight: menu == 1 ? FontWeight.bold : null,
+                Container(
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.only(left: 25.0),
+                          child: GestureDetector(
+                            child: Text(
+                              "UpComming(${tasks.length})",
+                              style: TextStyle(
+                                fontWeight:
+                                    _menuIndex == 1 ? FontWeight.bold : null,
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                _menuIndex = 1;
+                              });
+                            },
+                          )),
+                      SizedBox(width: 40),
+                      GestureDetector(
+                        child: Text(
+                          "Done(${tasks.length})",
+                          style: TextStyle(
+                            fontWeight:
+                                _menuIndex == 0 ? FontWeight.bold : null,
+                          ),
                         ),
+                        onTap: () {
+                          setState(() {
+                            _menuIndex = 0;
+                          });
+                        },
                       ),
-                      onTap: () {
-                        setState(() {
-                          menu = 1;
-                        });
-                      },
-                    )),
-                SizedBox(width: 20),
-                GestureDetector(
-                  child: Text(
-                    "Done(${tasks.length})",
-                    style: TextStyle(
-                      fontWeight: menu == 0 ? FontWeight.bold : null,
-                    ),
+                    ],
                   ),
-                  onTap: () {
-                    setState(() {
-                      menu = 0;
-                    });
-                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(
+                      icon: Icon(Icons.menu), onPressed: () => popMenu),
                 ),
               ],
             ),
-            Container(
-              child: Row(
-                children: [
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 150),
-                    margin: menu == 1
-                        ? EdgeInsets.only(left: 25, top: 10)
-                        : EdgeInsets.only(left: 55, top: 5),
-                    height: 8,
-                    width: menu == 1 ? 105 : 50,
-                    decoration: BoxDecoration(
-                        color: menu == 1
-                            ? Theme.of(context).primaryColor
-                            : Colors.blueGrey,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 150),
-                    margin: menu == 0
-                        ? EdgeInsets.only(left: 50, top: 10)
-                        : EdgeInsets.only(left: 40, top: 5),
-                    height: 8,
-                    width: menu == 0 ? 50 : 25,
-                    decoration: BoxDecoration(
-                      color: menu == 0
-                          ? Theme.of(context).primaryColor
-                          : Colors.blueGrey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             SizedBox(height: 30),
-            menu == 1
+            _menuIndex == 1
                 ? ListView.builder(
                     primary: false,
                     shrinkWrap: true,
@@ -165,25 +153,29 @@ class _HomeState extends State<Home> {
         clipper: ShapeBorderClipper(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(20),
             ),
           ),
         ),
         child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              left: BorderSide(color: Colors.amber, width: 7.0),
+            ),
+          ),
           child: Column(
             children: [
               GestureDetector(
                 key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
                 onTap: () {
                   setState(() {
-                    cardTap = index;
-                    cardBool = !cardBool;
-                    print("index:$index");
-                    print("cardTap:$cardTap");
+                    _cardTap = index;
+                    _cardBool = !_cardBool;
                   });
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 150),
+                  duration: Duration(seconds: 2),
                   padding: EdgeInsets.only(
                     top: 10,
                     left: 15,
@@ -191,12 +183,6 @@ class _HomeState extends State<Home> {
                     right: 12,
                   ),
                   width: 340.0,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      left: BorderSide(color: Colors.amber, width: 7.0),
-                    ),
-                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -219,8 +205,9 @@ class _HomeState extends State<Home> {
                             color: Colors.grey,
                             fontSize: 13,
                           ),
-                          maxLines:
-                              (cardTap == index) && (cardBool == true) ? 10 : 3,
+                          maxLines: (_cardTap == index) && (_cardBool == true)
+                              ? 10
+                              : 3,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -260,25 +247,35 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              (cardTap == index) && (cardBool == true)
+              (_cardTap == index) && (_cardBool == true)
                   ? Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       height: 50,
                       width: 400,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.red[100],
+                        color: Colors.blue[200],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          IconButton(
+                            icon: Icon(Icons.offline_pin_sharp),
+                            onPressed: null,
+                          ),
                           IconButton(icon: Icon(Icons.edit), onPressed: null),
                           IconButton(
-                              icon: Icon(Icons.offline_pin_sharp),
-                              onPressed: null),
-                          IconButton(
-                              icon: Icon(Icons.favorite), onPressed: null),
+                              icon: Icon(Icons.favorite,
+                                  color: _favoriteTap == true
+                                      ? Colors.red
+                                      : Colors.white),
+                              onPressed: () {
+                                setState(() {
+                                  _favoriteTap = !_favoriteTap;
+                                });
+                              }),
                           IconButton(icon: Icon(Icons.delete), onPressed: null),
                         ],
                       ),
@@ -308,6 +305,22 @@ class _HomeState extends State<Home> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _gestAllTasks();
+    tasks.removeRange(0, tasks.length);
+  }
+
+  void _gestAllTasks() {
+    helper.getAllTasks().then((list) {
+      print(list);
+      setState(() {
+        tasks = list;
+      });
+    });
   }
 
   void _showTask({Task task}) async {
