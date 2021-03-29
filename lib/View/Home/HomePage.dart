@@ -10,7 +10,28 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+enum MenuOption { Prority, Date, Inserion }
+
 class _HomeState extends State<Home> {
+  Widget popMenu(context) {
+    return PopupMenuButton<MenuOption>(itemBuilder: (BuildContext context) {
+      return <PopupMenuEntry<MenuOption>>[
+        PopupMenuItem(
+          child: Text("Order By Priority"),
+          value: MenuOption.Prority,
+        ),
+        PopupMenuItem(
+          child: Text("Order By Date"),
+          value: MenuOption.Date,
+        ),
+        PopupMenuItem(
+          child: Text("Order By Insertion"),
+          value: MenuOption.Inserion,
+        ),
+      ];
+    });
+  }
+
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
@@ -82,7 +103,7 @@ class _HomeState extends State<Home> {
                               });
                             },
                           )),
-                      SizedBox(width: 20),
+                      SizedBox(width: 40),
                       GestureDetector(
                         child: Text(
                           "Done(${tasks.length})",
@@ -102,7 +123,8 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
-                  child: IconButton(icon: Icon(Icons.menu), onPressed: null),
+                  child: IconButton(
+                      icon: Icon(Icons.menu), onPressed: () => popMenu),
                 ),
               ],
             ),
@@ -131,7 +153,7 @@ class _HomeState extends State<Home> {
         clipper: ShapeBorderClipper(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(20),
             ),
           ),
         ),
