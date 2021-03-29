@@ -14,26 +14,11 @@ class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _gestAllTasks();
-    tasks.removeRange(0, tasks.length);
-  }
+  int _menuIndex = 1;
+  int _cardTap = -1;
+  bool _cardBool = false;
+  bool _favoriteTap = false;
 
-  void _gestAllTasks() {
-    helper.getAllTasks().then((list) {
-      print(list);
-      setState(() {
-        tasks = list;
-      });
-    });
-  }
-
-  int menu = 1;
-  int cardTap = -1;
-  bool cardBool = false;
-  bool favorite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,73 +61,53 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 40),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: GestureDetector(
-                      child: Text(
-                        "UpComming(${tasks.length})",
-                        style: TextStyle(
-                          fontWeight: menu == 1 ? FontWeight.bold : null,
+                Container(
+                  child: Row(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.only(left: 25.0),
+                          child: GestureDetector(
+                            child: Text(
+                              "UpComming(${tasks.length})",
+                              style: TextStyle(
+                                fontWeight:
+                                    _menuIndex == 1 ? FontWeight.bold : null,
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                _menuIndex = 1;
+                              });
+                            },
+                          )),
+                      SizedBox(width: 20),
+                      GestureDetector(
+                        child: Text(
+                          "Done(${tasks.length})",
+                          style: TextStyle(
+                            fontWeight:
+                                _menuIndex == 0 ? FontWeight.bold : null,
+                          ),
                         ),
+                        onTap: () {
+                          setState(() {
+                            _menuIndex = 0;
+                          });
+                        },
                       ),
-                      onTap: () {
-                        setState(() {
-                          menu = 1;
-                        });
-                      },
-                    )),
-                SizedBox(width: 20),
-                GestureDetector(
-                  child: Text(
-                    "Done(${tasks.length})",
-                    style: TextStyle(
-                      fontWeight: menu == 0 ? FontWeight.bold : null,
-                    ),
+                    ],
                   ),
-                  onTap: () {
-                    setState(() {
-                      menu = 0;
-                    });
-                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(icon: Icon(Icons.menu), onPressed: null),
                 ),
               ],
             ),
-            Container(
-              child: Row(
-                children: [
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 150),
-                    margin: menu == 1
-                        ? EdgeInsets.only(left: 25, top: 10)
-                        : EdgeInsets.only(left: 55, top: 5),
-                    height: 8,
-                    width: menu == 1 ? 105 : 50,
-                    decoration: BoxDecoration(
-                        color: menu == 1
-                            ? Theme.of(context).primaryColor
-                            : Colors.blueGrey,
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 150),
-                    margin: menu == 0
-                        ? EdgeInsets.only(left: 50, top: 10)
-                        : EdgeInsets.only(left: 40, top: 5),
-                    height: 8,
-                    width: menu == 0 ? 50 : 25,
-                    decoration: BoxDecoration(
-                      color: menu == 0
-                          ? Theme.of(context).primaryColor
-                          : Colors.blueGrey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ],
-              ),
-            ),
             SizedBox(height: 30),
-            menu == 1
+            _menuIndex == 1
                 ? ListView.builder(
                     primary: false,
                     shrinkWrap: true,
@@ -183,10 +148,8 @@ class _HomeState extends State<Home> {
                 key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
                 onTap: () {
                   setState(() {
-                    cardTap = index;
-                    cardBool = !cardBool;
-                    print("index:$index");
-                    print("cardTap:$cardTap");
+                    _cardTap = index;
+                    _cardBool = !_cardBool;
                   });
                 },
                 child: AnimatedContainer(
@@ -220,8 +183,9 @@ class _HomeState extends State<Home> {
                             color: Colors.grey,
                             fontSize: 13,
                           ),
-                          maxLines:
-                              (cardTap == index) && (cardBool == true) ? 10 : 3,
+                          maxLines: (_cardTap == index) && (_cardBool == true)
+                              ? 10
+                              : 3,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -261,7 +225,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              (cardTap == index) && (cardBool == true)
+              (_cardTap == index) && (_cardBool == true)
                   ? Container(
                       margin:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -282,12 +246,12 @@ class _HomeState extends State<Home> {
                           IconButton(icon: Icon(Icons.edit), onPressed: null),
                           IconButton(
                               icon: Icon(Icons.favorite,
-                                  color: favorite == true
+                                  color: _favoriteTap == true
                                       ? Colors.red
                                       : Colors.white),
                               onPressed: () {
                                 setState(() {
-                                  favorite = !favorite;
+                                  _favoriteTap = !_favoriteTap;
                                 });
                               }),
                           IconButton(icon: Icon(Icons.delete), onPressed: null),
@@ -319,6 +283,22 @@ class _HomeState extends State<Home> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _gestAllTasks();
+    tasks.removeRange(0, tasks.length);
+  }
+
+  void _gestAllTasks() {
+    helper.getAllTasks().then((list) {
+      print(list);
+      setState(() {
+        tasks = list;
+      });
+    });
   }
 
   void _showTask({Task task}) async {
