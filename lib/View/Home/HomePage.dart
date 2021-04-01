@@ -1,6 +1,4 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'Widgets/quickTask.dart';
@@ -43,8 +41,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0xFFEEF3F2),
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {},
@@ -54,7 +51,6 @@ class _HomeState extends State<Home> {
         title: Text(
           'Task Manager',
           style: TextStyle(
-            fontFamily: 'San Francisco',
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -148,7 +144,7 @@ class _HomeState extends State<Home> {
 
   Widget _taskCard(context, index) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, bottom: 10, right: 15),
+      padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
       child: ClipPath(
         clipper: ShapeBorderClipper(
           shape: RoundedRectangleBorder(
