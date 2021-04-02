@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class ThemeBuilder extends StatefulWidget {
   final Widget Function(BuildContext context, Brightness brightness) builder;
-
   ThemeBuilder(this.builder);
-
   @override
   _ThemeBuilderState createState() => _ThemeBuilderState();
 }
