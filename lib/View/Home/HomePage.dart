@@ -5,6 +5,7 @@ import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'Widgets/quickTask.dart';
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -159,7 +160,7 @@ class _HomeState extends State<Home> {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).accentColor,
             border: Border(
               left: BorderSide(color: Colors.amber, width: 7.0),
             ),
