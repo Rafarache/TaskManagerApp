@@ -246,7 +246,7 @@ class _HomeState extends State<Home> {
                           ),
                           SizedBox(width: 20),
                           Text(
-                            "10",
+                            "${tasks[index].diference}",
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.black,

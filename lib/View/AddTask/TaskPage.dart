@@ -191,8 +191,10 @@ class _TaskPageState extends State<TaskPage> {
                                 _editedTask.due =
                                     DateFormat("d MM y").format(date);
                                 print(_editedTask.due);
-                                _editedTask.diferenceDate(
-                                    _editedTask.dateDue, _editedTask.dateStart);
+                                _editedTask.diference =
+                                    _editedTask.diferenceDate(
+                                        _editedTask.dateDue,
+                                        _editedTask.dateStart);
                                 print("Diferença1:${_editedTask.diference}");
                               },
                             );
