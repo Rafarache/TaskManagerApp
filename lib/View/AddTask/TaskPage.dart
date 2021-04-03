@@ -17,6 +17,8 @@ class _TaskPageState extends State<TaskPage> {
   final _subjectController = TextEditingController();
   final _assignedController = TextEditingController();
 
+  int selectedRadio = 0;
+
   void initState() {
     super.initState();
     if (widget.task == null) {
@@ -117,6 +119,66 @@ class _TaskPageState extends State<TaskPage> {
                   },
                 ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Prioridade:"),
+                Radio(
+                  value: 1,
+                  groupValue: selectedRadio,
+                  activeColor: Colors.green,
+                  onChanged: (value) {
+                    print("Radio1: $value");
+                    setState(() {
+                      selectedRadio = value;
+                    });
+                  },
+                ),
+                Text(
+                  "Baixa",
+                  style: TextStyle(
+                    color: selectedRadio == 1 ? Colors.green : null,
+                    fontWeight: selectedRadio == 1 ? FontWeight.bold : null,
+                  ),
+                ),
+                Radio(
+                  value: 2,
+                  groupValue: selectedRadio,
+                  activeColor: Colors.orange,
+                  onChanged: (value) {
+                    print("Radio1: $value");
+                    setState(() {
+                      selectedRadio = value;
+                    });
+                  },
+                ),
+                Text(
+                  "Média",
+                  style: TextStyle(
+                    color: selectedRadio == 2 ? Colors.orange : null,
+                    fontWeight: selectedRadio == 2 ? FontWeight.bold : null,
+                  ),
+                ),
+                Radio(
+                  value: 3,
+                  groupValue: selectedRadio,
+                  activeColor: Colors.red,
+                  onChanged: (value) {
+                    print("Radio1: $value");
+                    setState(() {
+                      selectedRadio = value;
+                    });
+                  },
+                ),
+                Text(
+                  "Alta",
+                  style: TextStyle(
+                    color: selectedRadio == 3 ? Colors.red : null,
+                    fontWeight: selectedRadio == 3 ? FontWeight.bold : null,
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

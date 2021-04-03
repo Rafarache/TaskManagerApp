@@ -159,25 +159,23 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
-            border: Border(
-              left: BorderSide(color: Colors.amber, width: 7.0),
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              _cardTap = index;
+              _cardBool = !_cardBool;
+            });
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).accentColor,
+              border: Border(
+                left: BorderSide(color: Colors.amber, width: 7.0),
+              ),
             ),
-          ),
-          child: Column(
-            children: [
-              GestureDetector(
-                key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-                onTap: () {
-                  setState(() {
-                    _cardTap = index;
-                    _cardBool = !_cardBool;
-                    print("DIFERENÇA ${tasks[index].dateStart}");
-                  });
-                },
-                child: AnimatedContainer(
+            child: Column(
+              children: [
+                AnimatedContainer(
                   duration: Duration(seconds: 2),
                   padding: EdgeInsets.only(
                     top: 10,
@@ -264,42 +262,43 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-              ),
-              (_cardTap == index) && (_cardBool == true)
-                  ? Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      height: 50,
-                      width: 400,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.blue[200],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.offline_pin_sharp),
-                            onPressed: null,
-                          ),
-                          IconButton(icon: Icon(Icons.edit), onPressed: null),
-                          IconButton(
-                              icon: Icon(CommunityMaterialIcons.pin,
-                                  color: _favoriteTap == true
-                                      ? Colors.amber
-                                      : Colors.white),
-                              onPressed: () {
-                                setState(() {
-                                  _favoriteTap = !_favoriteTap;
-                                });
-                              }),
-                          IconButton(icon: Icon(Icons.delete), onPressed: null),
-                        ],
-                      ),
-                    )
-                  : SizedBox(height: 0)
-            ],
+                (_cardTap == index) && (_cardBool == true)
+                    ? Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        height: 50,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.blue[200],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.offline_pin_sharp),
+                              onPressed: null,
+                            ),
+                            IconButton(icon: Icon(Icons.edit), onPressed: null),
+                            IconButton(
+                                icon: Icon(CommunityMaterialIcons.pin,
+                                    color: _favoriteTap == true
+                                        ? Colors.amber
+                                        : Colors.white),
+                                onPressed: () {
+                                  setState(() {
+                                    _favoriteTap = !_favoriteTap;
+                                  });
+                                }),
+                            IconButton(
+                                icon: Icon(Icons.delete), onPressed: null),
+                          ],
+                        ),
+                      )
+                    : SizedBox(height: 0)
+              ],
+            ),
           ),
         ),
       ),
