@@ -11,7 +11,6 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   Task _editedTask;
-  DateTime _dateTime;
   String date1 = DateTime.now().toString();
 
   final _titleController = TextEditingController();
@@ -130,7 +129,9 @@ class _TaskPageState extends State<TaskPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ElevatedButton(
-                      child: Text("Start"),
+                      child: Text(_editedTask.dateStart == null
+                          ? "Start"
+                          : "Start: ${DateFormat('d MM y').format(_editedTask.dateStart)}"),
                       onPressed: () {
                         showDatePicker(
                           // locale: Locale('us'),
@@ -138,19 +139,16 @@ class _TaskPageState extends State<TaskPage> {
                               DateFormat('d MMM y').format(DateTime.now()),
                           currentDate: DateTime.now(),
                           context: context,
-                          initialDate:
-                              _dateTime == null ? DateTime.now() : _dateTime,
+                          initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate: DateTime(DateTime.now().year + 2),
                         ).then(
                           (date) {
                             setState(
                               () {
-                                _dateTime = date;
                                 _editedTask.dateStart = date;
                                 _editedTask.start =
                                     DateFormat('d m y').format(date);
-                                print(_editedTask.dateStart);
                               },
                             );
                           },
@@ -171,37 +169,40 @@ class _TaskPageState extends State<TaskPage> {
                     ),
                     child: ElevatedButton(
                       child: Text("Due"),
-                      onPressed: () {
-                        showDatePicker(
-                          // locale: Locale('us'),
-                          helpText:
-                              DateFormat('d MMM y').format(DateTime.now()),
-                          currentDate: DateTime.now(),
-                          context: context,
-                          initialDate:
-                              _dateTime == null ? DateTime.now() : _dateTime,
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(DateTime.now().year + 2),
-                        ).then(
-                          (date) {
-                            setState(
-                              () {
-                                _dateTime = date;
-                                _editedTask.dateDue = date;
-                                _editedTask.due =
-                                    DateFormat("d MM y").format(date);
-                                print(_editedTask.due);
-                                _editedTask.diference =
-                                    _editedTask.diferenceDate(
-                                        _editedTask.dateDue,
-                                        _editedTask.dateStart);
-                                print("Diferença1:${_editedTask.diference}");
-                              },
-                            );
-                          },
-                        );
-                        print(_editedTask);
-                      },
+                      onPressed: _editedTask.dateStart != null
+                          ? () {
+                              showDatePicker(
+                                // locale: Locale('us'),
+                                helpText: DateFormat('d MMM y')
+                                    .format(DateTime.now()),
+                                currentDate: _editedTask.dateStart != null
+                                    ? _editedTask.dateStart
+                                    : DateTime.now(),
+                                context: context,
+                                initialDate: _editedTask.dateStart == null
+                                    ? DateTime.now()
+                                    : _editedTask.dateStart,
+                                firstDate: _editedTask.dateStart != null
+                                    ? _editedTask.dateStart
+                                    : DateTime.now(),
+                                lastDate: DateTime(DateTime.now().year + 2),
+                              ).then(
+                                (date) {
+                                  setState(
+                                    () {
+                                      _editedTask.dateDue = date;
+                                      _editedTask.due =
+                                          DateFormat("d MM y").format(date);
+                                      _editedTask.diference =
+                                          _editedTask.diferenceDate(
+                                              _editedTask.dateDue,
+                                              _editedTask.dateStart);
+                                    },
+                                  );
+                                },
+                              );
+                            }
+                          : null,
                     ),
                   ),
                 ),

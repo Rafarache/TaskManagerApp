@@ -6,8 +6,8 @@ class Task {
   String title;
   String subject;
   String assigned;
-  String start;
-  String due;
+  String start; // acho que são variáveis desnecessárias, confirma depois
+  String due; // acho que são variáveis desnecessárias, confirma depois
   DateTime dateStart;
   DateTime dateDue;
   int diference;
