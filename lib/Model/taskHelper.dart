@@ -67,7 +67,7 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasksnew00001.db");
+    final path = join(databasesPath, "tasksnew00002.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {

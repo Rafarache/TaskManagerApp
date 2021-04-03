@@ -78,6 +78,7 @@ class _HomeState extends State<Home> {
             GestureDetector(
               onTap: () {
                 _showTask();
+                print(tasks);
               },
               child: QuickTask(),
             ),
@@ -236,7 +237,7 @@ class _HomeState extends State<Home> {
                             size: 16,
                           ),
                           Text(
-                            '16.03.2021',
+                            tasks[index].due,
                             style: TextStyle(
                               fontSize: 11,
                               color: Colors.grey,
