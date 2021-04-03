@@ -168,42 +168,37 @@ class _TaskPageState extends State<TaskPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ElevatedButton(
-                      child: Text("Due"),
-                      onPressed: _editedTask.dateStart != null
-                          ? () {
-                              showDatePicker(
-                                // locale: Locale('us'),
-                                helpText: DateFormat('d MMM y')
-                                    .format(DateTime.now()),
-                                currentDate: _editedTask.dateStart != null
-                                    ? _editedTask.dateStart
-                                    : DateTime.now(),
-                                context: context,
-                                initialDate: _editedTask.dateStart == null
-                                    ? DateTime.now()
-                                    : _editedTask.dateStart,
-                                firstDate: _editedTask.dateStart != null
-                                    ? _editedTask.dateStart
-                                    : DateTime.now(),
-                                lastDate: DateTime(DateTime.now().year + 2),
-                              ).then(
-                                (date) {
-                                  setState(
-                                    () {
-                                      _editedTask.dateDue = date;
-                                      _editedTask.due =
-                                          DateFormat("d MM y").format(date);
-                                      _editedTask.diference =
-                                          _editedTask.diferenceDate(
-                                              _editedTask.dateDue,
-                                              _editedTask.dateStart);
-                                    },
-                                  );
-                                },
-                              );
-                            }
-                          : null,
-                    ),
+                        child: Text("Due"),
+                        onPressed: _editedTask.dateStart == null
+                            ? null
+                            : () {
+                                showDatePicker(
+                                  // locale: Locale('us'),
+                                  helpText: DateFormat('d MMM y')
+                                      .format(DateTime.now()),
+                                  currentDate: _editedTask.dateStart != null
+                                      ? _editedTask.dateStart
+                                      : DateTime.now(),
+                                  context: context,
+                                  initialDate: _editedTask.dateStart,
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(DateTime.now().year + 2),
+                                ).then(
+                                  (date) {
+                                    setState(
+                                      () {
+                                        _editedTask.dateDue = date;
+                                        _editedTask.due =
+                                            DateFormat("d MM y").format(date);
+                                        _editedTask.diference =
+                                            _editedTask.diferenceDate(
+                                                _editedTask.dateDue,
+                                                _editedTask.dateStart);
+                                      },
+                                    );
+                                  },
+                                );
+                              }),
                   ),
                 ),
               ],
