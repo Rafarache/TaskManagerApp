@@ -164,6 +164,7 @@ class _HomeState extends State<Home> {
             setState(() {
               _cardTap = index;
               _cardBool = !_cardBool;
+              print("Prioridade: ${tasks[index].priority}");
             });
           },
           child: Container(

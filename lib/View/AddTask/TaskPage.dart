@@ -50,179 +50,184 @@ class _TaskPageState extends State<TaskPage> {
             ),
           ),
         ),
-        body: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0XFFEEF2FA),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: TextField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(right: 10),
-                    hintText: 'Title',
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (text) {
-                    setState(() {
-                      _editedTask.title = text;
-                    });
-                  },
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0XFFEEF2FA),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0XFFEEF2FA),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: EdgeInsets.only(left: 20, right: 20, top: 10),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  maxLines: 8,
-                  controller: _subjectController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Subject',
-                  ),
-                  onChanged: (text) {
-                    setState(() {
-                      _editedTask.subject = text;
-                    });
-                  },
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0XFFEEF2FA),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin: EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: TextField(
-                  controller: _assignedController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Assigned',
-                  ),
-                  onChanged: (text) {
-                    setState(() {
-                      _editedTask.assigned = text;
-                    });
-                  },
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Prioridade:"),
-                Radio(
-                  value: 1,
-                  groupValue: selectedRadio,
-                  activeColor: Colors.green,
-                  onChanged: (value) {
-                    print("Radio1: $value");
-                    setState(() {
-                      selectedRadio = value;
-                      _editedTask.priority = value;
-                    });
-                  },
-                ),
-                Text(
-                  "Baixa",
-                  style: TextStyle(
-                    color: selectedRadio == 1 ? Colors.green : null,
-                    fontWeight: selectedRadio == 1 ? FontWeight.bold : null,
-                  ),
-                ),
-                Radio(
-                  value: 2,
-                  groupValue: selectedRadio,
-                  activeColor: Colors.orange,
-                  onChanged: (value) {
-                    print("Radio1: $value");
-                    setState(() {
-                      selectedRadio = value;
-                      _editedTask.priority = value;
-                    });
-                  },
-                ),
-                Text(
-                  "Média",
-                  style: TextStyle(
-                    color: selectedRadio == 2 ? Colors.orange : null,
-                    fontWeight: selectedRadio == 2 ? FontWeight.bold : null,
-                  ),
-                ),
-                Radio(
-                  value: 3,
-                  groupValue: selectedRadio,
-                  activeColor: Colors.red,
-                  onChanged: (value) {
-                    print("Radio1: $value");
-                    setState(() {
-                      selectedRadio = value;
-                      _editedTask.priority = value;
-                    });
-                  },
-                ),
-                Text(
-                  "Alta",
-                  style: TextStyle(
-                    color: selectedRadio == 3 ? Colors.red : null,
-                    fontWeight: selectedRadio == 3 ? FontWeight.bold : null,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Container(
-                    width: 170,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFEEF2FA),
-                      borderRadius: BorderRadius.circular(10),
+                margin:
+                    EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: TextField(
+                    controller: _titleController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(right: 10),
+                      hintText: 'Title',
+                      border: InputBorder.none,
                     ),
-                    child: ElevatedButton(
-                      child: Text(_editedTask.dateStart == null
-                          ? "Start"
-                          : "Start: ${DateFormat('d MM y').format(_editedTask.dateStart)}"),
-                      onPressed: datePickerStart,
+                    onChanged: (text) {
+                      setState(() {
+                        _editedTask.title = text;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0XFFEEF2FA),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    maxLines: 8,
+                    controller: _subjectController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Subject',
+                    ),
+                    onChanged: (text) {
+                      setState(() {
+                        _editedTask.subject = text;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(0XFFEEF2FA),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                margin:
+                    EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: TextField(
+                    controller: _assignedController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Assigned',
+                    ),
+                    onChanged: (text) {
+                      setState(() {
+                        _editedTask.assigned = text;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Prioridade:"),
+                  Radio(
+                    value: 1,
+                    groupValue: selectedRadio,
+                    activeColor: Colors.green,
+                    onChanged: (value) {
+                      print("Radio1: $value");
+                      setState(() {
+                        selectedRadio = value;
+                        _editedTask.priority = value;
+                      });
+                    },
+                  ),
+                  Text(
+                    "Baixa",
+                    style: TextStyle(
+                      color: selectedRadio == 1 ? Colors.green : null,
+                      fontWeight: selectedRadio == 1 ? FontWeight.bold : null,
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Flexible(
-                  child: Container(
-                    width: 170,
-                    decoration: BoxDecoration(
-                      color: Color(0XFFEEF2FA),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ElevatedButton(
-                      child: Text(_editedTask.dateDue == null
-                          ? "Due"
-                          : "Due: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
-                      onPressed:
-                          _editedTask.dateStart == null ? null : datePickerDue,
+                  Radio(
+                    value: 2,
+                    groupValue: selectedRadio,
+                    activeColor: Colors.orange,
+                    onChanged: (value) {
+                      print("Radio1: $value");
+                      setState(() {
+                        selectedRadio = value;
+                        _editedTask.priority = value;
+                      });
+                    },
+                  ),
+                  Text(
+                    "Média",
+                    style: TextStyle(
+                      color: selectedRadio == 2 ? Colors.orange : null,
+                      fontWeight: selectedRadio == 2 ? FontWeight.bold : null,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Radio(
+                    value: 3,
+                    groupValue: selectedRadio,
+                    activeColor: Colors.red,
+                    onChanged: (value) {
+                      print("Radio1: $value");
+                      setState(() {
+                        selectedRadio = value;
+                        _editedTask.priority = value;
+                      });
+                    },
+                  ),
+                  Text(
+                    "Alta",
+                    style: TextStyle(
+                      color: selectedRadio == 3 ? Colors.red : null,
+                      fontWeight: selectedRadio == 3 ? FontWeight.bold : null,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Container(
+                      width: 170,
+                      decoration: BoxDecoration(
+                        color: _editedTask.priorityColor(_editedTask.priority),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ElevatedButton(
+                        child: Text(_editedTask.dateStart == null
+                            ? "Start"
+                            : "Start: ${DateFormat('d MM y').format(_editedTask.dateStart)}"),
+                        onPressed: datePickerStart,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                    child: Container(
+                      width: 170,
+                      decoration: BoxDecoration(
+                        color: Color(0XFFEEF2FA),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ElevatedButton(
+                        child: Text(_editedTask.dateDue == null
+                            ? "Due"
+                            : "Due: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
+                        onPressed: _editedTask.dateStart == null
+                            ? null
+                            : datePickerDue,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,

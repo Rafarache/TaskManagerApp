@@ -112,13 +112,13 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasksnew03.db");
+    final path = join(databasesPath, "tasksnew009.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$assignedColumn TEXT, $startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER), $priorityColumn INTEGER");
+          "$assignedColumn TEXT, $startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER)");
     });
   }
 
