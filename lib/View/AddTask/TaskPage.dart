@@ -132,6 +132,7 @@ class _TaskPageState extends State<TaskPage> {
                     print("Radio1: $value");
                     setState(() {
                       selectedRadio = value;
+                      _editedTask.priority = value;
                     });
                   },
                 ),
@@ -150,6 +151,7 @@ class _TaskPageState extends State<TaskPage> {
                     print("Radio1: $value");
                     setState(() {
                       selectedRadio = value;
+                      _editedTask.priority = value;
                     });
                   },
                 ),
@@ -168,6 +170,7 @@ class _TaskPageState extends State<TaskPage> {
                     print("Radio1: $value");
                     setState(() {
                       selectedRadio = value;
+                      _editedTask.priority = value;
                     });
                   },
                 ),

@@ -170,7 +170,9 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor,
               border: Border(
-                left: BorderSide(color: Colors.amber, width: 7.0),
+                left: BorderSide(
+                    color: tasks[index].priorityColor(tasks[index].priority),
+                    width: 7.0),
               ),
             ),
             child: Column(

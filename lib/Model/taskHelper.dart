@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -20,6 +22,25 @@ class Task {
       return dateDue.difference(dateStart).inDays;
     } else {
       return 0;
+    }
+  }
+
+  // ignore: missing_return
+  Color priorityColor(value) {
+    this.priority = value;
+    switch (value) {
+      case 1:
+        return Colors.green;
+        break;
+      case 2:
+        return Colors.orange;
+        break;
+      case 3:
+        return Colors.red;
+        break;
+      default:
+        return Colors.purple;
+        break;
     }
   }
 
