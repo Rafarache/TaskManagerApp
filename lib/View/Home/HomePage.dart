@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
         ),
         centerTitle: true,
         title: Text(
-          'Task Manager',
+          'Tarefas',
           style: TextStyle(
             fontWeight: FontWeight.w600,
           ),
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 25.0),
                           child: GestureDetector(
                             child: Text(
-                              "UpComming(${tasks.length})",
+                              "Fazendo(${tasks.length})",
                               style: TextStyle(
                                 fontWeight:
                                     _menuIndex == 1 ? FontWeight.bold : null,
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
                       SizedBox(width: 40),
                       GestureDetector(
                         child: Text(
-                          "Done(${tasks.length})",
+                          "Feitos(0)",
                           style: TextStyle(
                             fontWeight:
                                 _menuIndex == 0 ? FontWeight.bold : null,
@@ -224,12 +224,22 @@ class _HomeState extends State<Home> {
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.red,
+                              color: tasks[index]
+                                  .priorityColor(tasks[index].priority),
                             ),
                             child: Column(
                               children: [
-                                Text("Faltam"),
-                                Text("${tasks[index].diference} dias"),
+                                Text(tasks[index].diference > 1
+                                    ? "Faltam"
+                                    : " Falta  "),
+                                Text(
+                                  tasks[index].diference > 1
+                                      ? "${tasks[index].diference} dias"
+                                      : "${tasks[index].diference} dia  ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ],
                             ),
                           ),

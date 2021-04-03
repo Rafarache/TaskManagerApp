@@ -43,7 +43,7 @@ class _TaskPageState extends State<TaskPage> {
           ),
           centerTitle: true,
           title: Text(
-            'TaskPage',
+            'Criar Tarefa',
             style: TextStyle(
               fontWeight: FontWeight.w700,
               color: Theme.of(context).primaryColor,
@@ -66,7 +66,7 @@ class _TaskPageState extends State<TaskPage> {
                     controller: _titleController,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(right: 10),
-                      hintText: 'Title',
+                      hintText: 'Título',
                       border: InputBorder.none,
                     ),
                     onChanged: (text) {
@@ -90,7 +90,7 @@ class _TaskPageState extends State<TaskPage> {
                     controller: _subjectController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Subject',
+                      hintText: 'Descrição',
                     ),
                     onChanged: (text) {
                       setState(() {
@@ -113,7 +113,7 @@ class _TaskPageState extends State<TaskPage> {
                     controller: _assignedController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Assigned',
+                      hintText: 'Autor',
                     ),
                     onChanged: (text) {
                       setState(() {
@@ -193,13 +193,16 @@ class _TaskPageState extends State<TaskPage> {
                     child: Container(
                       width: 170,
                       decoration: BoxDecoration(
-                        color: Color(0XFFEEF2FA),
+                        color: Colors.blue,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: ElevatedButton(
-                        child: Text(_editedTask.dateStart == null
-                            ? "Start"
-                            : "Start: ${DateFormat('d MM y').format(_editedTask.dateStart)}"),
+                      child: TextButton(
+                        child: Text(
+                          _editedTask.dateStart == null
+                              ? "Início"
+                              : "Início: ${DateFormat('d MM y').format(_editedTask.dateStart)}",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         onPressed: datePickerStart,
                       ),
                     ),
@@ -214,10 +217,10 @@ class _TaskPageState extends State<TaskPage> {
                         color: Color(0XFFEEF2FA),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: ElevatedButton(
+                      child: TextButton(
                         child: Text(_editedTask.dateDue == null
-                            ? "Due"
-                            : "Due: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
+                            ? "Fim"
+                            : "Fim: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
                         onPressed: _editedTask.dateStart == null
                             ? null
                             : datePickerDue,
@@ -230,13 +233,16 @@ class _TaskPageState extends State<TaskPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Colors.blue,
           onPressed: () {
             if (_editedTask.title.isNotEmpty && _editedTask.title != null) {
               Navigator.pop(context, _editedTask);
             } else {}
           },
-          child: Icon(Icons.save),
+          child: Icon(
+            Icons.save,
+            color: Colors.white,
+          ),
         ),
       ),
     );

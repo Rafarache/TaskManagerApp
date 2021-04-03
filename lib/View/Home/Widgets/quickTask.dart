@@ -27,7 +27,7 @@ class QuickTask extends StatelessWidget {
             size: 50,
           ),
           Text(
-            'Quick Task',
+            'Adicionar Tarefa',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
