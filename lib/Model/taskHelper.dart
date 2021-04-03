@@ -8,6 +8,9 @@ class Task {
   String assigned;
   String start;
   String due;
+  DateTime dateStart;
+  DateTime dateDue;
+  int diference;
 
   List<Task> done;
 
@@ -71,13 +74,13 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasksnew00002.db");
+    final path = join(databasesPath, "tasksnew0002.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$assignedColumn TEXT,$startColumn TEXT ,$dueColumn TEXT)");
+          "$assignedColumn TEXT, $startColumn TEXT, $dueColumn TEXT)");
     });
   }
 

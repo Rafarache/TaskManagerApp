@@ -124,39 +124,41 @@ class _TaskPageState extends State<TaskPage> {
               children: [
                 Flexible(
                   child: Container(
-                      width: 170,
-                      decoration: BoxDecoration(
-                        color: Color(0XFFEEF2FA),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ElevatedButton(
-                        child: Text("Start"),
-                        onPressed: () {
-                          showDatePicker(
-                            // locale: Locale('us'),
-                            helpText:
-                                DateFormat('d MMM y').format(DateTime.now()),
-                            currentDate: DateTime.now(),
-                            context: context,
-                            initialDate:
-                                _dateTime == null ? DateTime.now() : _dateTime,
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(DateTime.now().year + 2),
-                          ).then(
-                            (date) {
-                              setState(
-                                () {
-                                  _dateTime = date;
-                                  _editedTask.due =
-                                      DateFormat('d MMM y').format(date);
-                                  print(_editedTask.due);
-                                },
-                              );
-                            },
-                          );
-                          print(_editedTask);
-                        },
-                      )),
+                    width: 170,
+                    decoration: BoxDecoration(
+                      color: Color(0XFFEEF2FA),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ElevatedButton(
+                      child: Text("Start"),
+                      onPressed: () {
+                        showDatePicker(
+                          // locale: Locale('us'),
+                          helpText:
+                              DateFormat('d MMM y').format(DateTime.now()),
+                          currentDate: DateTime.now(),
+                          context: context,
+                          initialDate:
+                              _dateTime == null ? DateTime.now() : _dateTime,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(DateTime.now().year + 2),
+                        ).then(
+                          (date) {
+                            setState(
+                              () {
+                                _dateTime = date;
+                                _editedTask.dateStart = date;
+                                _editedTask.start =
+                                    DateFormat('d m y').format(date);
+                                print(_editedTask.start);
+                              },
+                            );
+                          },
+                        );
+                        print(_editedTask);
+                      },
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: 10,
@@ -168,14 +170,34 @@ class _TaskPageState extends State<TaskPage> {
                       color: Color(0XFFEEF2FA),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: TextField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: 'Due',
-                        border: InputBorder.none,
-                        suffixIcon: Icon(Icons.calendar_today),
-                        contentPadding: EdgeInsets.only(left: 10, top: 15),
-                      ),
+                    child: ElevatedButton(
+                      child: Text("Due"),
+                      onPressed: () {
+                        showDatePicker(
+                          // locale: Locale('us'),
+                          helpText:
+                              DateFormat('d MMM y').format(DateTime.now()),
+                          currentDate: DateTime.now(),
+                          context: context,
+                          initialDate:
+                              _dateTime == null ? DateTime.now() : _dateTime,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(DateTime.now().year + 2),
+                        ).then(
+                          (date) {
+                            setState(
+                              () {
+                                _dateTime = date;
+                                _editedTask.dateDue = date;
+                                _editedTask.due =
+                                    DateFormat("d MM y").format(date);
+                                print(_editedTask.due);
+                              },
+                            );
+                          },
+                        );
+                        print(_editedTask);
+                      },
                     ),
                   ),
                 ),

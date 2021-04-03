@@ -243,6 +243,14 @@ class _HomeState extends State<Home> {
                               color: Colors.grey,
                             ),
                           ),
+                          SizedBox(width: 20),
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                          ),
                         ],
                       ),
                     ],
