@@ -164,7 +164,6 @@ class _HomeState extends State<Home> {
             setState(() {
               _cardTap = index;
               _cardBool = !_cardBool;
-              print("Prioridade: ${tasks[index].priority}");
             });
           },
           child: Container(
@@ -173,7 +172,7 @@ class _HomeState extends State<Home> {
               border: Border(
                 left: BorderSide(
                     color: tasks[index].priorityColor(tasks[index].priority),
-                    width: 7.0),
+                    width: 20.0),
               ),
             ),
             child: Column(
@@ -200,20 +199,41 @@ class _HomeState extends State<Home> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 20),
-                        child: Text(
-                          tasks[index]
-                              .subject, // DESCRIÇÃO --------------------------------------------
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 20),
+                              child: Text(
+                                tasks[index]
+                                    .subject, // DESCRIÇÃO --------------------------------------------
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 13,
+                                ),
+                                maxLines:
+                                    (_cardTap == index) && (_cardBool == true)
+                                        ? 10
+                                        : 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
                           ),
-                          maxLines: (_cardTap == index) && (_cardBool == true)
-                              ? 10
-                              : 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                          Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.red,
+                            ),
+                            child: Column(
+                              children: [
+                                Text("Faltam"),
+                                Text("${tasks[index].diference} dias"),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       Row(
                         children: [
@@ -246,20 +266,6 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                           SizedBox(width: 20),
-                          Text(
-                            "${tasks[index].diference}",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            " ",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
-                          ),
                         ],
                       ),
                     ],

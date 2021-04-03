@@ -193,7 +193,7 @@ class _TaskPageState extends State<TaskPage> {
                     child: Container(
                       width: 170,
                       decoration: BoxDecoration(
-                        color: _editedTask.priorityColor(_editedTask.priority),
+                        color: Color(0XFFEEF2FA),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ElevatedButton(
