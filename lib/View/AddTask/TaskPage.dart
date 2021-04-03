@@ -147,11 +147,11 @@ class _TaskPageState extends State<TaskPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ElevatedButton(
-                      child: Text(datePickerDue == null
+                      child: Text(_editedTask.dateDue == null
                           ? "Due"
                           : "Due: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
                       onPressed:
-                          _editedTask.dateStart != null ? datePickerDue : null,
+                          _editedTask.dateStart == null ? null : datePickerDue,
                     ),
                   ),
                 ),
@@ -172,34 +172,8 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  void datePickerDue() {
-    showDatePicker(
-      // locale: Locale('us'),
-      helpText: DateFormat('d MMM y').format(DateTime.now()),
-      currentDate: _editedTask.dateStart != null
-          ? _editedTask.dateStart
-          : DateTime.now(),
-      context: context,
-      initialDate: _editedTask.dateStart,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(DateTime.now().year + 2),
-    ).then(
-      (date) {
-        setState(
-          () {
-            _editedTask.dateDue = date;
-            _editedTask.due = DateFormat("d MM y").format(date);
-            _editedTask.diference = _editedTask.diferenceDate(
-                _editedTask.dateDue, _editedTask.dateStart);
-          },
-        );
-      },
-    );
-  }
-
   void datePickerStart() {
     showDatePicker(
-      // locale: Locale('us'),
       helpText: DateFormat('d MMM y').format(DateTime.now()),
       currentDate: DateTime.now(),
       context: context,
@@ -212,6 +186,28 @@ class _TaskPageState extends State<TaskPage> {
           () {
             _editedTask.dateStart = date;
             _editedTask.start = DateFormat('d m y').format(date);
+          },
+        );
+      },
+    );
+  }
+
+  void datePickerDue() {
+    showDatePicker(
+      helpText: DateFormat('d MMM y').format(DateTime.now()),
+      currentDate: _editedTask.dateStart,
+      context: context,
+      initialDate: _editedTask.dateStart,
+      firstDate: _editedTask.dateStart,
+      lastDate: DateTime(DateTime.now().year + 2),
+    ).then(
+      (date) {
+        setState(
+          () {
+            _editedTask.dateDue = date;
+            _editedTask.due = DateFormat("d MM y").format(date);
+            _editedTask.diference = _editedTask.diferenceDate(
+                _editedTask.dateDue, _editedTask.dateStart);
           },
         );
       },
