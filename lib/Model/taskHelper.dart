@@ -6,6 +6,7 @@ class Task {
   String title;
   String subject;
   String assigned;
+  String start;
   String due;
 
   List<Task> done;
@@ -17,6 +18,7 @@ class Task {
     title = map[titleColumn];
     subject = map[subjectColumn];
     assigned = map[assignedColumn];
+    start = map[startColumn];
     due = map[dueColumn];
   }
 
@@ -25,6 +27,7 @@ class Task {
       titleColumn: title,
       subjectColumn: subject,
       assignedColumn: assigned,
+      startColumn: start,
       dueColumn: due,
     };
     if (id != null) {
@@ -35,7 +38,7 @@ class Task {
 
   @override
   String toString() {
-    return "Task(id: $id, title: $title, subject: $subject, assigned: $assigned, due: $due)";
+    return "Task(id: $id, title: $title, subject: $subject, assigned: $assigned,start: $start ,due: $due)";
   }
 }
 
@@ -44,6 +47,7 @@ final String idColumn = "idColumn";
 final String titleColumn = "titleColumn";
 final String subjectColumn = "subjectColumn";
 final String assignedColumn = "assignedColumn";
+final String startColumn = "startColumn";
 final String dueColumn = "dueColumn";
 
 class TaskHelper {
@@ -73,7 +77,7 @@ class TaskHelper {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$assignedColumn TEXT, $dueColumn TEXT)");
+          "$assignedColumn TEXT,$startColumn TEXT ,$dueColumn TEXT)");
     });
   }
 
@@ -92,6 +96,7 @@ class TaskHelper {
           titleColumn,
           subjectColumn,
           assignedColumn,
+          startColumn,
           dueColumn,
         ],
         where: "$idColumn = ?",
