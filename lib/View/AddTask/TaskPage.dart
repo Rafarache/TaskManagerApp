@@ -150,12 +150,11 @@ class _TaskPageState extends State<TaskPage> {
                                 _editedTask.dateStart = date;
                                 _editedTask.start =
                                     DateFormat('d m y').format(date);
-                                print(_editedTask.start);
+                                print(_editedTask.dateStart);
                               },
                             );
                           },
                         );
-                        print(_editedTask);
                       },
                     ),
                   ),
@@ -192,6 +191,9 @@ class _TaskPageState extends State<TaskPage> {
                                 _editedTask.due =
                                     DateFormat("d MM y").format(date);
                                 print(_editedTask.due);
+                                _editedTask.diferenceDate(
+                                    _editedTask.dateDue, _editedTask.dateStart);
+                                print("Diferença1:${_editedTask.diference}");
                               },
                             );
                           },

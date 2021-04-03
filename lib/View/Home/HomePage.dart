@@ -174,6 +174,7 @@ class _HomeState extends State<Home> {
                   setState(() {
                     _cardTap = index;
                     _cardBool = !_cardBool;
+                    print("DIFERENÇA ${tasks[index].dateStart}");
                   });
                 },
                 child: AnimatedContainer(
@@ -246,6 +247,13 @@ class _HomeState extends State<Home> {
                           SizedBox(width: 20),
                           Text(
                             "10",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            " ",
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.black,
