@@ -132,28 +132,7 @@ class _TaskPageState extends State<TaskPage> {
                       child: Text(_editedTask.dateStart == null
                           ? "Start"
                           : "Start: ${DateFormat('d MM y').format(_editedTask.dateStart)}"),
-                      onPressed: () {
-                        showDatePicker(
-                          // locale: Locale('us'),
-                          helpText:
-                              DateFormat('d MMM y').format(DateTime.now()),
-                          currentDate: DateTime.now(),
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(DateTime.now().year + 2),
-                        ).then(
-                          (date) {
-                            setState(
-                              () {
-                                _editedTask.dateStart = date;
-                                _editedTask.start =
-                                    DateFormat('d m y').format(date);
-                              },
-                            );
-                          },
-                        );
-                      },
+                      onPressed: datePickerStart,
                     ),
                   ),
                 ),
@@ -168,37 +147,12 @@ class _TaskPageState extends State<TaskPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ElevatedButton(
-                        child: Text("Due"),
-                        onPressed: _editedTask.dateStart == null
-                            ? null
-                            : () {
-                                showDatePicker(
-                                  // locale: Locale('us'),
-                                  helpText: DateFormat('d MMM y')
-                                      .format(DateTime.now()),
-                                  currentDate: _editedTask.dateStart != null
-                                      ? _editedTask.dateStart
-                                      : DateTime.now(),
-                                  context: context,
-                                  initialDate: _editedTask.dateStart,
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(DateTime.now().year + 2),
-                                ).then(
-                                  (date) {
-                                    setState(
-                                      () {
-                                        _editedTask.dateDue = date;
-                                        _editedTask.due =
-                                            DateFormat("d MM y").format(date);
-                                        _editedTask.diference =
-                                            _editedTask.diferenceDate(
-                                                _editedTask.dateDue,
-                                                _editedTask.dateStart);
-                                      },
-                                    );
-                                  },
-                                );
-                              }),
+                      child: Text(datePickerDue == null
+                          ? "Due"
+                          : "Due: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
+                      onPressed:
+                          _editedTask.dateStart != null ? datePickerDue : null,
+                    ),
                   ),
                 ),
               ],
@@ -215,6 +169,52 @@ class _TaskPageState extends State<TaskPage> {
           child: Icon(Icons.save),
         ),
       ),
+    );
+  }
+
+  void datePickerDue() {
+    showDatePicker(
+      // locale: Locale('us'),
+      helpText: DateFormat('d MMM y').format(DateTime.now()),
+      currentDate: _editedTask.dateStart != null
+          ? _editedTask.dateStart
+          : DateTime.now(),
+      context: context,
+      initialDate: _editedTask.dateStart,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 2),
+    ).then(
+      (date) {
+        setState(
+          () {
+            _editedTask.dateDue = date;
+            _editedTask.due = DateFormat("d MM y").format(date);
+            _editedTask.diference = _editedTask.diferenceDate(
+                _editedTask.dateDue, _editedTask.dateStart);
+          },
+        );
+      },
+    );
+  }
+
+  void datePickerStart() {
+    showDatePicker(
+      // locale: Locale('us'),
+      helpText: DateFormat('d MMM y').format(DateTime.now()),
+      currentDate: DateTime.now(),
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 2),
+    ).then(
+      (date) {
+        setState(
+          () {
+            _editedTask.dateStart = date;
+            _editedTask.start = DateFormat('d m y').format(date);
+          },
+        );
+      },
     );
   }
 }
