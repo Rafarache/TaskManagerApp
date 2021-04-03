@@ -11,6 +11,7 @@ class Task {
   DateTime dateStart;
   DateTime dateDue;
   int diference;
+  int priority;
 
   int diferenceDate(due, start) {
     this.dateStart = start;
@@ -34,6 +35,7 @@ class Task {
     start = map[startColumn];
     due = map[dueColumn];
     diference = map[diferenceColumn];
+    priority = map[priorityColumn];
   }
 
   Map toMap() {
@@ -44,6 +46,7 @@ class Task {
       startColumn: start,
       dueColumn: due,
       diferenceColumn: diference,
+      priorityColumn: priority,
     };
     if (id != null) {
       map[idColumn] = id;
@@ -53,7 +56,7 @@ class Task {
 
   @override
   String toString() {
-    return "Task(id: $id, title: $title, subject: $subject, assigned: $assigned,start: $start ,due: $due, diference: $diference)";
+    return "Task(id: $id, title: $title, subject: $subject, assigned: $assigned,start: $start ,due: $due, diference: $diference, priority: $priority)";
   }
 }
 
@@ -65,6 +68,7 @@ final String assignedColumn = "assignedColumn";
 final String startColumn = "startColumn";
 final String dueColumn = "dueColumn";
 final String diferenceColumn = "diferenceColumn";
+final String priorityColumn = "priorityColumn";
 
 class TaskHelper {
   //TaskHelper poderá possuir apenas 1 único objeto com 1 banco de dados
@@ -93,7 +97,7 @@ class TaskHelper {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$assignedColumn TEXT, $startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER)");
+          "$assignedColumn TEXT, $startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER), $priorityColumn INTEGER");
     });
   }
 
