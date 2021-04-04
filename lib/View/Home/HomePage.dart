@@ -78,7 +78,6 @@ class _HomeState extends State<Home> {
             GestureDetector(
               onTap: () {
                 _showTask();
-                print(tasks);
               },
               child: QuickTask(),
             ),
@@ -171,8 +170,7 @@ class _HomeState extends State<Home> {
               color: Theme.of(context).accentColor,
               border: Border(
                 left: BorderSide(
-                    color: tasks[index].priorityColor(tasks[index].priority),
-                    width: 20.0),
+                    color: tasks[index].priorityColor(), width: 20.0),
               ),
             ),
             child: Column(
@@ -224,8 +222,7 @@ class _HomeState extends State<Home> {
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: tasks[index]
-                                  .priorityColor(tasks[index].priority),
+                              color: tasks[index].priorityColor(),
                             ),
                             child: Column(
                               children: [

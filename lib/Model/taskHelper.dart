@@ -19,28 +19,31 @@ class Task {
     this.dateStart = start;
     this.dateDue = due;
     if ((dateStart != null) && (dateDue != null)) {
-      return dateDue.difference(dateStart).inDays;
+      return dateDue.difference(DateTime.now()).inDays + 1;
     } else {
       return 0;
     }
   }
 
   // ignore: missing_return
-  Color priorityColor(value) {
-    this.priority = value;
-    switch (value) {
-      case 1:
-        return Colors.green;
-        break;
-      case 2:
-        return Colors.orange;
-        break;
-      case 3:
-        return Colors.red;
-        break;
-      default:
-        return Colors.purple;
-        break;
+  Color priorityColor() {
+    if (diference <= 1) {
+      return Colors.red;
+    } else {
+      switch (this.priority) {
+        case 1:
+          return Colors.green;
+          break;
+        case 2:
+          return Colors.orange;
+          break;
+        case 3:
+          return Colors.red;
+          break;
+        default:
+          return Colors.purple;
+          break;
+      }
     }
   }
 
