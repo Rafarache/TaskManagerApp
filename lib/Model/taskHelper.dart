@@ -15,11 +15,9 @@ class Task {
   int diference;
   int priority;
 
-  int diferenceDate(due, start) {
-    this.dateStart = start;
-    this.dateDue = due;
-    if ((dateStart != null) && (dateDue != null)) {
-      return dateDue.difference(DateTime.now()).inDays + 1;
+  int diferenceDate() {
+    if ((this.dateStart != null) && (this.dateDue != null)) {
+      return this.dateDue.difference(DateTime.now()).inDays + 1;
     } else {
       return 0;
     }

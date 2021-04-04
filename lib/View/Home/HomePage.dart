@@ -163,6 +163,8 @@ class _HomeState extends State<Home> {
             setState(() {
               _cardTap = index;
               _cardBool = !_cardBool;
+              tasks[index].diference = tasks[index]
+                  .diferenceDate(); //ATUALIZAR AUTOMATICAMENTE OS DIAS - CORRIGIR
             });
           },
           child: Container(

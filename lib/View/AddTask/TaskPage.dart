@@ -282,8 +282,7 @@ class _TaskPageState extends State<TaskPage> {
           () {
             _editedTask.dateDue = date;
             _editedTask.due = DateFormat("d MM y").format(date);
-            _editedTask.diference = _editedTask.diferenceDate(
-                _editedTask.dateDue, _editedTask.dateStart);
+            _editedTask.diference = _editedTask.diferenceDate();
           },
         );
       },
