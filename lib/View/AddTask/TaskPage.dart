@@ -191,7 +191,7 @@ class _TaskPageState extends State<TaskPage> {
                 children: [
                   Flexible(
                     child: Container(
-                      width: 170,
+                      width: MediaQuery.of(context).size.width / 2.2,
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(10),
@@ -212,7 +212,7 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                   Flexible(
                     child: Container(
-                      width: 170,
+                      width: MediaQuery.of(context).size.width / 2.2,
                       decoration: BoxDecoration(
                         color: Color(0XFFEEF2FA),
                         borderRadius: BorderRadius.circular(10),

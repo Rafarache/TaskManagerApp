@@ -170,7 +170,9 @@ class _HomeState extends State<Home> {
               color: Theme.of(context).accentColor,
               border: Border(
                 left: BorderSide(
-                    color: tasks[index].priorityColor(), width: 20.0),
+                  color: tasks[index].priorityColor(),
+                  width: MediaQuery.of(context).size.width / 30,
+                ),
               ),
             ),
             child: Column(
@@ -183,7 +185,7 @@ class _HomeState extends State<Home> {
                     bottom: 10,
                     right: 12,
                   ),
-                  width: 340.0,
+                  width: MediaQuery.of(context).size.width / 1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -343,6 +345,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    for (int i = 0; i < tasks.length; i++) {
+      tasks[i].diference = tasks[i].diferenceDate();
+    }
     _gestAllTasks();
     tasks.removeRange(0, tasks.length);
   }

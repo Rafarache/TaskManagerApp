@@ -17,7 +17,7 @@ class Task {
 
   int diferenceDate() {
     if ((this.dateStart != null) && (this.dateDue != null)) {
-      return this.dateDue.difference(DateTime.now()).inDays + 1;
+      return this.dateDue.difference(DateTime.now()).inDays;
     } else {
       return 0;
     }
@@ -113,7 +113,7 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasksnew9.db");
+    final path = join(databasesPath, "tasks11.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
