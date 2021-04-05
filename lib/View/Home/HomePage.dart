@@ -14,25 +14,6 @@ class Home extends StatefulWidget {
 enum MenuOption { Prority, Date, Inserion }
 
 class _HomeState extends State<Home> {
-  Widget popMenu(context) {
-    return PopupMenuButton<MenuOption>(itemBuilder: (BuildContext context) {
-      return <PopupMenuEntry<MenuOption>>[
-        PopupMenuItem(
-          child: Text("Order By Priority"),
-          value: MenuOption.Prority,
-        ),
-        PopupMenuItem(
-          child: Text("Order By Date"),
-          value: MenuOption.Date,
-        ),
-        PopupMenuItem(
-          child: Text("Order By Insertion"),
-          value: MenuOption.Inserion,
-        ),
-      ];
-    });
-  }
-
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
@@ -41,6 +22,7 @@ class _HomeState extends State<Home> {
   bool _cardBool = false;
   bool _favoriteTap = false;
   int _currentIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,8 +138,7 @@ class _HomeState extends State<Home> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
-                  child: IconButton(
-                      icon: Icon(Icons.menu), onPressed: () => popMenu),
+                  child: IconButton(icon: Icon(Icons.menu), onPressed: null),
                 ),
               ],
             ),
@@ -200,12 +181,6 @@ class _HomeState extends State<Home> {
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor,
-              border: Border(
-                left: BorderSide(
-                  color: tasks[index].priorityColor(),
-                  width: MediaQuery.of(context).size.width / 30,
-                ),
-              ),
             ),
             child: Column(
               children: [
@@ -320,14 +295,14 @@ class _HomeState extends State<Home> {
                         height: 50,
                         width: 400,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                           color: Colors.blue[200],
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.offline_pin_sharp),
+                              icon: Icon(Icons.done_outline),
                               onPressed: null,
                             ),
                             IconButton(icon: Icon(Icons.edit), onPressed: null),
@@ -342,7 +317,13 @@ class _HomeState extends State<Home> {
                                   });
                                 }),
                             IconButton(
-                                icon: Icon(Icons.delete), onPressed: null),
+                                icon: Icon(
+                                    CommunityMaterialIcons.trash_can_outline),
+                                onPressed: null),
+                            IconButton(
+                                icon: Icon(
+                                    CommunityMaterialIcons.bell_ring_outline),
+                                onPressed: null),
                           ],
                         ),
                       )

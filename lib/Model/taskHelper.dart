@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:sqflite/sqflite.dart';
@@ -22,6 +24,8 @@ class Task {
       return 0;
     }
   }
+
+//var teste = Timer.periodic(duration, (timer) { });
 
   // ignore: missing_return
   Color priorityColor() {
@@ -113,7 +117,7 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasks11.db");
+    final path = join(databasesPath, "tasks101.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
