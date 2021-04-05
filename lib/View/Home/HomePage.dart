@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
   int _cardTap = -1;
   bool _cardBool = false;
   bool _favoriteTap = false;
-
+  int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +71,38 @@ class _HomeState extends State<Home> {
             },
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        currentIndex: _currentIndex,
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.calendar_today,
+            ),
+            label: "Calendario",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+            ),
+            label: "Adicionar",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              IcoFontIcons.gearAlt,
+            ),
+            label: "Configurações",
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
       body: SingleChildScrollView(
         child: Column(
