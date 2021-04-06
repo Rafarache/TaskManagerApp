@@ -203,15 +203,21 @@ class _HomeState extends State<Home> {
                             ),
                             child: Column(
                               children: [
-                                Text(tasks[index].diference > 1
+                                /*  Text(tasks[index].diference > 1
                                     ? "Faltam"
-                                    : " Falta  "),
+                                    : " Falta  "), */
                                 Text(
                                   tasks[index].diference > 1
-                                      ? "${tasks[index].diference} dias"
-                                      : "${tasks[index].diference} dia  ",
+                                      ? "${tasks[index].diference} "
+                                      : "${tasks[index].diference} ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  "dias",
+                                  style: TextStyle(
+                                    fontSize: 12,
                                   ),
                                 ),
                               ],
