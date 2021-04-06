@@ -4,6 +4,7 @@ import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/View/Home/TableCalenar/tableCalendar.dart';
+import 'package:taskmanager/View/SettingsPage/settingsPage.dart';
 import 'Widgets/quickTask.dart';
 
 // ignore: must_be_immutable
@@ -47,9 +48,10 @@ class _HomeState extends State<Home> {
             },
           ),
           IconButton(
-            icon: Icon(IcoFontIcons.fullNight),
+            icon: Icon(Icons.settings),
             onPressed: () {
-              _showClendar(tasks);
+              _showSettingsPage();
+              //_showClendar(task)
             },
           ),
         ],
@@ -355,5 +357,10 @@ class _HomeState extends State<Home> {
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => TableCalendarPage(task)));
+  }
+
+  void _showSettingsPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => SettingsPage()));
   }
 }
