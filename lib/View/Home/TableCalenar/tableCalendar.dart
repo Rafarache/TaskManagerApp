@@ -27,47 +27,26 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Tarefas',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              TableCalendar(
+                calendarController: _calendarController,
+                builders: CalendarBuilders(),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    )),
+                height: MediaQuery.of(context).size.height / 2,
+              ),
+            ],
           ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              //_showTask();
-            },
-          ),
-          IconButton(
-            icon: Icon(IcoFontIcons.fullNight),
-            onPressed: () {
-              print("object");
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TableCalendar(
-              calendarController: _calendarController,
-              builders: CalendarBuilders(),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  )),
-              height: MediaQuery.of(context).size.height / 2,
-            ),
-          ],
         ),
       ),
     );
