@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
-import 'package:taskmanager/themeChanger.dart';
 import 'View/Home/HomePage.dart';
 import 'View/Home/TableCalenar/tableCalendar.dart';
+import 'View/SettingsPage/settingsPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,7 +49,7 @@ class _FirsPageState extends State<FirsPage> {
   var _tabPages = [
     TableCalendarPage(),
     Home(),
-    Home(),
+    SettingsPage(),
   ];
   int _currentIndex = 1;
   @override
@@ -75,9 +75,7 @@ class _FirsPageState extends State<FirsPage> {
             label: "Adicionar",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              IcoFontIcons.gearAlt,
-            ),
+            icon: Icon(Icons.settings),
             label: "Configurações",
           ),
         ],
