@@ -27,7 +27,6 @@ class _TaskPageState extends State<TaskPage> {
       _editedTask = Task.fromMap(widget.task.toMap());
       _titleController.text = _editedTask.title;
       _subjectController.text = _editedTask.subject;
-      _assignedController.text = _editedTask.assigned;
     }
   }
 
@@ -95,29 +94,6 @@ class _TaskPageState extends State<TaskPage> {
                     onChanged: (text) {
                       setState(() {
                         _editedTask.subject = text;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0XFFEEF2FA),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                margin:
-                    EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 20),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: TextField(
-                    controller: _assignedController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Autor',
-                    ),
-                    onChanged: (text) {
-                      setState(() {
-                        _editedTask.assigned = text;
                       });
                     },
                   ),

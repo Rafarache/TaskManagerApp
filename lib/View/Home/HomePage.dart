@@ -228,22 +228,6 @@ class _HomeState extends State<Home> {
                       Row(
                         children: [
                           Icon(
-                            Icons.person_outline_rounded,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              tasks[index]
-                                  .assigned, // AUTOR -------------------------------------
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Icon(
                             Icons.calendar_today,
                             color: Colors.grey,
                             size: 16,

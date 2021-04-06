@@ -9,7 +9,6 @@ class Task {
   int id;
   String title;
   String subject;
-  String assigned;
   String start; // acho que são variáveis desnecessárias, confirma depois
   String due; // acho que são variáveis desnecessárias, confirma depois
   DateTime dateStart;
@@ -57,7 +56,6 @@ class Task {
     id = map[idColumn];
     title = map[titleColumn];
     subject = map[subjectColumn];
-    assigned = map[assignedColumn];
     start = map[startColumn];
     due = map[dueColumn];
     diference = map[diferenceColumn];
@@ -68,7 +66,6 @@ class Task {
     Map<String, dynamic> map = {
       titleColumn: title,
       subjectColumn: subject,
-      assignedColumn: assigned,
       startColumn: start,
       dueColumn: due,
       diferenceColumn: diference,
@@ -82,7 +79,7 @@ class Task {
 
   @override
   String toString() {
-    return "Task(id: $id, title: $title, subject: $subject, assigned: $assigned,start: $start ,due: $due, diference: $diference, priority: $priority)";
+    return "Task(id: $id, title: $title, subject: $subject,start: $start ,due: $due, diference: $diference, priority: $priority)";
   }
 }
 
@@ -90,7 +87,6 @@ final String taskTable = "taskTable";
 final String idColumn = "idColumn";
 final String titleColumn = "titleColumn";
 final String subjectColumn = "subjectColumn";
-final String assignedColumn = "assignedColumn";
 final String startColumn = "startColumn";
 final String dueColumn = "dueColumn";
 final String diferenceColumn = "diferenceColumn";
@@ -117,13 +113,13 @@ class TaskHelper {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasks101.db");
+    final path = join(databasesPath, "tasks1100.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$assignedColumn TEXT, $startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER)");
+          "$startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER)");
     });
   }
 
@@ -141,7 +137,6 @@ class TaskHelper {
           idColumn,
           titleColumn,
           subjectColumn,
-          assignedColumn,
           startColumn,
           dueColumn,
           diferenceColumn,
