@@ -235,14 +235,17 @@ class _HomeState extends State<Home> {
                     right: 12,
                   ),
                   width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _showTitle(),
-                        _showSubject(),
-                      ],
-                    ),
+                  child: Row(
+                    children: [
+                      _showDifferenceDay(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _showTitle(),
+                          _showSubject(),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 (_cardTap == index) && (_cardBool == true)
