@@ -16,16 +16,12 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(
-            color: Theme.of(context).primaryColor,
-          ),
+          backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
           title: Text(
             'Configurações',
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: Theme.of(context).primaryColor,
             ),
           ),
         ),

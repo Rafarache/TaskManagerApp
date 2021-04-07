@@ -36,16 +36,12 @@ class _TaskPageState extends State<TaskPage> {
       onWillPop: null,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(
-            color: Theme.of(context).primaryColor,
-          ),
+          backgroundColor: Theme.of(context).primaryColor,
           centerTitle: true,
           title: Text(
             'Criar Tarefa',
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              color: Theme.of(context).primaryColor,
             ),
           ),
         ),
@@ -54,7 +50,7 @@ class _TaskPageState extends State<TaskPage> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0XFFEEF2FA),
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 margin:
@@ -78,7 +74,7 @@ class _TaskPageState extends State<TaskPage> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0XFFEEF2FA),
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 margin: EdgeInsets.only(left: 20, right: 20, top: 10),
@@ -188,9 +184,9 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                   Flexible(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 2.2,
+                      width: MediaQuery.of(context).size.width / 2.3,
                       decoration: BoxDecoration(
-                        color: Color(0XFFEEF2FA),
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextButton(

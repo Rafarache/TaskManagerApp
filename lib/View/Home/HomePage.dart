@@ -149,9 +149,7 @@ class _HomeState extends State<Home> {
             });
           },
           child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).accentColor,
-            ),
+            decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: Column(
               children: [
                 AnimatedContainer(

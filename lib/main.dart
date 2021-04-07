@@ -12,29 +12,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var _myTheme = ThemeData(
+      fontFamily: 'San Francisco',
+      primaryColor: Color(0xFF024ACE),
+      primaryColorDark: Color(0xFF024ACE),
+      brightness: Brightness.light,
+      accentColor: Colors.white,
+      backgroundColor: Colors.blue[100],
+      appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF024ACE),
+          centerTitle: true,
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          )),
+      accentTextTheme: TextTheme(
+        headline6: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
-      theme: ThemeData(
-        fontFamily: 'San Francisco',
-        primaryColor: Color(0xFF024ACE),
-        primaryColorDark: Color(0xFF024ACE),
-        brightness: Brightness.light,
-        accentColor: Colors.white,
-        backgroundColor: Colors.blue[100],
-        appBarTheme: AppBarTheme(
-            backgroundColor: Color(0xFF024ACE),
-            centerTitle: true,
-            iconTheme: IconThemeData(
-              color: Colors.white,
-            )),
-        accentTextTheme: TextTheme(
-          headline6: TextStyle(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: ThemeData.dark(),
+      // _myTheme,
       home: FirsPage(),
     );
   }
@@ -58,7 +60,7 @@ class _FirsPageState extends State<FirsPage> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         currentIndex: _currentIndex,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         selectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: [
