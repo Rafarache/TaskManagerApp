@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class TaskPage extends StatefulWidget {
   final Task task;
@@ -15,7 +16,6 @@ class _TaskPageState extends State<TaskPage> {
 
   final _titleController = TextEditingController();
   final _subjectController = TextEditingController();
-  final _assignedController = TextEditingController();
 
   int selectedRadio = 0;
 
@@ -32,6 +32,7 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('pt_BR', null);
     return WillPopScope(
       onWillPop: null,
       child: Scaffold(
@@ -192,7 +193,7 @@ class _TaskPageState extends State<TaskPage> {
                       child: TextButton(
                         child: Text(_editedTask.dateDue == null
                             ? "Fim"
-                            : "Fim: ${DateFormat('d MM y').format(_editedTask.dateDue)}"),
+                            : "Fim: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDue)}"),
                         onPressed: _editedTask.dateStart == null
                             ? null
                             : datePickerDue,
@@ -253,7 +254,7 @@ class _TaskPageState extends State<TaskPage> {
         setState(
           () {
             _editedTask.dateDue = date;
-            _editedTask.due = DateFormat("d MM y").format(date);
+            _editedTask.due = DateFormat("d MM y", 'pt').format(date);
             _editedTask.diference = _editedTask.diferenceDate();
           },
         );
