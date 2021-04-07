@@ -145,6 +145,25 @@ class _HomeState extends State<Home> {
       );
     }
 
+    Widget _showDate() {
+      Row(
+        children: [
+          Icon(
+            Icons.calendar_today,
+            color: Colors.grey,
+            size: 16,
+          ),
+          Text(
+            tasks[index].due,
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
       child: ClipPath(
@@ -182,7 +201,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _showTitle(),
-                          /* Row(
+                          Row(
                             children: [
                               Icon(
                                 Icons.calendar_today,
@@ -197,7 +216,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ],
-                          ), */
+                          ),
                         ],
                       ),
                       Row(
