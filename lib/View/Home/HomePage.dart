@@ -158,6 +158,7 @@ class _HomeState extends State<Home> {
 
     Widget _showDifferenceDay() {
       return Container(
+        margin: EdgeInsets.only(right: 10),
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -223,6 +224,7 @@ class _HomeState extends State<Home> {
             });
           },
           child: Container(
+            padding: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: Column(
               children: [
@@ -236,6 +238,7 @@ class _HomeState extends State<Home> {
                   ),
                   width: MediaQuery.of(context).size.width,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _showDifferenceDay(),
                       Flexible(
