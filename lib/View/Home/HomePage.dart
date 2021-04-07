@@ -238,12 +238,14 @@ class _HomeState extends State<Home> {
                   child: Row(
                     children: [
                       _showDifferenceDay(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _showTitle(),
-                          _showSubject(),
-                        ],
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _showTitle(),
+                            _showSubject(),
+                          ],
+                        ),
                       ),
                     ],
                   ),
