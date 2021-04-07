@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
       theme: ThemeData.dark(),
-      // _myTheme,
+      //_myTheme,
       home: FirsPage(),
     );
   }

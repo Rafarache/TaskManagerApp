@@ -131,6 +131,20 @@ class _HomeState extends State<Home> {
   }
 
   Widget _taskCard(context, index) {
+    Widget _showTitle() {
+      return Expanded(
+        child: Text(
+          tasks[index].title, // TITULO -------------------------------------
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 15,
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
       child: ClipPath(
@@ -165,21 +179,10 @@ class _HomeState extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Text(
-                              tasks[index]
-                                  .title, // TITULO -------------------------------------
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Row(
+                          _showTitle(),
+                          /* Row(
                             children: [
                               Icon(
                                 Icons.calendar_today,
@@ -194,30 +197,11 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ],
-                          ),
+                          ), */
                         ],
                       ),
                       Row(
                         children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 20),
-                              child: Text(
-                                tasks[index]
-                                    .subject, // DESCRIÇÃO --------------------------------------------
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 13,
-                                ),
-                                maxLines:
-                                    (_cardTap == index) && (_cardBool == true)
-                                        ? 10
-                                        : 3,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
                           Container(
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
@@ -244,6 +228,25 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, top: 8.0, bottom: 20),
+                              child: Text(
+                                tasks[index]
+                                    .subject, // DESCRIÇÃO --------------------------------------------
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 13,
+                                ),
+                                maxLines:
+                                    (_cardTap == index) && (_cardBool == true)
+                                        ? 10
+                                        : 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                           ),
                         ],
