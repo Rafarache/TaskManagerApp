@@ -244,10 +244,7 @@ class _HomeState extends State<Home> {
                       Flexible(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _showTitle(),
-                            _showSubject(),
-                          ],
+                          children: [_showTitle(), _showSubject(), _showDate()],
                         ),
                       ),
                     ],
