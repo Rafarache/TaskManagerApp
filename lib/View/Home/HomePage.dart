@@ -132,35 +132,76 @@ class _HomeState extends State<Home> {
 
   Widget _taskCard(context, index) {
     Widget _showTitle() {
-      return Expanded(
-        child: Text(
-          tasks[index].title, // TITULO -------------------------------------
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 15,
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+      return Text(
+        tasks[index].title, // TITULO -------------------------------------
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 15,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      );
+    }
+
+    Widget _showSubject() {
+      return Text(
+        tasks[index]
+            .subject, // DESCRIÇÃO --------------------------------------------
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 13,
+        ),
+        maxLines: (_cardTap == index) && (_cardBool == true) ? 10 : 3,
+        overflow: TextOverflow.ellipsis,
+      );
+    }
+
+    Widget _showDifferenceDay() {
+      return Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: tasks[index].priorityColor(),
+        ),
+        child: Column(
+          children: [
+            Text(
+              tasks[index].diference > 1
+                  ? "${tasks[index].diference} "
+                  : "${tasks[index].diference} ",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            Text(
+              "dias",
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       );
     }
 
     Widget _showDate() {
-      Row(
-        children: [
-          Icon(
-            Icons.calendar_today,
-            color: Colors.grey,
-            size: 16,
-          ),
-          Text(
-            tasks[index].due,
-            style: TextStyle(
-              fontSize: 11,
+      return Container(
+        child: Row(
+          children: [
+            Icon(
+              Icons.calendar_today,
               color: Colors.grey,
+              size: 16,
             ),
-          ),
-        ],
+            Text(
+              tasks[index].due,
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
       );
     }
 
@@ -193,84 +234,15 @@ class _HomeState extends State<Home> {
                     bottom: 10,
                     right: 12,
                   ),
-                  width: MediaQuery.of(context).size.width / 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _showTitle(),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.calendar_today,
-                                color: Colors.grey,
-                                size: 16,
-                              ),
-                              Text(
-                                tasks[index].due,
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: tasks[index].priorityColor(),
-                            ),
-                            child: Column(
-                              children: [
-                                /*  Text(tasks[index].diference > 1
-                                    ? "Faltam"
-                                    : " Falta  "), */
-                                Text(
-                                  tasks[index].diference > 1
-                                      ? "${tasks[index].diference} "
-                                      : "${tasks[index].diference} ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Text(
-                                  "dias",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, top: 8.0, bottom: 20),
-                              child: Text(
-                                tasks[index]
-                                    .subject, // DESCRIÇÃO --------------------------------------------
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 13,
-                                ),
-                                maxLines:
-                                    (_cardTap == index) && (_cardBool == true)
-                                        ? 10
-                                        : 3,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _showTitle(),
+                        _showSubject(),
+                      ],
+                    ),
                   ),
                 ),
                 (_cardTap == index) && (_cardBool == true)
