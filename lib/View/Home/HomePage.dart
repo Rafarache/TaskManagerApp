@@ -275,7 +275,6 @@ class _HomeState extends State<Home> {
                         width: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Colors.blue[200],
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -346,7 +345,6 @@ class _HomeState extends State<Home> {
 
   void _gestAllTasks() {
     helper.getAllTasks().then((list) {
-      print(list);
       setState(() {
         tasks = list;
       });
