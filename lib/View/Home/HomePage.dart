@@ -144,15 +144,18 @@ class _HomeState extends State<Home> {
     }
 
     Widget _showSubject() {
-      return Text(
-        tasks[index]
-            .subject, // DESCRIÇÃO --------------------------------------------
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: 13,
+      return Padding(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+        child: Text(
+          tasks[index]
+              .subject, // DESCRIÇÃO --------------------------------------------
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 13,
+          ),
+          maxLines: (_cardTap == index) && (_cardBool == true) ? 10 : 2,
+          overflow: TextOverflow.ellipsis,
         ),
-        maxLines: (_cardTap == index) && (_cardBool == true) ? 10 : 3,
-        overflow: TextOverflow.ellipsis,
       );
     }
 
@@ -194,11 +197,14 @@ class _HomeState extends State<Home> {
               color: Colors.grey,
               size: 16,
             ),
-            Text(
-              tasks[index].due,
-              style: TextStyle(
-                fontSize: 11,
-                color: Colors.grey,
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                tasks[index].due,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey,
+                ),
               ),
             ),
           ],
@@ -244,7 +250,17 @@ class _HomeState extends State<Home> {
                       Flexible(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [_showTitle(), _showSubject(), _showDate()],
+                          children: [
+                            _showTitle(),
+                            _showSubject(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(),
+                                _showDate(),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ],
