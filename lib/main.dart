@@ -70,6 +70,14 @@ class _FirsPageState extends State<FirsPage> {
     });
   }
 
+  void bottomTapped(int index) {
+    setState(() {
+      _seletedPage = index;
+      pageController.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
+    });
+  }
+
   Widget buildPageView() {
     return PageView(
       controller: pageController,
@@ -89,10 +97,13 @@ class _FirsPageState extends State<FirsPage> {
     return Scaffold(
       body: buildPageView(),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _seletedPage,
+        onTap: (index) {
+          bottomTapped(index);
+        },
         backgroundColor: Theme.of(context).primaryColor,
         selectedItemColor: Colors.white,
         // type: BottomNavigationBarType.fixed,
-        currentIndex: _seletedPage,
         items: buildBottomNavBarItems(),
       ),
     );
