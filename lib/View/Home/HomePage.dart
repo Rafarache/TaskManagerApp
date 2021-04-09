@@ -237,10 +237,10 @@ class _HomeState extends State<Home> {
                 AnimatedContainer(
                   duration: Duration(seconds: 2),
                   padding: EdgeInsets.only(
-                    top: 10,
-                    left: 15,
-                    bottom: 10,
-                    right: 12,
+                    top: 10.0,
+                    left: 15.0,
+                    bottom: 10.0,
+                    right: 12.0,
                   ),
                   width: MediaQuery.of(context).size.width,
                   child: Row(
