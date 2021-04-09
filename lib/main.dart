@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
-      theme: //ThemeData.dark(),
-          _myTheme,
+      theme: ThemeData.dark(),
+      //_myTheme,
       home: FirsPage(),
     );
   }

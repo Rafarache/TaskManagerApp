@@ -33,6 +33,11 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
           child: Column(
             children: [
               TableCalendar(
+                formatAnimation: FormatAnimation.scale,
+                initialCalendarFormat: CalendarFormat.twoWeeks,
+                calendarStyle: CalendarStyle(
+                    todayColor: Colors.blue[500],
+                    selectedColor: Colors.orange[500]),
                 calendarController: _calendarController,
                 builders: CalendarBuilders(),
               ),
