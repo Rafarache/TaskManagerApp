@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 import 'View/Home/HomePage.dart';
 import 'View/Home/TableCalenar/tableCalendar.dart';
@@ -34,6 +35,11 @@ class MyApp extends StatelessWidget {
       ),
     );
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
       theme: ThemeData.dark(),

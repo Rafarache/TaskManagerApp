@@ -223,7 +223,7 @@ class _TaskPageState extends State<TaskPage> {
 
   void datePickerStart() {
     showDatePicker(
-      helpText: DateFormat('d MMM y').format(DateTime.now()),
+      helpText: DateFormat('d MMM y', 'pt_Br').format(DateTime.now()),
       currentDate: DateTime.now(),
       context: context,
       initialDate: DateTime.now(),

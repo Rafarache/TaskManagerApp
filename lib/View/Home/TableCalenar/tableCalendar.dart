@@ -34,6 +34,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
             children: [
               TableCalendar(
                 formatAnimation: FormatAnimation.scale,
+                locale: 'pt_Br',
                 initialCalendarFormat: CalendarFormat.twoWeeks,
                 calendarStyle: CalendarStyle(
                     todayColor: Colors.blue[500],
