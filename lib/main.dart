@@ -48,46 +48,38 @@ class FirsPage extends StatefulWidget {
 }
 
 class _FirsPageState extends State<FirsPage> {
-  var _tabPages = [
-    TableCalendarPage(),
-    Home(),
-    SettingsPage(),
-  ];
-  int _currentIndex = 1;
+  int _seletedPage = 1;
+  var _tabPages = [TableCalendarPage(), Home(), SettingsPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: PageView(
+        children: _tabPages,
+        onPageChanged: (index) {
+          setState(() {
+            _seletedPage = index;
+          });
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
-        currentIndex: _currentIndex,
         backgroundColor: Theme.of(context).primaryColor,
         selectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.calendar_today,
-            ),
-            label: "Calendario",
-          ),
+              icon: Icon(Icons.calendar_today), label: "Calendario"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Adicionar"),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: "Adicionar",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Configurações",
-          ),
+              icon: Icon(Icons.settings), label: "Configurações"),
         ],
+        currentIndex: _seletedPage,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            _seletedPage = index;
           });
         },
       ),
-      body: _tabPages[_currentIndex],
     );
   }
 }

@@ -314,10 +314,28 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Route _createRoute(Task task) {
+  Route _createRouteAdd(Task task) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
           TaskPage(task: task),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1, 0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _createRouteSettings() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => SettingsPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(1, 0);
         var end = Offset.zero;
@@ -352,7 +370,7 @@ class _HomeState extends State<Home> {
   }
 
   void _showTask({Task task}) async {
-    final recTask = await Navigator.push(context, _createRoute(task));
+    final recTask = await Navigator.push(context, _createRouteAdd(task));
     if (recTask != null) {
       if (task != null) {
         await helper.upDateTask(recTask);
@@ -371,7 +389,6 @@ class _HomeState extends State<Home> {
   }
 
   void _showSettingsPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => SettingsPage()));
+    Navigator.push(context, _createRouteSettings());
   }
 }
