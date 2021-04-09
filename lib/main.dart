@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
-      theme: ThemeData.dark(),
-      //_myTheme,
+      theme: //ThemeData.dark(),
+          _myTheme,
       home: FirsPage(),
     );
   }
@@ -48,35 +48,54 @@ class FirsPage extends StatefulWidget {
 }
 
 class _FirsPageState extends State<FirsPage> {
-  int _seletedPage = 1;
   var _tabPages = [TableCalendarPage(), Home(), SettingsPage()];
+
+  int _seletedPage = 1;
+  PageController pageController =
+      PageController(initialPage: 1, keepPage: true);
+
+  void pageChanged(int index) {
+    setState(() {
+      _seletedPage = index;
+    });
+  }
+
+  List<BottomNavigationBarItem> buildBottomNavBarItems() {
+    return [
+      BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today), label: "Calendario"),
+      BottomNavigationBarItem(icon: Icon(Icons.home), label: "Adicionar"),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.settings), label: "Configurações"),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        children: _tabPages,
+        controller: pageController,
+        children: [
+          TableCalendarPage(),
+          Home(),
+          SettingsPage(),
+        ],
         onPageChanged: (index) {
           setState(() {
-            _seletedPage = index;
+            pageChanged(index);
           });
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
         backgroundColor: Theme.of(context).primaryColor,
         selectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today), label: "Calendario"),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Adicionar"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Configurações"),
-        ],
+        items: buildBottomNavBarItems(),
         currentIndex: _seletedPage,
         onTap: (index) {
           setState(() {
-            _seletedPage = index;
+            pageController = PageController(initialPage: index);
+            print(pageController);
           });
         },
       ),
