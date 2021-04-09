@@ -38,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -76,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -114,7 +114,7 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

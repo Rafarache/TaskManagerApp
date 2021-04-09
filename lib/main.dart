@@ -3,6 +3,7 @@ import 'package:icofont_flutter/icofont_flutter.dart';
 import 'View/Home/HomePage.dart';
 import 'View/Home/TableCalenar/tableCalendar.dart';
 import 'View/SettingsPage/settingsPage.dart';
+import 'package:cupertino_back_gesture/cupertino_back_gesture.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
       fontFamily: 'San Francisco',
       primaryColor: Color(0xFF024ACE),
       primaryColorDark: Color(0xFF024ACE),
-      brightness: Brightness.light,
       accentColor: Colors.white,
+      brightness: Brightness.light,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       backgroundColor: Colors.blue[100],
       appBarTheme: AppBarTheme(
           backgroundColor: Color(0xFF024ACE),
@@ -30,7 +32,6 @@ class MyApp extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      visualDensity: VisualDensity.adaptivePlatformDensity,
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
