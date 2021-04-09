@@ -54,12 +54,6 @@ class _FirsPageState extends State<FirsPage> {
   PageController pageController =
       PageController(initialPage: 1, keepPage: true);
 
-  void pageChanged(int index) {
-    setState(() {
-      _seletedPage = index;
-    });
-  }
-
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
       BottomNavigationBarItem(
@@ -70,34 +64,36 @@ class _FirsPageState extends State<FirsPage> {
     ];
   }
 
+  void pageChanged(int index) {
+    setState(() {
+      _seletedPage = index;
+    });
+  }
+
+  Widget buildPageView() {
+    return PageView(
+      controller: pageController,
+      onPageChanged: (index) {
+        pageChanged(index);
+      },
+      children: [
+        TableCalendarPage(),
+        Home(),
+        SettingsPage(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: pageController,
-        children: [
-          TableCalendarPage(),
-          Home(),
-          SettingsPage(),
-        ],
-        onPageChanged: (index) {
-          setState(() {
-            pageChanged(index);
-          });
-        },
-      ),
+      body: buildPageView(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).primaryColor,
-        selectedItemColor: Colors.black,
-        type: BottomNavigationBarType.fixed,
-        items: buildBottomNavBarItems(),
+        selectedItemColor: Colors.white,
+        // type: BottomNavigationBarType.fixed,
         currentIndex: _seletedPage,
-        onTap: (index) {
-          setState(() {
-            pageController = PageController(initialPage: index);
-            print(pageController);
-          });
-        },
+        items: buildBottomNavBarItems(),
       ),
     );
   }
