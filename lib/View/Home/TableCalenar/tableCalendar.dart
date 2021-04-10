@@ -38,7 +38,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     super.initState();
     _controller = CalendarController();
     _eventsController = TextEditingController();
-    _events = {};
+    _events;
     _selectedEvents = [];
   }
 

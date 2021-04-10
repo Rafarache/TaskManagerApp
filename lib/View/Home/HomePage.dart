@@ -234,8 +234,7 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: Column(
               children: [
-                AnimatedContainer(
-                  duration: Duration(seconds: 2),
+                Container(
                   padding: EdgeInsets.only(
                     top: 10.0,
                     left: 15.0,
