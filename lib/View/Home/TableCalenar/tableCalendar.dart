@@ -12,17 +12,40 @@ class TableCalendarPage extends StatefulWidget {
 }
 
 class _TableCalendarPageState extends State<TableCalendarPage> {
-  CalendarController _calendarController;
+  Map<DateTime, List<dynamic>> _events;
+  CalendarController _controller;
+  TextEditingController _eventsController;
+  List<dynamic> _selectedEvents;
+
+  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
+    Map<String, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[key.toString()] = map[key];
+    });
+    return newMap;
+  }
+
+  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
+    Map<DateTime, dynamic> newMap = {};
+    map.forEach((key, value) {
+      newMap[DateTime.parse(key)] = map[key];
+    });
+    return newMap;
+  }
+
   @override
   void initState() {
     super.initState();
-    _calendarController = CalendarController();
+    _controller = CalendarController();
+    _eventsController = TextEditingController();
+    _events = {};
+    _selectedEvents = [];
   }
 
   @override
   void dispose() {
     super.dispose();
-    _calendarController.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -33,15 +56,45 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
           child: Column(
             children: [
               TableCalendar(
-                formatAnimation: FormatAnimation.scale,
+                events: _events,
                 locale: 'pt_Br',
-                initialCalendarFormat: CalendarFormat.twoWeeks,
+                formatAnimation: FormatAnimation.scale,
+                initialCalendarFormat: CalendarFormat.month,
                 calendarStyle: CalendarStyle(
-                    todayColor: Colors.blue[500],
-                    selectedColor: Colors.orange[500]),
-                calendarController: _calendarController,
-                builders: CalendarBuilders(),
+                  todayColor: Colors.blue[500],
+                  selectedColor: Colors.orange[500],
+                ),
+                calendarController: _controller,
+                onDaySelected: (date, events, events1) {
+                  setState(() {
+                    _selectedEvents = events;
+                  });
+                },
+                builders: CalendarBuilders(
+                    selectedDayBuilder: (context, date, events) => Container(
+                        margin: const EdgeInsets.all(4.0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: Text(
+                          date.day.toString(),
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    todayDayBuilder: (context, date, events) => Container(
+                        margin: const EdgeInsets.all(4.0),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(30.0)),
+                        child: Text(
+                          date.day.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ))),
               ),
+              ..._selectedEvents.map((event) => ListTile(
+                    title: Text(event),
+                  )),
               Container(
                 decoration: BoxDecoration(
                     color: Colors.red,
@@ -54,7 +107,41 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: _showAddDialog,
+        ),
       ),
     );
+  }
+
+  _showAddDialog() {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: TextField(
+                controller: _eventsController,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (_eventsController.text.isEmpty) return;
+                    setState(() {
+                      if (_events[_controller.selectedDay] != null) {
+                        _events[_controller.selectedDay]
+                            .add(_eventsController.text);
+                      } else {
+                        _events[_controller.selectedDay] = [
+                          _eventsController.text
+                        ];
+                      }
+                      _eventsController.clear();
+                      Navigator.pop(context);
+                    });
+                  },
+                  child: Text("Save"),
+                ),
+              ],
+            ));
   }
 }

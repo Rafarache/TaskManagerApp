@@ -64,8 +64,8 @@ class _FirsPageState extends State<FirsPage> {
   List<BottomNavigationBarItem> buildBottomNavBarItems() {
     return [
       BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today), label: "Calendario"),
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: "Adicionar"),
+          icon: Icon(Icons.calendar_today), label: "Calendário"),
+      BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
       BottomNavigationBarItem(
           icon: Icon(Icons.settings), label: "Configurações"),
     ];
