@@ -23,7 +23,8 @@ class _HomeState extends State<Home> {
   int _cardTap = -1;
   bool _cardBool = false;
   bool _favoriteTap = false;
-  int _selectedTask;
+  int _selectedTask = -1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -263,7 +264,16 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Radio(
-                          value: 0, groupValue: _selectedTask, onChanged: null),
+                        visualDensity: VisualDensity.compact,
+                        value: index,
+                        activeColor: Colors.green,
+                        groupValue: _selectedTask,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedTask = value;
+                          });
+                        },
+                      )
                     ],
                   ),
                 ),
