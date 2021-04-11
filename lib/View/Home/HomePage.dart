@@ -234,6 +234,7 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   padding: EdgeInsets.only(
