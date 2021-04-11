@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   int _cardTap = -1;
   bool _cardBool = false;
   bool _favoriteTap = false;
-
+  int _selectedTask;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,6 +262,8 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
+                      Radio(
+                          value: 0, groupValue: _selectedTask, onChanged: null),
                     ],
                   ),
                 ),
@@ -278,10 +280,6 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.done_outline),
-                              onPressed: null,
-                            ),
                             IconButton(icon: Icon(Icons.edit), onPressed: null),
                             IconButton(
                                 icon: Icon(CommunityMaterialIcons.pin,
