@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
             },
           ),
           IconButton(
-            icon: Icon(IcoFontIcons.fullNight),
+            icon: Icon(IcoFontIcons.moon),
             onPressed: () => _themeChanger.setTheme(ThemeData.dark()),
 
             // _showSettingsPage();
