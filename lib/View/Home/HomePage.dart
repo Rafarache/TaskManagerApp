@@ -248,7 +248,9 @@ class _HomeState extends State<Home> {
             ),
           ),
           onDismissed: (direction) {
-            _onDismissed(direction, index);
+            tasks != tasksDone
+                ? _onDismissed(direction, index)
+                : _onDismissedTaskDone(direction, index);
           },
           child: Container(
             padding: EdgeInsets.only(right: 10),
@@ -456,6 +458,41 @@ class _HomeState extends State<Home> {
                 setState(() {
                   tasks.insert(_lastRemovedPos, _lastRemoved);
                   helper.saveTask(_lastRemoved);
+                });
+              }),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    });
+  }
+
+  Task _lastRemovedDone;
+  int _lastRemovedDonePos;
+  void _onDismissedTaskDone(direction, index) {
+    setState(() {
+      _lastRemovedDone = tasksDone[index];
+      tasksDone.removeAt(index);
+      _lastRemovedDonePos = index;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: RichText(
+              text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                  children: [
+                TextSpan(
+                    text: "\"${_lastRemoved.title}\"",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: " foi removido da lista de tarefas"),
+              ])),
+          action: SnackBarAction(
+              textColor: Colors.white,
+              label: 'Desfazer',
+              onPressed: () {
+                setState(() {
+                  tasksDone.insert(_lastRemovedDonePos, _lastRemovedDone);
                 });
               }),
           duration: Duration(seconds: 2),
