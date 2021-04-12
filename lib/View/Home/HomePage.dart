@@ -286,19 +286,21 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       ),
-                      Radio(
-                        visualDensity: VisualDensity.compact,
-                        value: index,
-                        activeColor: Colors.green,
-                        groupValue: _selectedTask,
-                        splashRadius: 20,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedTask = value;
-                          });
-                          _taskDone(index);
-                        },
-                      )
+                      tasks != tasksDone
+                          ? Radio(
+                              visualDensity: VisualDensity.compact,
+                              value: index,
+                              activeColor: Colors.green,
+                              groupValue: _selectedTask,
+                              splashRadius: 20,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedTask = value;
+                                });
+                                _taskDone(index);
+                              },
+                            )
+                          : SizedBox(),
                     ],
                   ),
                 ),
