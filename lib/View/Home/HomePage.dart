@@ -236,44 +236,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           onDismissed: (direction) {
-            setState(() {
-              //primeiro precisamos copiar o conato a ser excluido para uma variavel
-              // essa variavel retornará o contato caso o usuário queira desfazer a exclusão
-              _lastRemoved = tasks[index];
-              //deletamso o contato do banco de dados
-              helper.deleTask(tasks[index].id);
-              //deletamos o contato da lista
-              tasks.removeAt(index);
-              // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
-              // retornará para sua posição inicial
-              _lastRemovedPos = index;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  content: RichText(
-                      text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                          children: [
-                        TextSpan(
-                            text: "\"${_lastRemoved.title}\"",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: " foi removido da lista de tarefas"),
-                      ])),
-                  action: SnackBarAction(
-                      textColor: Colors.white,
-                      label: 'Desfazer',
-                      onPressed: () {
-                        setState(() {
-                          tasks.insert(_lastRemovedPos, _lastRemoved);
-                          helper.saveTask(_lastRemoved);
-                        });
-                      }),
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            });
+            _onDismissed(direction, index);
           },
           child: Container(
             padding: EdgeInsets.only(right: 10),
@@ -441,5 +404,46 @@ class _HomeState extends State<Home> {
 
   void _showSettingsPage() {
     Navigator.push(context, _createRouteSettings());
+  }
+
+  void _onDismissed(direction, index) {
+    setState(() {
+      //primeiro precisamos copiar o conato a ser excluido para uma variavel
+      // essa variavel retornará o contato caso o usuário queira desfazer a exclusão
+      _lastRemoved = tasks[index];
+      //deletamso o contato do banco de dados
+      helper.deleTask(tasks[index].id);
+      //deletamos o contato da lista
+      tasks.removeAt(index);
+      // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
+      // retornará para sua posição inicial
+      _lastRemovedPos = index;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: RichText(
+              text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                  children: [
+                TextSpan(
+                    text: "\"${_lastRemoved.title}\"",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: " foi removido da lista de tarefas"),
+              ])),
+          action: SnackBarAction(
+              textColor: Colors.white,
+              label: 'Desfazer',
+              onPressed: () {
+                setState(() {
+                  tasks.insert(_lastRemovedPos, _lastRemoved);
+                  helper.saveTask(_lastRemoved);
+                });
+              }),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    });
   }
 }
