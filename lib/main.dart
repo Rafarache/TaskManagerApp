@@ -12,6 +12,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     var _myTheme = ThemeData(
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+    var myDarkMode = ThemeData.dark();
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -42,8 +44,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [const Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
-      theme: ThemeData.dark(),
-      //_myTheme,
+      theme: myDarkMode, //_myTheme,
       home: FirsPage(),
     );
   }
@@ -55,8 +56,6 @@ class FirsPage extends StatefulWidget {
 }
 
 class _FirsPageState extends State<FirsPage> {
-  var _tabPages = [TableCalendarPage(), Home(), SettingsPage()];
-
   int _seletedPage = 1;
   PageController pageController =
       PageController(initialPage: 1, keepPage: true);

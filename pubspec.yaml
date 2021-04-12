@@ -35,7 +35,7 @@ dependencies:
   intl: ^0.17.0
   table_calendar: ^2.3.3
   cupertino_back_gesture: ^0.1.0
-  
+  provider: 
 dev_dependencies:
   flutter_test:
     sdk: flutter

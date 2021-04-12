@@ -6,6 +6,7 @@ import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/View/Home/TableCalenar/tableCalendar.dart';
 import 'package:taskmanager/View/SettingsPage/settingsPage.dart';
 import 'Widgets/quickTask.dart';
+import 'package:taskmanager/main.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
@@ -34,7 +35,6 @@ class _HomeState extends State<Home> {
   bool _cardBool = false;
   bool _favoriteTap = false;
   int _selectedTask = -1;
-  bool _selectedRadio = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,9 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              _showSettingsPage();
+              // _showSettingsPage();
+              setState(() {});
+
               //_showClendar(task)
             },
           ),
@@ -391,9 +393,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < tasks.length; i++) {
-      tasks[i].diference = tasks[i].diferenceDate();
-    }
     _gestAllTasks();
     tasks.removeRange(0, tasks.length);
     tasksDone = tasksDone;
@@ -521,7 +520,7 @@ class _HomeState extends State<Home> {
                   tasksDone.insert(_lastRemovedDonePos, _lastRemovedDone);
                 });
               }),
-          duration: Duration(seconds: 200),
+          duration: Duration(seconds: 3),
         ),
       );
     });
