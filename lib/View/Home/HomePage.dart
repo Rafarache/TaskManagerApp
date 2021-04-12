@@ -19,6 +19,10 @@ class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
+  Task _lastTaskDone;
+  int _lastTaskDonePos;
+  List<Task> tasksDone = [];
+
   int _lastRemovedPos;
   Task _lastRemoved;
 
@@ -96,7 +100,7 @@ class _HomeState extends State<Home> {
                       SizedBox(width: 40),
                       GestureDetector(
                         child: Text(
-                          "Feitos(0)",
+                          "Feitos(${tasksDone.length})",
                           style: TextStyle(
                             fontWeight:
                                 _menuIndex == 0 ? FontWeight.bold : null,
@@ -124,10 +128,17 @@ class _HomeState extends State<Home> {
                     shrinkWrap: true,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      return _taskCard(context, index);
+                      return _taskCard(context, index, tasks);
                     },
                   )
-                : Container(color: Colors.red),
+                : ListView.builder(
+                    primary: false,
+                    shrinkWrap: true,
+                    itemCount: tasksDone.length,
+                    itemBuilder: (context, index) {
+                      return _taskCard(context, index, tasksDone);
+                    },
+                  ),
             Container(color: Colors.blue),
           ],
         ),
@@ -135,7 +146,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _taskCard(context, index) {
+  Widget _taskCard(context, index, tasks) {
     Widget _showTitle() {
       return Text(
         tasks[index].title, // TITULO -------------------------------------
@@ -376,6 +387,7 @@ class _HomeState extends State<Home> {
     }
     _gestAllTasks();
     tasks.removeRange(0, tasks.length);
+    tasksDone = tasksDone;
   }
 
   void _gestAllTasks() {
@@ -450,13 +462,11 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Task _lastTaskDone;
-  int _lastTaskDonePos;
-
   void _taskDone(index) {
     setState(() {
       //_selectedTask = -1;
       _lastTaskDone = tasks[index];
+      tasksDone.add(tasks[index]);
       helper.deleTask(tasks[index].id);
       tasks.removeAt(index);
       _lastTaskDonePos = index;
@@ -480,6 +490,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 setState(() {
                   tasks.insert(_lastTaskDonePos, _lastTaskDone);
+                  tasksDone.remove(tasks[index]);
                   helper.saveTask(_lastTaskDone);
                 });
               }),
