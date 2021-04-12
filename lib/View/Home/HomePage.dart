@@ -19,6 +19,9 @@ class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
+  int _lastRemovedPos;
+  Task _lastRemoved;
+
   int _menuIndex = 1;
   int _cardTap = -1;
   bool _cardBool = false;
@@ -229,12 +232,37 @@ class _HomeState extends State<Home> {
             color: Colors.red,
             child: Align(
               alignment: Alignment(-0.9, 0),
-              child: Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.delete, color: Colors.white),
             ),
           ),
+          onDismissed: (direction) {
+            setState(() {
+              //primeiro precisamos copiar o conato a ser excluido para uma variavel
+              // essa variavel retornará o contato caso o usuário queira desfazer a exclusão
+              _lastRemoved = tasks[index];
+              //deletamso o contato do banco de dados
+              helper.deleTask(tasks[index].id);
+              //deletamos o contato da lista
+              tasks.removeAt(index);
+              // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
+              // retornará para sua posição inicial
+              _lastRemovedPos = index;
+              final snack = SnackBar(
+                content: Text(
+                    '\"${_lastRemoved.title}\" foi removido da lista de contatos'),
+                action: SnackBarAction(
+                    label: 'Desfazer',
+                    onPressed: () {
+                      setState(() {
+                        tasks.insert(_lastRemovedPos, _lastRemoved);
+                        helper.saveTask(_lastRemoved);
+                      });
+                    }),
+                duration: Duration(seconds: 1),
+              );
+              Scaffold.of(context).showSnackBar(snack);
+            });
+          },
           child: Container(
             padding: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
