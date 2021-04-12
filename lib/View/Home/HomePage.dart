@@ -213,109 +213,102 @@ class _HomeState extends State<Home> {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
-      child: ClipPath(
-        clipper: ShapeBorderClipper(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
-          ),
-        ),
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              _cardTap = index;
-              _cardBool = !_cardBool;
-            });
-          },
-          child: Container(
-            padding: EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(color: Theme.of(context).cardColor),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(
-                    top: 10.0,
-                    left: 15.0,
-                    bottom: 10.0,
-                    right: 12.0,
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _showDifferenceDay(),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _showTitle(),
-                            _showSubject(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(),
-                                _showDate(),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Radio(
-                        visualDensity: VisualDensity.compact,
-                        value: index,
-                        activeColor: Colors.green,
-                        groupValue: _selectedTask,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedTask = value;
-                          });
-                        },
-                      )
-                    ],
-                  ),
+    return Container(
+      margin: EdgeInsets.all(20),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _cardTap = index;
+            _cardBool = !_cardBool;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.only(right: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Theme.of(context).cardColor),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: 10.0,
+                  left: 15.0,
+                  bottom: 10.0,
+                  right: 12.0,
                 ),
-                (_cardTap == index) && (_cardBool == true)
-                    ? Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        height: 50,
-                        width: 400,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(icon: Icon(Icons.edit), onPressed: null),
-                            IconButton(
-                                icon: Icon(CommunityMaterialIcons.pin,
-                                    color: _favoriteTap == true
-                                        ? Colors.amber
-                                        : Colors.white),
-                                onPressed: () {
-                                  setState(() {
-                                    _favoriteTap = !_favoriteTap;
-                                  });
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                    CommunityMaterialIcons.trash_can_outline),
-                                onPressed: null),
-                            IconButton(
-                                icon: Icon(
-                                    CommunityMaterialIcons.bell_ring_outline),
-                                onPressed: null),
-                          ],
-                        ),
-                      )
-                    : SizedBox(height: 0)
-              ],
-            ),
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _showDifferenceDay(),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _showTitle(),
+                          _showSubject(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(),
+                              _showDate(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Radio(
+                      visualDensity: VisualDensity.compact,
+                      value: index,
+                      activeColor: Colors.green,
+                      groupValue: _selectedTask,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedTask = value;
+                        });
+                      },
+                    )
+                  ],
+                ),
+              ),
+              (_cardTap == index) && (_cardBool == true)
+                  ? Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      height: 50,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(icon: Icon(Icons.edit), onPressed: null),
+                          IconButton(
+                              icon: Icon(CommunityMaterialIcons.pin,
+                                  color: _favoriteTap == true
+                                      ? Colors.amber
+                                      : Colors.white),
+                              onPressed: () {
+                                setState(() {
+                                  _favoriteTap = !_favoriteTap;
+                                });
+                              }),
+                          IconButton(
+                              icon: Icon(
+                                  CommunityMaterialIcons.trash_can_outline),
+                              onPressed: null),
+                          IconButton(
+                              icon: Icon(
+                                  CommunityMaterialIcons.bell_ring_outline),
+                              onPressed: null),
+                        ],
+                      ),
+                    )
+                  : SizedBox(height: 0)
+            ],
           ),
         ),
       ),
