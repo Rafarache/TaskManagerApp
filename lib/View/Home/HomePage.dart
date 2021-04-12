@@ -247,20 +247,22 @@ class _HomeState extends State<Home> {
               // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
               // retornará para sua posição inicial
               _lastRemovedPos = index;
-              final snack = SnackBar(
-                content: Text(
-                    '\"${_lastRemoved.title}\" foi removido da lista de contatos'),
-                action: SnackBarAction(
-                    label: 'Desfazer',
-                    onPressed: () {
-                      setState(() {
-                        tasks.insert(_lastRemovedPos, _lastRemoved);
-                        helper.saveTask(_lastRemoved);
-                      });
-                    }),
-                duration: Duration(seconds: 1),
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      '\"${_lastRemoved.title}\" foi removido da lista de contatos'),
+                  action: SnackBarAction(
+                      label: 'Desfazer',
+                      onPressed: () {
+                        setState(() {
+                          tasks.insert(_lastRemovedPos, _lastRemoved);
+                          helper.saveTask(_lastRemoved);
+                        });
+                      }),
+                  duration: Duration(seconds: 2),
+                ),
               );
-              Scaffold.of(context).showSnackBar(snack);
             });
           },
           child: Container(
