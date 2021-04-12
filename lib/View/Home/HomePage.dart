@@ -311,10 +311,8 @@ class _HomeState extends State<Home> {
                 ),
                 (_cardTap == index) && (_cardBool == true)
                     ? Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        margin: EdgeInsets.symmetric(horizontal: 15),
                         padding: EdgeInsets.symmetric(horizontal: 20),
-                        height: 50,
                         width: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
