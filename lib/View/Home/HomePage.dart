@@ -27,6 +27,7 @@ class _HomeState extends State<Home> {
   bool _cardBool = false;
   bool _favoriteTap = false;
   int _selectedTask = -1;
+  bool _selectedRadio = false;
 
   @override
   Widget build(BuildContext context) {
@@ -279,10 +280,12 @@ class _HomeState extends State<Home> {
                         value: index,
                         activeColor: Colors.green,
                         groupValue: _selectedTask,
+                        splashRadius: 20,
                         onChanged: (value) {
                           setState(() {
                             _selectedTask = value;
                           });
+                          _taskDone(index);
                         },
                       )
                     ],
@@ -439,6 +442,45 @@ class _HomeState extends State<Home> {
                 setState(() {
                   tasks.insert(_lastRemovedPos, _lastRemoved);
                   helper.saveTask(_lastRemoved);
+                });
+              }),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    });
+  }
+
+  Task _lastTaskDone;
+  int _lastTaskDonePos;
+
+  void _taskDone(index) {
+    setState(() {
+      //_selectedTask = -1;
+      _lastTaskDone = tasks[index];
+      helper.deleTask(tasks[index].id);
+      tasks.removeAt(index);
+      _lastTaskDonePos = index;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: RichText(
+              text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                  children: [
+                TextSpan(
+                    text: "\"${_lastTaskDone.title}\"",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: " foi movida para terefas feitas"),
+              ])),
+          action: SnackBarAction(
+              textColor: Colors.white,
+              label: 'Desfazer',
+              onPressed: () {
+                setState(() {
+                  tasks.insert(_lastTaskDonePos, _lastTaskDone);
+                  helper.saveTask(_lastTaskDone);
                 });
               }),
           duration: Duration(seconds: 2),
