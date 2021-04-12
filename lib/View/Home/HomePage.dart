@@ -225,6 +225,16 @@ class _HomeState extends State<Home> {
         child: Dismissible(
           key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
           direction: DismissDirection.startToEnd,
+          background: Container(
+            color: Colors.red,
+            child: Align(
+              alignment: Alignment(-0.9, 0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+            ),
+          ),
           child: Container(
             padding: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
@@ -299,10 +309,6 @@ class _HomeState extends State<Home> {
                                     _favoriteTap = !_favoriteTap;
                                   });
                                 }),
-                            IconButton(
-                                icon: Icon(
-                                    CommunityMaterialIcons.trash_can_outline),
-                                onPressed: null),
                             IconButton(
                                 icon: Icon(
                                     CommunityMaterialIcons.bell_ring_outline),
