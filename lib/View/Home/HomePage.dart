@@ -1,10 +1,12 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/View/Home/TableCalenar/tableCalendar.dart';
 import 'package:taskmanager/View/SettingsPage/settingsPage.dart';
+import 'package:taskmanager/blocs/theme.dart';
 import 'Widgets/quickTask.dart';
 import 'package:taskmanager/main.dart';
 
@@ -38,6 +40,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -60,13 +63,18 @@ class _HomeState extends State<Home> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              // _showSettingsPage();
-              setState(() {});
+            icon: Icon(IcoFontIcons.fullNight),
+            onPressed: () => _themeChanger.setTheme(ThemeData.dark()),
 
-              //_showClendar(task)
-            },
+            // _showSettingsPage();
+            //_showClendar(task)
+          ),
+          IconButton(
+            icon: Icon(Icons.wb_sunny),
+            onPressed: () => _themeChanger.setTheme(ThemeData.light()),
+
+            // _showSettingsPage();
+            //_showClendar(task)
           ),
         ],
       ),
