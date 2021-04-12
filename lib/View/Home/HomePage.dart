@@ -262,6 +262,7 @@ class _HomeState extends State<Home> {
                         TextSpan(text: " foi removido da lista de tarefas"),
                       ])),
                   action: SnackBarAction(
+                      textColor: Colors.white,
                       label: 'Desfazer',
                       onPressed: () {
                         setState(() {
@@ -269,7 +270,7 @@ class _HomeState extends State<Home> {
                           helper.saveTask(_lastRemoved);
                         });
                       }),
-                  duration: Duration(seconds: 20),
+                  duration: Duration(seconds: 2),
                 ),
               );
             });
