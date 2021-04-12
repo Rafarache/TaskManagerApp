@@ -26,6 +26,9 @@ class _HomeState extends State<Home> {
   int _lastRemovedPos;
   Task _lastRemoved;
 
+  Task _lastRemovedDone;
+  int _lastRemovedDonePos;
+
   int _menuIndex = 1;
   int _cardTap = -1;
   bool _cardBool = false;
@@ -239,7 +242,7 @@ class _HomeState extends State<Home> {
         },
         child: Dismissible(
           key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-          direction: DismissDirection.startToEnd,
+          direction: DismissDirection.horizontal,
           background: Container(
             color: Colors.red,
             child: Align(
@@ -316,28 +319,32 @@ class _HomeState extends State<Home> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(icon: Icon(Icons.edit), onPressed: null),
-                            IconButton(
-                                icon: Icon(CommunityMaterialIcons.pin,
-                                    color: _favoriteTap == true
-                                        ? Colors.amber
-                                        : Colors.white),
-                                onPressed: () {
-                                  setState(() {
-                                    _favoriteTap = !_favoriteTap;
-                                  });
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                    CommunityMaterialIcons.bell_ring_outline),
-                                onPressed: null),
-                          ],
-                        ),
+                        child: tasks != tasksDone
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                      icon: Icon(Icons.edit), onPressed: null),
+                                  IconButton(
+                                      icon: Icon(CommunityMaterialIcons.pin,
+                                          color: _favoriteTap == true
+                                              ? Colors.amber
+                                              : Colors.white),
+                                      onPressed: () {
+                                        setState(() {
+                                          _favoriteTap = !_favoriteTap;
+                                        });
+                                      }),
+                                  IconButton(
+                                      icon: Icon(CommunityMaterialIcons
+                                          .bell_ring_outline),
+                                      onPressed: null),
+                                ],
+                              )
+                            : SizedBox(),
                       )
-                    : SizedBox(height: 0)
+                    : SizedBox(height: 0),
               ],
             ),
           ),
@@ -466,8 +473,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Task _lastRemovedDone;
-  int _lastRemovedDonePos;
   void _onDismissedTaskDone(direction, index) {
     setState(() {
       _lastRemovedDone = tasksDone[index];
@@ -482,10 +487,11 @@ class _HomeState extends State<Home> {
                     fontSize: 14,
                   ),
                   children: [
+                TextSpan(text: "A tarefas "),
                 TextSpan(
-                    text: "\"${_lastRemoved.title}\"",
+                    text: "\" ${_lastRemovedDone.title}\"",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: " foi removido da lista de tarefas"),
+                TextSpan(text: " foi removida"),
               ])),
           action: SnackBarAction(
               textColor: Colors.white,
@@ -518,10 +524,11 @@ class _HomeState extends State<Home> {
                     fontSize: 14,
                   ),
                   children: [
+                TextSpan(text: "A tarefa "),
                 TextSpan(
                     text: "\"${_lastTaskDone.title}\"",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: " foi movida para terefas feitas"),
+                TextSpan(text: " foi concluida. Parabéns!"),
               ])),
           action: SnackBarAction(
               textColor: Colors.white,
@@ -533,7 +540,7 @@ class _HomeState extends State<Home> {
                   helper.saveTask(_lastTaskDone);
                 });
               }),
-          duration: Duration(seconds: 2),
+          duration: Duration(seconds: 3),
         ),
       );
     });
