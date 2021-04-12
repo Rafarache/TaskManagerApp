@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
   bool _cardBool = false;
   bool _favoriteTap = false;
   int _selectedTask = -1;
-
+  bool darkmode = false;
   @override
   Widget build(BuildContext context) {
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
@@ -72,9 +72,6 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.wb_sunny),
             onPressed: () => _themeChanger.setTheme(ThemeData.light()),
-
-            // _showSettingsPage();
-            //_showClendar(task)
           ),
         ],
       ),
