@@ -82,7 +82,7 @@ class _TaskPageState extends State<TaskPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
-                    maxLines: 8,
+                    maxLines: 4,
                     controller: _subjectController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
