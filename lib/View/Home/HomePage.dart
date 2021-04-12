@@ -217,7 +217,7 @@ class _HomeState extends State<Home> {
     }
 
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
       child: GestureDetector(
         onTap: () {
           setState(() {
