@@ -247,11 +247,20 @@ class _HomeState extends State<Home> {
               // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
               // retornará para sua posição inicial
               _lastRemovedPos = index;
-
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                      '\"${_lastRemoved.title}\" foi removido da lista de contatos'),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  content: RichText(
+                      text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                          children: [
+                        TextSpan(
+                            text: "\"${_lastRemoved.title}\"",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: " foi removido da lista de tarefas"),
+                      ])),
                   action: SnackBarAction(
                       label: 'Desfazer',
                       onPressed: () {
@@ -260,7 +269,7 @@ class _HomeState extends State<Home> {
                           helper.saveTask(_lastRemoved);
                         });
                       }),
-                  duration: Duration(seconds: 2),
+                  duration: Duration(seconds: 20),
                 ),
               );
             });
