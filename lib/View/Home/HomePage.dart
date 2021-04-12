@@ -451,6 +451,7 @@ class _HomeState extends State<Home> {
               Expanded(
                 child: RichText(
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                     text: TextSpan(
                         style: TextStyle(
                           fontSize: 14,
