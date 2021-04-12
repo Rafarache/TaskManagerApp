@@ -447,17 +447,26 @@ class _HomeState extends State<Home> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).primaryColor,
-          content: RichText(
-              text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                  children: [
-                TextSpan(
-                    text: "\"${_lastRemoved.title}\"",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: " foi removido da lista de tarefas"),
-              ])),
+          content: Row(
+            children: [
+              Icon(Icons.warning, color: Colors.yellow),
+              Expanded(
+                child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        children: [
+                          TextSpan(text: "A tarefa "),
+                          TextSpan(
+                              text: "\"${_lastRemoved.title}\"",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: " foi removida!"),
+                        ])),
+              ),
+            ],
+          ),
           action: SnackBarAction(
               textColor: Colors.white,
               label: 'Desfazer',
@@ -481,18 +490,30 @@ class _HomeState extends State<Home> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).primaryColor,
-          content: RichText(
-              text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                  children: [
-                TextSpan(text: "A tarefas "),
-                TextSpan(
-                    text: "\" ${_lastRemovedDone.title}\"",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: " foi removida"),
-              ])),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(Icons.warning, color: Colors.red),
+              Flexible(
+                child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        children: [
+                          TextSpan(text: "A tarefa "),
+                          TextSpan(
+                              text: "\" ${_lastRemovedDone.title}\"",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              )),
+                          TextSpan(text: " foi removida"),
+                        ])),
+              ),
+            ],
+          ),
           action: SnackBarAction(
               textColor: Colors.white,
               label: 'Desfazer',
@@ -501,7 +522,7 @@ class _HomeState extends State<Home> {
                   tasksDone.insert(_lastRemovedDonePos, _lastRemovedDone);
                 });
               }),
-          duration: Duration(seconds: 2),
+          duration: Duration(seconds: 200),
         ),
       );
     });
@@ -518,18 +539,31 @@ class _HomeState extends State<Home> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).primaryColor,
-          content: RichText(
-              text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                  children: [
-                TextSpan(text: "A tarefa "),
-                TextSpan(
-                    text: "\"${_lastTaskDone.title}\"",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                TextSpan(text: " foi concluida. Parabéns!"),
-              ])),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(
+                CommunityMaterialIcons.emoticon_happy,
+                color: Colors.yellow,
+              ),
+              Expanded(
+                child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        children: [
+                          TextSpan(text: "A tarefa "),
+                          TextSpan(
+                              text: "\"${_lastTaskDone.title}\"",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: " foi concluida. Parabéns!"),
+                        ])),
+              ),
+            ],
+          ),
           action: SnackBarAction(
               textColor: Colors.white,
               label: 'Desfazer',
