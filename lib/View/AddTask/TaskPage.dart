@@ -36,9 +36,8 @@ class _TaskPageState extends State<TaskPage> {
     return WillPopScope(
       onWillPop: null,
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          centerTitle: true,
           title: Text(
             'Criar Tarefa',
             style: TextStyle(
