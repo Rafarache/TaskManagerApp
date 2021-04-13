@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:icofont_flutter/icofont_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:taskmanager/blocs/theme.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage();
@@ -11,8 +14,30 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _showStyle = false;
   bool _showNotification = false;
 
+  var _myTheme = ThemeData(
+    fontFamily: 'San Francisco',
+    primaryColor: Color(0xFF024ACE),
+    primaryColorDark: Color(0xFF024ACE),
+    accentColor: Colors.white,
+    brightness: Brightness.light,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    backgroundColor: Colors.blue[100],
+    appBarTheme: AppBarTheme(
+        backgroundColor: Color(0xFF024ACE),
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        )),
+    accentTextTheme: TextTheme(
+      headline6: TextStyle(
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
+    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -95,10 +120,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 ? Column(
                     children: [
                       Divider(),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        color: Colors.green,
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(IcoFontIcons.moon),
+                            onPressed: () =>
+                                _themeChanger.setTheme(ThemeData.dark()),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.wb_sunny),
+                            onPressed: () => _themeChanger.setTheme(_myTheme),
+                          ),
+                        ],
                       ),
                     ],
                   )
