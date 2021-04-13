@@ -19,26 +19,6 @@ class Home extends StatefulWidget {
 enum MenuOption { Prority, Date, Inserion }
 
 class _HomeState extends State<Home> {
-  var _myTheme = ThemeData(
-    fontFamily: 'San Francisco',
-    primaryColor: Color(0xFF024ACE),
-    primaryColorDark: Color(0xFF024ACE),
-    accentColor: Colors.white,
-    brightness: Brightness.light,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    backgroundColor: Colors.blue[100],
-    appBarTheme: AppBarTheme(
-        backgroundColor: Color(0xFF024ACE),
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        )),
-    accentTextTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-  );
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
@@ -60,7 +40,6 @@ class _HomeState extends State<Home> {
   bool darkmode = false;
   @override
   Widget build(BuildContext context) {
-    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -81,17 +60,6 @@ class _HomeState extends State<Home> {
             onPressed: () {
               _showTask();
             },
-          ),
-          IconButton(
-            icon: Icon(IcoFontIcons.moon),
-            onPressed: () => _themeChanger.setTheme(ThemeData.dark()),
-
-            // _showSettingsPage();
-            //_showClendar(task)
-          ),
-          IconButton(
-            icon: Icon(Icons.wb_sunny),
-            onPressed: () => _themeChanger.setTheme(_myTheme),
           ),
         ],
       ),
