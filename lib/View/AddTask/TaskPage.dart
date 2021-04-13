@@ -50,7 +50,7 @@ class _TaskPageState extends State<TaskPage> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
+                  color: Theme.of(context).accentColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 margin:
@@ -74,7 +74,7 @@ class _TaskPageState extends State<TaskPage> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
+                  color: Theme.of(context).accentColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 margin: EdgeInsets.only(left: 20, right: 20, top: 10),

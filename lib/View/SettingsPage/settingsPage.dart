@@ -18,7 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
     fontFamily: 'San Francisco',
     primaryColor: Colors.grey[900],
     primaryColorDark: Colors.black54,
-    accentColor: Colors.black54,
+    accentColor: Colors.grey[500],
     brightness: Brightness.dark,
     cardColor: Colors.grey[900],
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -146,8 +146,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         children: [
                           IconButton(
                             icon: Icon(IcoFontIcons.moon),
-                            onPressed: () =>
-                                _themeChanger.setTheme(ThemeData.dark()),
+                            onPressed: () => _themeChanger.setTheme(_darkTheme),
                           ),
                           IconButton(
                             icon: Icon(Icons.wb_sunny),
