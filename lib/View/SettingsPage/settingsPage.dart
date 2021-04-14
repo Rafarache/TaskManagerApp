@@ -104,9 +104,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Divider(),
                     Container(
-                      height: 30,
-                      width: 30,
                       color: Colors.blue,
+                      child: Column(
+                        children: [
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                        ],
+                      ),
                     ),
                   ],
                 )
@@ -142,14 +149,33 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Divider(),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        IconButton(
-                          icon: Icon(IcoFontIcons.moon),
-                          onPressed: () => _themeChanger.setTheme(_darkTheme),
+                        GestureDetector(
+                          onTap: () => _themeChanger.setTheme(_darkTheme),
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Row(
+                              children: [
+                                Icon(IcoFontIcons.moon),
+                                SizedBox(width: 10),
+                                Text("Dark Mode "),
+                              ],
+                            ),
+                          ),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.wb_sunny),
-                          onPressed: () => _themeChanger.setTheme(_lightTheme),
+                        GestureDetector(
+                          onTap: () => _themeChanger.setTheme(_lightTheme),
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Row(
+                              children: [
+                                Icon(Icons.wb_sunny),
+                                SizedBox(width: 10),
+                                Text("Ligth Mode: "),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -187,9 +213,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Divider(),
                     Container(
-                      height: 30,
-                      width: 30,
                       color: Colors.red,
+                      child: Column(
+                        children: [
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                          Text('EM PROGRESSO!'),
+                        ],
+                      ),
                     ),
                   ],
                 )

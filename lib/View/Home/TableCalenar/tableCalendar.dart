@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 
