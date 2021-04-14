@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
           fontWeight: FontWeight.w700,
           fontSize: 15,
         ),
-        maxLines: 1,
+        maxLines: (_cardTap == index) && (_cardBool == true) ? 2 : 1,
         overflow: TextOverflow.ellipsis,
       );
     }

@@ -18,7 +18,7 @@ class Task {
 
   int diferenceDate() {
     if ((this.dateStart != null) && (this.dateDue != null)) {
-      return this.dateDue.difference(DateTime.now()).inDays;
+      return this.dateDue.difference(DateTime.now()).inDays + 1;
     } else {
       return 0;
     }
