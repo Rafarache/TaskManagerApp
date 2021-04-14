@@ -59,146 +59,143 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          centerTitle: true,
-          title: Text(
-            'Configurações',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-            ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        centerTitle: true,
+        title: Text(
+          'Configurações',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
           ),
         ),
-        body: Column(
-          children: [
-            SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _showAcount = !_showAcount;
-                  _showStyle = false;
-                  _showNotification = false;
-                });
-              },
-              child: Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Conta",
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _showAcount = !_showAcount;
+                _showStyle = false;
+                _showNotification = false;
+              });
+            },
+            child: Container(
+              color: Colors.transparent,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Conta",
+                    style: TextStyle(
+                      fontSize: 15,
                     ),
-                    Icon(Icons.chevron_right)
-                  ],
-                ),
+                  ),
+                  Icon(Icons.chevron_right)
+                ],
               ),
             ),
-            _showAcount == true
-                ? Column(
-                    children: [
-                      Divider(),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        color: Colors.blue,
-                      ),
-                    ],
-                  )
-                : SizedBox(),
-            Divider(),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _showStyle = !_showStyle;
-                  _showAcount = false;
-                  _showNotification = false;
-                });
-              },
-              child: Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          _showAcount == true
+              ? Column(
                   children: [
-                    Text(
-                      "Aparencia",
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+                    Divider(),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      color: Colors.blue,
                     ),
-                    Icon(Icons.chevron_right)
                   ],
-                ),
+                )
+              : SizedBox(),
+          Divider(),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _showStyle = !_showStyle;
+                _showAcount = false;
+                _showNotification = false;
+              });
+            },
+            child: Container(
+              color: Colors.transparent,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Aparencia",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  Icon(Icons.chevron_right)
+                ],
               ),
             ),
-            _showStyle == true
-                ? Column(
-                    children: [
-                      Divider(),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(IcoFontIcons.moon),
-                            onPressed: () => _themeChanger.setTheme(_darkTheme),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.wb_sunny),
-                            onPressed: () =>
-                                _themeChanger.setTheme(_lightTheme),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                : SizedBox(),
-            Divider(),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  _showNotification = !_showNotification;
-                  _showAcount = false;
-                  _showStyle = false;
-                });
-              },
-              child: Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          _showStyle == true
+              ? Column(
                   children: [
-                    Text(
-                      "Notificação",
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+                    Divider(),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(IcoFontIcons.moon),
+                          onPressed: () => _themeChanger.setTheme(_darkTheme),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.wb_sunny),
+                          onPressed: () => _themeChanger.setTheme(_lightTheme),
+                        ),
+                      ],
                     ),
-                    Icon(Icons.chevron_right)
                   ],
-                ),
+                )
+              : SizedBox(),
+          Divider(),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _showNotification = !_showNotification;
+                _showAcount = false;
+                _showStyle = false;
+              });
+            },
+            child: Container(
+              color: Colors.transparent,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Notificação",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  Icon(Icons.chevron_right)
+                ],
               ),
             ),
-            _showNotification == true
-                ? Column(
-                    children: [
-                      Divider(),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        color: Colors.red,
-                      ),
-                    ],
-                  )
-                : SizedBox(),
-            Divider(),
-          ],
-        ),
+          ),
+          _showNotification == true
+              ? Column(
+                  children: [
+                    Divider(),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      color: Colors.red,
+                    ),
+                  ],
+                )
+              : SizedBox(),
+          Divider(),
+        ],
       ),
     );
   }

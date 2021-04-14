@@ -14,32 +14,11 @@ class TableCalendarPage extends StatefulWidget {
 class _TableCalendarPageState extends State<TableCalendarPage> {
   Map<DateTime, List<dynamic>> _events;
   CalendarController _controller;
-  TextEditingController _eventsController;
-  List<dynamic> _selectedEvents;
-
-  Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
-    Map<String, dynamic> newMap = {};
-    map.forEach((key, value) {
-      newMap[key.toString()] = map[key];
-    });
-    return newMap;
-  }
-
-  Map<DateTime, dynamic> decodeMap(Map<String, dynamic> map) {
-    Map<DateTime, dynamic> newMap = {};
-    map.forEach((key, value) {
-      newMap[DateTime.parse(key)] = map[key];
-    });
-    return newMap;
-  }
 
   @override
   void initState() {
     super.initState();
     _controller = CalendarController();
-    _eventsController = TextEditingController();
-    _events;
-    _selectedEvents = [];
   }
 
   @override
@@ -65,83 +44,34 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   selectedColor: Colors.orange[500],
                 ),
                 calendarController: _controller,
-                onDaySelected: (date, events, events1) {
-                  setState(() {
-                    _selectedEvents = events;
-                  });
-                },
-                builders: CalendarBuilders(
-                    selectedDayBuilder: (context, date, events) => Container(
-                        margin: const EdgeInsets.all(4.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Text(
-                          date.day.toString(),
-                          style: TextStyle(color: Colors.white),
-                        )),
-                    todayDayBuilder: (context, date, events) => Container(
-                        margin: const EdgeInsets.all(4.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(30.0)),
-                        child: Text(
-                          date.day.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ))),
               ),
-              ..._selectedEvents.map((event) => ListTile(
-                    title: Text(event),
-                  )),
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    )),
-                height: MediaQuery.of(context).size.height / 2,
-              ),
+                  color: Colors.red[900],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                height: 800,
+                width: MediaQuery.of(context).size.width / 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "EM PROGRESSO!",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: _showAddDialog,
-        ),
       ),
     );
-  }
-
-  _showAddDialog() {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              content: TextField(
-                controller: _eventsController,
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    if (_eventsController.text.isEmpty) return;
-                    setState(() {
-                      if (_events[_controller.selectedDay] != null) {
-                        _events[_controller.selectedDay]
-                            .add(_eventsController.text);
-                      } else {
-                        _events[_controller.selectedDay] = [
-                          _eventsController.text
-                        ];
-                      }
-                      _eventsController.clear();
-                      Navigator.pop(context);
-                    });
-                  },
-                  child: Text("Save"),
-                ),
-              ],
-            ));
   }
 }
