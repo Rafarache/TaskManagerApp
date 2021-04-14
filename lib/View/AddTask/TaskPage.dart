@@ -207,7 +207,13 @@ class _TaskPageState extends State<TaskPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blue,
           onPressed: () {
-            if (_editedTask.title.isNotEmpty && _editedTask.title != null) {
+            if (_editedTask.title.isNotEmpty &&
+                _editedTask.title != null &&
+                _editedTask.dateStart != null &&
+                _editedTask.dateDue != null) {
+              if (_editedTask.subject == null) {
+                _editedTask.subject = "";
+              }
               Navigator.pop(context, _editedTask);
             } else {}
           },
