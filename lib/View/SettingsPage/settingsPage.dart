@@ -172,7 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               children: [
                                 Icon(Icons.wb_sunny),
                                 SizedBox(width: 10),
-                                Text("Ligth Mode: "),
+                                Text("Light Mode: "),
                               ],
                             ),
                           ),
