@@ -82,11 +82,15 @@ class _HomeState extends State<Home> {
                       Padding(
                           padding: const EdgeInsets.only(left: 25.0),
                           child: GestureDetector(
-                            child: Text(
-                              "Fazendo(${tasks.length})",
-                              style: TextStyle(
-                                fontWeight:
-                                    _menuIndex == 1 ? FontWeight.bold : null,
+                            child: Container(
+                              padding: EdgeInsets.all(15),
+                              color: Colors.transparent,
+                              child: Text(
+                                "Fazendo(${tasks.length})",
+                                style: TextStyle(
+                                  fontWeight:
+                                      _menuIndex == 1 ? FontWeight.bold : null,
+                                ),
                               ),
                             ),
                             onTap: () {
@@ -95,13 +99,17 @@ class _HomeState extends State<Home> {
                               });
                             },
                           )),
-                      SizedBox(width: 40),
                       GestureDetector(
-                        child: Text(
-                          "Feitos(${tasksDone.length})",
-                          style: TextStyle(
-                            fontWeight:
-                                _menuIndex == 0 ? FontWeight.bold : null,
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          //color: Colors.transparent,
+
+                          child: Text(
+                            "Feitos(${tasksDone.length})",
+                            style: TextStyle(
+                              fontWeight:
+                                  _menuIndex == 0 ? FontWeight.bold : null,
+                            ),
                           ),
                         ),
                         onTap: () {
