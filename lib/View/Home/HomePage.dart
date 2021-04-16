@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/View/Home/TableCalenar/tableCalendar.dart';
+import 'package:taskmanager/View/Home/Widgets/card.dart';
 import 'package:taskmanager/View/SettingsPage/settingsPage.dart';
 import 'package:taskmanager/blocs/theme.dart';
 import 'Widgets/quickTask.dart';
@@ -134,7 +135,9 @@ class _HomeState extends State<Home> {
                     shrinkWrap: true,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      return _taskCard(context, index, tasks);
+                      return TaskCard(
+                          index: index, tasks: tasks, tasksDone: tasksDone);
+                      //_taskCard(context, index, tasks);
                     },
                   )
                 : tasksDone.isEmpty
@@ -546,10 +549,7 @@ class _HomeState extends State<Home> {
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Icon(
-              CommunityMaterialIcons.emoticon_happy,
-              color: Colors.yellow,
-            ),
+            Icon(CommunityMaterialIcons.emoticon_happy, color: Colors.yellow),
             Expanded(
               child: RichText(
                   overflow: TextOverflow.ellipsis,
