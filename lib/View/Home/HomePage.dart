@@ -57,20 +57,12 @@ class _HomeState extends State<Home> {
               _showTask();
             },
           ),
-          PopupMenuButton(
-            icon: Icon(Icons.more_vert),
-            itemBuilder: (_) => [
-              PopupMenuItem(
-                child: ListTile(
-                    leading: Obx(() => controller.isDark.value
-                        ? Icon(Icons.brightness_7)
-                        : Icon(Icons.brightness_2)),
-                    title: Obx(() =>
-                        controller.isDark.value ? Text('Light') : Text('Dark')),
-                    onTap: () => controller.changeTheme()),
-              )
-            ],
-          )
+          IconButton(
+            icon: Obx(() => controller.isDark.value
+                ? Icon(Icons.brightness_7)
+                : Icon(Icons.brightness_2)),
+            onPressed: () => controller.changeTheme(),
+          ),
         ],
       ),
       body: SingleChildScrollView(
