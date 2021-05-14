@@ -35,17 +35,13 @@ class MyApp extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ThemeChanger>(
-      create: (_) => ThemeChanger(ThemeData.dark()),
-      child: MaterialAppWithTheme(),
-    );
+    return MaterialAppWithTheme();
   }
 }
 
 class MaterialAppWithTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     return MaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -54,7 +50,6 @@ class MaterialAppWithTheme extends StatelessWidget {
       supportedLocales: [const Locale('pt', 'BR')],
       debugShowCheckedModeBanner: false,
       title: 'Task Manager App',
-      theme: theme.getTheme(),
       home: FirsPage(),
     );
   }

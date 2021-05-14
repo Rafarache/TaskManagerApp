@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeChanger with ChangeNotifier {
-  ThemeData _themeData;
+class ThemeController extends GetxController {
+  var isDark =
+      false.obs; // .obs torna a propriedade reativa, para interagir na view
+  Map<String, ThemeMode> themeModes = {
+    'light': ThemeMode.light,
+    'dark': ThemeMode.dark
+  };
 
-  ThemeChanger(this._themeData);
+  SharedPreferences prefs; // variável que irá salvar as instâncias do shared
 
-  getTheme() => _themeData;
+  //recuperar a instancia do ThemeController
+  static ThemeController get to => Get.find();
 
-  setTheme(ThemeData theme) {
-    _themeData = theme;
-    notifyListeners();
+  loadThemeMode() async {
+    //recuperar a instancia do SharedPreferences
+    prefs = await SharedPreferences.getInstance();
+    String themeText = prefs.getString('theme') ?? 'light';
+    isDark.value = themeText == 'dark' ? true : false;
+    setMode(themeText);
+  }
+
+  Future setMode(String themeText) async {
+    //recuperar um themeMode
+    ThemeMode themeMode = themeModes[themeText];
+    //Get.changeTheme(theme) altera o tema
+    Get.changeThemeMode(themeMode); // altera o modo, dark ou light
+    //Gravar a opcao do usuário
+    prefs = await SharedPreferences.getInstance();
+    await prefs.setString('theme', themeText);
+  }
+
+  //Função do botao
+  ChegeTheme() {
+    setMode(isDark.value ? 'ligth' : 'dark');
+    isDark.value = !isDark.value;
   }
 }

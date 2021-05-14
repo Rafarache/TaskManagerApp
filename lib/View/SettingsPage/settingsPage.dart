@@ -58,7 +58,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -152,7 +151,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         GestureDetector(
-                          onTap: () => _themeChanger.setTheme(_darkTheme),
                           child: Container(
                             color: Colors.transparent,
                             child: Row(
@@ -165,7 +163,6 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => _themeChanger.setTheme(_lightTheme),
                           child: Container(
                             color: Colors.transparent,
                             child: Row(
