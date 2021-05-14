@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:icofont_flutter/icofont_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:taskmanager/blocs/theme.dart';
 import 'View/Home/HomePage.dart';
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeController.to.loadThemeMode();
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'San Francisco',
         primaryColor: Color(0xFF024ACE),
@@ -43,11 +41,10 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
-        fontFamily: 'San Francisco',
-        primaryColor: Colors.grey[900],
-        primaryColorDark: Colors.black54,
-        accentColor: Colors.grey,
         brightness: Brightness.dark,
+        fontFamily: 'San Francisco',
+        primarySwatch: Colors.grey,
+        accentColor: Colors.grey,
         cardColor: Colors.grey[900],
         visualDensity: VisualDensity.adaptivePlatformDensity,
         backgroundColor: Colors.grey[800],
@@ -63,6 +60,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+      themeMode: ThemeMode.system,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
