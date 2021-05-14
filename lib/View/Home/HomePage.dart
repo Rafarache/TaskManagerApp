@@ -135,9 +135,7 @@ class _HomeState extends State<Home> {
                     shrinkWrap: true,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      return TaskCard(
-                          index: index, tasks: tasks, tasksDone: tasksDone);
-                      //_taskCard(context, index, tasks);
+                      return _taskCard(context, index, tasks);
                     },
                   )
                 : tasksDone.isEmpty
@@ -448,43 +446,44 @@ class _HomeState extends State<Home> {
       // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
       // retornará para sua posição inicial
       _lastRemovedPos = index;
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        content: Row(
-          children: [
-            Icon(Icons.warning, color: Colors.yellow),
-            Expanded(
-              child: RichText(
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  text: TextSpan(
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                      children: [
-                        TextSpan(text: "A tarefa "),
-                        TextSpan(
-                            text: "\"${_lastRemoved.title}\"",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: " foi removida!"),
-                      ])),
-            ),
-          ],
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          content: Row(
+            children: [
+              Icon(Icons.warning, color: Colors.yellow),
+              Expanded(
+                child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        children: [
+                          TextSpan(text: "A tarefa "),
+                          TextSpan(
+                              text: "\"${_lastRemoved.title}\"",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: " foi removida!"),
+                        ])),
+              ),
+            ],
+          ),
+          action: SnackBarAction(
+              textColor: Colors.white,
+              label: 'Desfazer',
+              onPressed: () {
+                setState(() {
+                  tasks.insert(_lastRemovedPos, _lastRemoved);
+                  helper.saveTask(_lastRemoved);
+                });
+              }),
+          duration: Duration(seconds: 2),
         ),
-        action: SnackBarAction(
-            textColor: Colors.white,
-            label: 'Desfazer',
-            onPressed: () {
-              setState(() {
-                tasks.insert(_lastRemovedPos, _lastRemoved);
-                helper.saveTask(_lastRemoved);
-              });
-            }),
-        duration: Duration(seconds: 2),
-      ),
-    );
+      );
+    });
   }
 
   void _onDismissedTaskDone(direction, index) {

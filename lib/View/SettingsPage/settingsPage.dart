@@ -18,7 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
     fontFamily: 'San Francisco',
     primaryColor: Colors.grey[900],
     primaryColorDark: Colors.black54,
-    accentColor: Colors.grey[500],
+    accentColor: Colors.grey,
     brightness: Brightness.dark,
     cardColor: Colors.grey[900],
     visualDensity: VisualDensity.adaptivePlatformDensity,

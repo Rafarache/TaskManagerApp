@@ -280,6 +280,21 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _gestAllTasks();
+    widget.tasks.removeRange(0, widget.tasks.length);
+  }
+
+  void _gestAllTasks() {
+    widget.helper.getAllTasks().then((list) {
+      setState(() {
+        widget.tasks = list;
+      });
+    });
+  }
+
   void _onDismissedTaskDone(direction, index) {
     setState(() {
       _lastRemovedDone = widget.tasksDone[index];
