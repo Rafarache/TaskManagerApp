@@ -1,23 +1,17 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:icofont_flutter/icofont_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
-import 'package:taskmanager/View/Home/TableCalenar/tableCalendar.dart';
-import 'package:taskmanager/View/Home/Widgets/card.dart';
 import 'package:taskmanager/View/SettingsPage/settingsPage.dart';
 import 'package:taskmanager/blocs/theme.dart';
 import 'Widgets/quickTask.dart';
-import 'package:taskmanager/main.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
-
-enum MenuOption { Prority, Date, Inserion }
 
 class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
@@ -39,6 +33,7 @@ class _HomeState extends State<Home> {
   bool _favoriteTap = false;
   int _selectedTask = -1;
   bool darkmode = false;
+  var controller = ThemeController.to;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +57,20 @@ class _HomeState extends State<Home> {
               _showTask();
             },
           ),
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: ListTile(
+                    leading: Obx(() => controller.isDark.value
+                        ? Icon(Icons.brightness_7)
+                        : Icon(Icons.brightness_2)),
+                    title: Obx(() =>
+                        controller.isDark.value ? Text('Light') : Text('Dark')),
+                    onTap: () => controller.changeTheme()),
+              )
+            ],
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -421,17 +430,6 @@ class _HomeState extends State<Home> {
       }
       _gestAllTasks();
     }
-  }
-
-  void _showClendar(List<Task> task) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => TableCalendarPage(task)));
-  }
-
-  void _showSettingsPage() {
-    Navigator.push(context, _createRouteSettings());
   }
 
   void _onDismissed(direction, index) {

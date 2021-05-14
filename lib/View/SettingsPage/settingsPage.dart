@@ -14,48 +14,6 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _showStyle = false;
   bool _showNotification = false;
 
-  var _darkTheme = ThemeData(
-    fontFamily: 'San Francisco',
-    primaryColor: Colors.grey[900],
-    primaryColorDark: Colors.black54,
-    accentColor: Colors.grey,
-    brightness: Brightness.dark,
-    cardColor: Colors.grey[900],
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    backgroundColor: Colors.grey[800],
-    appBarTheme: AppBarTheme(
-        backgroundColor: Colors.grey[900],
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        )),
-    accentTextTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-  );
-  var _lightTheme = ThemeData(
-    fontFamily: 'San Francisco',
-    primaryColor: Color(0xFF024ACE),
-    primaryColorDark: Color(0xFF024ACE),
-    accentColor: Colors.white,
-    brightness: Brightness.light,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    backgroundColor: Colors.blue[100],
-    appBarTheme: AppBarTheme(
-        backgroundColor: Color(0xFF024ACE),
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        )),
-    accentTextTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeController extends GetxController {
-  var isDark =
-      false.obs; // .obs torna a propriedade reativa, para interagir na view
+  // .obs torna a propriedade reativa, para interagir na view
+  var isDark = false.obs;
   Map<String, ThemeMode> themeModes = {
     'light': ThemeMode.light,
     'dark': ThemeMode.dark
@@ -34,7 +34,7 @@ class ThemeController extends GetxController {
   }
 
   //Função do botao
-  ChegeTheme() {
+  changeTheme() {
     setMode(isDark.value ? 'ligth' : 'dark');
     isDark.value = !isDark.value;
   }
