@@ -1,48 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:get/get.dart';
 import 'package:taskmanager/blocs/theme.dart';
 import 'View/Home/HomePage.dart';
 import 'View/Home/TableCalenar/tableCalendar.dart';
 import 'View/SettingsPage/settingsPage.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Get.lazyPut<ThemeController>(() => ThemeController());
+  runApp(MyApp());
+}
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  var _myTheme = ThemeData(
-    fontFamily: 'San Francisco',
-    primaryColor: Color(0xFF024ACE),
-    primaryColorDark: Color(0xFF024ACE),
-    accentColor: Colors.white,
-    brightness: Brightness.light,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    backgroundColor: Colors.blue[100],
-    appBarTheme: AppBarTheme(
-        backgroundColor: Color(0xFF024ACE),
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        )),
-    accentTextTheme: TextTheme(
-      headline6: TextStyle(
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-  );
   @override
   Widget build(BuildContext context) {
-    return MaterialAppWithTheme();
-  }
-}
-
-class MaterialAppWithTheme extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+    ThemeController.to.loadThemeMode();
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'San Francisco',
+        primaryColor: Color(0xFF024ACE),
+        primaryColorDark: Color(0xFF024ACE),
+        accentColor: Colors.white,
+        brightness: Brightness.light,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        backgroundColor: Colors.blue[100],
+        appBarTheme: AppBarTheme(
+            backgroundColor: Color(0xFF024ACE),
+            centerTitle: true,
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            )),
+        accentTextTheme: TextTheme(
+          headline6: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      darkTheme: ThemeData(
+        fontFamily: 'San Francisco',
+        primaryColor: Colors.grey[900],
+        primaryColorDark: Colors.black54,
+        accentColor: Colors.grey,
+        brightness: Brightness.dark,
+        cardColor: Colors.grey[900],
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        backgroundColor: Colors.grey[800],
+        appBarTheme: AppBarTheme(
+            backgroundColor: Colors.grey[900],
+            centerTitle: true,
+            iconTheme: IconThemeData(
+              color: Colors.white,
+            )),
+        accentTextTheme: TextTheme(
+          headline6: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
