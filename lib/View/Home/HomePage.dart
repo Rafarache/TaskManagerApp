@@ -145,13 +145,20 @@ class _HomeState extends State<Home> {
     );
   }
 
-  /*  void _gestAllTasks() {
+  void _gestAllTasks() {
     helper.getAllTasks().then((list) {
       setState(() {
         tasks = list;
       });
     });
-  } */
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _gestAllTasks();
+    tasks.removeRange(0, tasks.length);
+  }
 
   void _showTask({Task task}) async {
     final recTask = await Navigator.push(context, _createRouteAdd(task));

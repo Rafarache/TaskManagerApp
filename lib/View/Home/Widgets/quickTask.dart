@@ -7,7 +7,7 @@ class QuickTask extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 20),
       height: 120,
-      width: 360,
+      width: MediaQuery.of(context).size.width / 1.1,
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20),
