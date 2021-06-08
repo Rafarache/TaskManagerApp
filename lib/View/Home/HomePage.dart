@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(height: 30),
-            ListViewCard(),
+            ListViewCard(tasks),
             Container(color: Colors.blue),
           ],
         ),
@@ -168,7 +168,7 @@ class _HomeState extends State<Home> {
       } else {
         await helper.saveTask(recTask);
       }
-      //_gestAllTasks();
+      _gestAllTasks();
     }
   }
 }
