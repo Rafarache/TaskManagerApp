@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 
 class ListViewCard extends StatefulWidget {
-  ListViewCard();
+  ListViewCard(this.tasks);
+  List<Task> tasks = [];
 
   @override
   _ListViewCardState createState() => _ListViewCardState();
@@ -11,7 +12,6 @@ class ListViewCard extends StatefulWidget {
 
 class _ListViewCardState extends State<ListViewCard> {
   TaskHelper helper = TaskHelper();
-  List<Task> tasks = [];
   final int _cardTap = -1;
   final bool _cardBool = false;
   List<Task> tasksDone = [];
@@ -22,13 +22,13 @@ class _ListViewCardState extends State<ListViewCard> {
   void initState() {
     super.initState();
     _gestAllTasks();
-    tasks.removeRange(0, tasks.length);
+    widget.tasks.removeRange(0, widget.tasks.length);
   }
 
   void _gestAllTasks() {
     helper.getAllTasks().then((list) {
       setState(() {
-        tasks = list;
+        widget.tasks = list;
       });
     });
   }
@@ -38,7 +38,7 @@ class _ListViewCardState extends State<ListViewCard> {
     return ListView.builder(
       primary: false,
       shrinkWrap: true,
-      itemCount: tasks.length,
+      itemCount: widget.tasks.length,
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
@@ -63,11 +63,11 @@ class _ListViewCardState extends State<ListViewCard> {
                 setState(() {
                   //primeiro precisamos copiar o conato a ser excluido para uma variavel
                   // essa variavel retornará o contato caso o usuário queira desfazer a exclusão
-                  _lastRemoved = tasks[index];
+                  _lastRemoved = widget.tasks[index];
                   //deletamso o contato do banco de dados
-                  helper.deleTask(tasks[index].id);
+                  helper.deleTask(widget.tasks[index].id);
                   //deletamos o contato da lista
-                  tasks.removeAt(index);
+                  widget.tasks.removeAt(index);
                   // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
                   // retornará para sua posição inicial
                   _lastRemovedPos = index;
@@ -102,7 +102,8 @@ class _ListViewCardState extends State<ListViewCard> {
                           label: 'Desfazer',
                           onPressed: () {
                             setState(() {
-                              tasks.insert(_lastRemovedPos, _lastRemoved);
+                              widget.tasks
+                                  .insert(_lastRemovedPos, _lastRemoved);
                               helper.saveTask(_lastRemoved);
                             });
                           }),
@@ -135,14 +136,14 @@ class _ListViewCardState extends State<ListViewCard> {
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: tasks[index].priorityColor(),
+                              color: widget.tasks[index].priorityColor(),
                             ),
                             child: Column(
                               children: [
                                 Text(
-                                  tasks[index].diference > 1
-                                      ? "${tasks[index].diference} "
-                                      : "${tasks[index].diference} ",
+                                  widget.tasks[index].diference > 1
+                                      ? "${widget.tasks[index].diference} "
+                                      : "${widget.tasks[index].diference} ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -159,7 +160,7 @@ class _ListViewCardState extends State<ListViewCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  tasks[index]
+                                  widget.tasks[index]
                                       .title, // TITULO -------------------------------------
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
@@ -175,7 +176,7 @@ class _ListViewCardState extends State<ListViewCard> {
                                   padding: const EdgeInsets.only(
                                       top: 8.0, bottom: 8),
                                   child: Text(
-                                    tasks[index]
+                                    widget.tasks[index]
                                         .subject, // DESCRIÇÃO --------------------------------------------
                                     style: TextStyle(
                                       color: Colors.grey,
@@ -205,7 +206,7 @@ class _ListViewCardState extends State<ListViewCard> {
                                             padding: const EdgeInsets.only(
                                                 left: 8.0),
                                             child: Text(
-                                              tasks[index].due,
+                                              widget.tasks[index].due,
                                               style: TextStyle(
                                                 fontSize: 11,
                                                 color: Colors.grey,
@@ -231,7 +232,7 @@ class _ListViewCardState extends State<ListViewCard> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: tasks != tasksDone
+                            child: widget.tasks != tasksDone
                                 ? Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
