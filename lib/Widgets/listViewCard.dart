@@ -12,26 +12,12 @@ class ListViewCard extends StatefulWidget {
 
 class _ListViewCardState extends State<ListViewCard> {
   TaskHelper helper = TaskHelper();
-  final int _cardTap = -1;
-  final bool _cardBool = false;
+  int _cardTap = -1;
+  bool _cardBool = false;
   List<Task> tasksDone = [];
-  final bool _favoriteTap = false;
+  bool _pinned = false;
   int _lastRemovedPos;
   Task _lastRemoved;
-  @override
-  void initState() {
-    super.initState();
-    _gestAllTasks();
-    widget.tasks.removeRange(0, widget.tasks.length);
-  }
-
-  void _gestAllTasks() {
-    helper.getAllTasks().then((list) {
-      setState(() {
-        widget.tasks = list;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +30,10 @@ class _ListViewCardState extends State<ListViewCard> {
           margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child: GestureDetector(
             onTap: () {
-              /*  setState(() {
+              setState(() {
                 _cardTap = index;
                 _cardBool = !_cardBool;
-              }); */
+              });
             },
             child: Dismissible(
               key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
@@ -61,56 +47,48 @@ class _ListViewCardState extends State<ListViewCard> {
               ),
               onDismissed: (direction) {
                 setState(() {
-                  //primeiro precisamos copiar o conato a ser excluido para uma variavel
-                  // essa variavel retornará o contato caso o usuário queira desfazer a exclusão
                   _lastRemoved = widget.tasks[index];
-                  //deletamso o contato do banco de dados
                   helper.deleTask(widget.tasks[index].id);
-                  //deletamos o contato da lista
                   widget.tasks.removeAt(index);
-                  // e copiamos a sua posição, quando o usuário desfaça a eclusão, o contato
-                  // retornará para sua posição inicial
                   _lastRemovedPos = index;
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      content: Row(
-                        children: [
-                          Icon(Icons.warning, color: Colors.yellow),
-                          Expanded(
-                            child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                                text: TextSpan(
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                    children: [
-                                      TextSpan(text: "A tarefa "),
-                                      TextSpan(
-                                          text: "\"${_lastRemoved.title}\"",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(text: " foi removida!"),
-                                    ])),
-                          ),
-                        ],
-                      ),
-                      action: SnackBarAction(
-                          textColor: Colors.white,
-                          label: 'Desfazer',
-                          onPressed: () {
-                            setState(() {
-                              widget.tasks
-                                  .insert(_lastRemovedPos, _lastRemoved);
-                              helper.saveTask(_lastRemoved);
-                            });
-                          }),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
                 });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    content: Row(
+                      children: [
+                        Icon(Icons.warning, color: Colors.yellow),
+                        Expanded(
+                          child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                              text: TextSpan(
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  children: [
+                                    TextSpan(text: "A tarefa "),
+                                    TextSpan(
+                                        text: "\"${_lastRemoved.title}\"",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: " foi removida!"),
+                                  ])),
+                        ),
+                      ],
+                    ),
+                    action: SnackBarAction(
+                        textColor: Colors.white,
+                        label: 'Desfazer',
+                        onPressed: () {
+                          setState(() {
+                            widget.tasks.insert(_lastRemovedPos, _lastRemoved);
+                            helper.saveTask(_lastRemoved);
+                          });
+                        }),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               },
               child: Container(
                 padding: EdgeInsets.only(right: 10),
@@ -242,7 +220,7 @@ class _ListViewCardState extends State<ListViewCard> {
                                           onPressed: null),
                                       IconButton(
                                           icon: Icon(CommunityMaterialIcons.pin,
-                                              color: _favoriteTap == true
+                                              color: _pinned == true
                                                   ? Colors.amber
                                                   : Colors.white),
                                           onPressed: () {
