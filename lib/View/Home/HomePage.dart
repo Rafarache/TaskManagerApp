@@ -19,7 +19,6 @@ class _HomeState extends State<Home> {
   List<Task> tasksDone = [];
   int _menuIndex = 1;
 
-  bool darkmode = false;
   var controller = ThemeController.to;
   @override
   Widget build(BuildContext context) {
@@ -117,7 +116,6 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 30),
             ListViewCard(tasks),
-            Container(color: Colors.blue),
           ],
         ),
       ),
