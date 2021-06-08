@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -92,7 +93,7 @@ final String dueColumn = "dueColumn";
 final String diferenceColumn = "diferenceColumn";
 final String priorityColumn = "priorityColumn";
 
-class TaskHelper {
+class TaskHelper extends ChangeNotifier {
   //TaskHelper poderá possuir apenas 1 único objeto com 1 banco de dados
   static final TaskHelper _instance = TaskHelper.internal();
   factory TaskHelper() => _instance;
@@ -127,6 +128,7 @@ class TaskHelper {
     Database dbTask = await db;
     task.id = await dbTask.insert(taskTable, task.toMap());
     return task;
+    notifyListeners();
   }
 
   Future<Task> getTask(int id) async {

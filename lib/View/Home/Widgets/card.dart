@@ -8,7 +8,7 @@ class TaskCard extends StatefulWidget {
   List<Task> tasks;
   List<Task> tasksDone;
   TaskHelper helper;
-  TaskCard({this.helper, this.tasks, this.tasksDone, this.index});
+  TaskCard();
   @override
   _TaskCardState createState() => _TaskCardState();
 }
