@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/Widgets/listViewCard.dart';
@@ -14,14 +15,42 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _menuIndex = 1;
-  TaskHelper helper = TaskHelper();
-  List<Task> tasks = [];
-
-  List<Task> tasksDone = [];
+  //TaskHelper helper = TaskHelper();
+  //List<Task> tasks = [];
 
   var controller = ThemeController.to;
   @override
   Widget build(BuildContext context) {
+    var tasks = Provider.of<List<Task>>(context);
+    TaskHelper helper = Provider.of<TaskHelper>(context);
+    void _gestAllTasks() {
+      helper.getAllTasks().then((list) {
+        setState(() {
+          tasks = list;
+        });
+      });
+    }
+
+    @override
+    // ignore: unused_element
+    void initState() {
+      super.initState();
+      _gestAllTasks();
+      tasks.removeRange(0, tasks.length);
+    }
+
+    void _showTask({Task task}) async {
+      final recTask = await Navigator.push(context, _createRouteAdd(task));
+      if (recTask != null) {
+        if (task != null) {
+          await helper.upDateTask(recTask);
+        } else {
+          await helper.saveTask(recTask);
+        }
+        _gestAllTasks();
+      }
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -92,7 +121,7 @@ class _HomeState extends State<Home> {
                           //color: Colors.transparent,
 
                           child: Text(
-                            "Feitos(${tasksDone.length})",
+                            "Feitos()",
                             style: TextStyle(
                               fontWeight:
                                   _menuIndex == 0 ? FontWeight.bold : null,
@@ -120,6 +149,7 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+    // ignore: unused_element
   }
 
   Route _createRouteAdd(Task task) {
@@ -139,32 +169,5 @@ class _HomeState extends State<Home> {
         );
       },
     );
-  }
-
-  void _gestAllTasks() {
-    helper.getAllTasks().then((list) {
-      setState(() {
-        tasks = list;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _gestAllTasks();
-    tasks.removeRange(0, tasks.length);
-  }
-
-  void _showTask({Task task}) async {
-    final recTask = await Navigator.push(context, _createRouteAdd(task));
-    if (recTask != null) {
-      if (task != null) {
-        await helper.upDateTask(recTask);
-      } else {
-        await helper.saveTask(recTask);
-      }
-      _gestAllTasks();
-    }
   }
 }

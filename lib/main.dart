@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     ThemeController.to.loadThemeMode();
     return MultiProvider(
       providers: [
-        Provider<Task>(create: (_) => Task()),
+        Provider<List<Task>>(create: (_) => List<Task>),
         Provider<TaskHelper>(create: (_) => TaskHelper()),
       ],
       child: GetMaterialApp(

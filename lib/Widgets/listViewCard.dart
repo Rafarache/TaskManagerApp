@@ -14,7 +14,7 @@ class _ListViewCardState extends State<ListViewCard> {
   TaskHelper helper = TaskHelper();
   int _cardTap = -1;
   bool _cardBool = false;
-  List<Task> tasksDone = [];
+
   bool _pinned = false;
   int _lastRemovedPos;
   Task _lastRemoved;
@@ -210,33 +210,28 @@ class _ListViewCardState extends State<ListViewCard> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: widget.tasks != tasksDone
-                                ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconButton(
-                                          icon: Icon(Icons.edit),
-                                          onPressed: null),
-                                      IconButton(
-                                          icon: Icon(CommunityMaterialIcons.pin,
-                                              color: _pinned == true
-                                                  ? Colors.amber
-                                                  : Colors.white),
-                                          onPressed: () {
-                                            /*  setState(() {
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                    icon: Icon(Icons.edit), onPressed: null),
+                                IconButton(
+                                    icon: Icon(CommunityMaterialIcons.pin,
+                                        color: _pinned == true
+                                            ? Colors.amber
+                                            : Colors.white),
+                                    onPressed: () {
+                                      /*  setState(() {
                                               _favoriteTap =
                                                   !_favoriteTap;
                                             }); */
-                                          }),
-                                      IconButton(
-                                          icon: Icon(CommunityMaterialIcons
-                                              .bell_ring_outline),
-                                          onPressed: null),
-                                    ],
-                                  )
-                                : SizedBox(),
-                          )
+                                    }),
+                                IconButton(
+                                    icon: Icon(CommunityMaterialIcons
+                                        .bell_ring_outline),
+                                    onPressed: null),
+                              ],
+                            ))
                         : SizedBox(height: 0),
                   ],
                 ),
