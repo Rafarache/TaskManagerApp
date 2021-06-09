@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class Task {
+class Task extends ChangeNotifier {
   int id;
   String title;
   String subject;
