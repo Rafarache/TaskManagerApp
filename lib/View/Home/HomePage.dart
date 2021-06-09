@@ -13,11 +13,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _menuIndex = 1;
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
 
   List<Task> tasksDone = [];
-  int _menuIndex = 1;
 
   var controller = ThemeController.to;
   @override
