@@ -27,6 +27,7 @@ class _TaskPageState extends State<TaskPage> {
       _editedTask = Task.fromMap(widget.task.toMap());
       _titleController.text = _editedTask.title;
       _subjectController.text = _editedTask.subject;
+      widget.task.priority = _editedTask.priority;
     }
   }
 

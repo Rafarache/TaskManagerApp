@@ -277,6 +277,14 @@ class _ListViewCardState extends State<ListViewCard> {
     );
   }
 
+  void _gestAllTasks() {
+    helper.getAllTasks().then((list) {
+      setState(() {
+        widget.tasks = list;
+      });
+    });
+  }
+
   void _showTask({Task task}) async {
     final recTask = await Navigator.push(context, _createRouteAdd(task));
     if (recTask != null) {
@@ -286,5 +294,6 @@ class _ListViewCardState extends State<ListViewCard> {
         await helper.saveTask(recTask);
       }
     }
+    _gestAllTasks();
   }
 }
