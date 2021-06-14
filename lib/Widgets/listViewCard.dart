@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 
 class ListViewCard extends StatefulWidget {
@@ -26,6 +27,11 @@ class _ListViewCardState extends State<ListViewCard> {
       shrinkWrap: true,
       itemCount: widget.tasks.length,
       itemBuilder: (context, index) {
+        DateFormat format = DateFormat("d MM y");
+        var dateUpdate = format.parse(widget.tasks[index].due);
+        widget.tasks[index].diference =
+            dateUpdate.difference(DateTime.now()).inDays + 1;
+
         return Container(
           margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child: GestureDetector(
