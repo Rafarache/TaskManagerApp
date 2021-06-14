@@ -199,7 +199,6 @@ class _TaskPageState extends State<TaskPage> {
             }
             if (_editedTask.title.isNotEmpty &&
                 _editedTask.title != null &&
-                _editedTask.dateStart != null &&
                 _editedTask.dateDue != null) {
               if (_editedTask.subject == null) {
                 _editedTask.subject = "";
