@@ -31,7 +31,9 @@ class _ListViewCardState extends State<ListViewCard> {
         DateFormat format = DateFormat("d MM y");
         var dateUpdate = format.parse(widget.tasks[index].due);
         widget.tasks[index].diference =
-            dateUpdate.difference(DateTime.now()).inDays + 1;
+            (dateUpdate.difference(DateTime.now()).inHours / 24)
+                .roundToDouble()
+                .toInt();
 
         return Container(
           margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),

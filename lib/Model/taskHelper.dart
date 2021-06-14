@@ -12,7 +12,7 @@ class Task {
   String due;
   DateTime dateStart;
   DateTime dateDue;
-  int diference;
+  num diference;
   int priority;
 
   // ignore: missing_return
