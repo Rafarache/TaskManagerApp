@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -10,22 +8,12 @@ class Task {
   int id;
   String title;
   String subject;
-  String start; // acho que são variáveis desnecessárias, confirma depois
-  String due; // acho que são variáveis desnecessárias, confirma depois
+  String start;
+  String due;
   DateTime dateStart;
   DateTime dateDue;
   int diference;
   int priority;
-
-  int diferenceDate() {
-    if ((this.dateStart != null) && (this.dateDue != null)) {
-      return this.dateDue.difference(DateTime.now()).inDays + 1;
-    } else {
-      return 0;
-    }
-  }
-
-//var teste = Timer.periodic(duration, (timer) { });
 
   // ignore: missing_return
   Color priorityColor() {
@@ -114,7 +102,7 @@ class TaskHelper extends ChangeNotifier {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasks1100.db");
+    final path = join(databasesPath, "tasks110.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
@@ -128,7 +116,6 @@ class TaskHelper extends ChangeNotifier {
     Database dbTask = await db;
     task.id = await dbTask.insert(taskTable, task.toMap());
     return task;
-    notifyListeners();
   }
 
   Future<Task> getTask(int id) async {
