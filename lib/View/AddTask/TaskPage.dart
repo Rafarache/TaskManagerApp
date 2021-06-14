@@ -171,27 +171,6 @@ class _TaskPageState extends State<TaskPage> {
                 children: [
                   Flexible(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextButton(
-                        child: Text(
-                          _editedTask.dateStart == null
-                              ? "Início"
-                              : "Início: ${DateFormat('d MM y').format(_editedTask.dateStart)}",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: datePickerStart,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Flexible(
-                    child: Container(
                       width: MediaQuery.of(context).size.width / 2.3,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
@@ -199,11 +178,9 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                       child: TextButton(
                         child: Text(_editedTask.dateDue == null
-                            ? "Fim"
-                            : "Fim: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDue)}"),
-                        onPressed: _editedTask.dateStart == null
-                            ? null
-                            : datePickerDue,
+                            ? "Dia"
+                            : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDue)}"),
+                        onPressed: datePickerDue,
                       ),
                     ),
                   ),
@@ -239,34 +216,14 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  void datePickerStart() {
-    showDatePicker(
-      helpText: DateFormat('d MMM y', 'pt_Br').format(DateTime.now()),
-      currentDate: DateTime.now(),
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(DateTime.now().year + 2),
-    ).then(
-      (date) {
-        setState(
-          () {
-            _editedTask.dateStart = date;
-            _editedTask.start = DateFormat('d m y').format(date);
-          },
-        );
-      },
-    );
-  }
-
   void datePickerDue() {
     showDatePicker(
       helpText: DateFormat('d MMM y').format(DateTime.now()),
-      currentDate: _editedTask.dateStart,
+      currentDate: DateTime.now(),
       context: context,
-      //initialDate: widget.task != null ? _editedTask.dateDue : null,
-      initialDate: _editedTask.dateStart,
-      firstDate: _editedTask.dateStart,
+      initialDate: widget.task != null ? _editedTask.dateDue : DateTime.now(),
+      //initialDate: _editedTask.dateStart,
+      firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 2),
     ).then(
       (date) {
