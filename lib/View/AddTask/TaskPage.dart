@@ -28,6 +28,13 @@ class _TaskPageState extends State<TaskPage> {
       _titleController.text = _editedTask.title;
       _subjectController.text = _editedTask.subject;
       widget.task.priority = _editedTask.priority;
+      selectedRadio = widget.task.priority;
+      DateFormat format = DateFormat("d MM y");
+      _editedTask.dateDue = format.parse(widget.task.due);
+      _editedTask.dateStart = format.parse(widget.task.start);
+      _editedTask.start = widget.task.start;
+      _editedTask.due = widget.task.due;
+      print("aqui ${_editedTask.dateStart}");
     }
   }
 
@@ -40,7 +47,7 @@ class _TaskPageState extends State<TaskPage> {
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           title: Text(
-            'Criar Tarefa',
+            widget.task != null ? _titleController.text : 'Criar Tarefa',
             style: TextStyle(
               fontWeight: FontWeight.w700,
             ),
@@ -208,6 +215,11 @@ class _TaskPageState extends State<TaskPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blue,
           onPressed: () {
+            if (widget.task != null && _editedTask.dateDue == null) {
+              _editedTask.due = widget.task.due;
+              DateFormat format = DateFormat("d MM y");
+              _editedTask.dateDue = format.parse(widget.task.due);
+            }
             if (_editedTask.title.isNotEmpty &&
                 _editedTask.title != null &&
                 _editedTask.dateStart != null &&
@@ -252,6 +264,7 @@ class _TaskPageState extends State<TaskPage> {
       helpText: DateFormat('d MMM y').format(DateTime.now()),
       currentDate: _editedTask.dateStart,
       context: context,
+      //initialDate: widget.task != null ? _editedTask.dateDue : null,
       initialDate: _editedTask.dateStart,
       firstDate: _editedTask.dateStart,
       lastDate: DateTime(DateTime.now().year + 2),
