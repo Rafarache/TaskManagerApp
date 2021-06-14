@@ -2,6 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
+import 'package:taskmanager/View/AddTask/TaskPage.dart';
 
 class ListViewCard extends StatefulWidget {
   ListViewCard(this.tasks);
@@ -223,7 +224,10 @@ class _ListViewCardState extends State<ListViewCard> {
                                     children: [
                                       IconButton(
                                           icon: Icon(Icons.edit),
-                                          onPressed: null),
+                                          onPressed: () {
+                                            _showTask(
+                                                task: widget.tasks[index]);
+                                          }),
                                       IconButton(
                                           icon: Icon(CommunityMaterialIcons.pin,
                                               color: _pinned == true
@@ -252,5 +256,35 @@ class _ListViewCardState extends State<ListViewCard> {
         );
       },
     );
+  }
+
+  Route _createRouteAdd(Task task) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          TaskPage(task: task),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1, 0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  void _showTask({Task task}) async {
+    final recTask = await Navigator.push(context, _createRouteAdd(task));
+    if (recTask != null) {
+      if (task != null) {
+        await helper.upDateTask(recTask);
+      } else {
+        await helper.saveTask(recTask);
+      }
+    }
   }
 }
