@@ -12,13 +12,11 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   Task _editedTask;
-  String date1 = DateTime.now().toString();
 
   final _titleController = TextEditingController();
   final _subjectController = TextEditingController();
-
   int selectedRadio = 0;
-
+  bool changeValue = false;
   void initState() {
     super.initState();
     if (widget.task == null) {
@@ -40,7 +38,30 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     initializeDateFormatting('pt_BR', null);
     return WillPopScope(
-      onWillPop: null,
+      onWillPop: () {
+        if (changeValue) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("Descartar Alterações?"),
+                  content: Text("Ao sair, as alterações serão descartadas."),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: Text("Sair"),
+                    )
+                  ],
+                );
+              });
+          return Future.value(false);
+        } else {
+          return Future.value(true);
+        }
+      },
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -73,6 +94,7 @@ class _TaskPageState extends State<TaskPage> {
                     onChanged: (text) {
                       setState(() {
                         _editedTask.title = text;
+                        changeValue = true;
                       });
                     },
                   ),
@@ -96,6 +118,7 @@ class _TaskPageState extends State<TaskPage> {
                     onChanged: (text) {
                       setState(() {
                         _editedTask.subject = text;
+                        changeValue = true;
                       });
                     },
                   ),
