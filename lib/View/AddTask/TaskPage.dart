@@ -44,7 +44,8 @@ class _TaskPageState extends State<TaskPage> {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text("Descartar Alterações?"),
+                  title: const Text("Descartar Alterações?",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   content: Text("Ao sair, as alterações serão descartadas."),
                   actions: [
                     TextButton(
@@ -52,8 +53,15 @@ class _TaskPageState extends State<TaskPage> {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
-                      child: Text("Sair"),
-                    )
+                      child: Text("Descartar"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        saveTask();
+                      },
+                      child: Text("Salvar"),
+                    ),
                   ],
                 );
               });
@@ -133,10 +141,10 @@ class _TaskPageState extends State<TaskPage> {
                     groupValue: selectedRadio,
                     activeColor: Colors.green,
                     onChanged: (value) {
-                      print("Radio1: $value");
                       setState(() {
                         selectedRadio = value;
                         _editedTask.priority = value;
+                        changeValue = true;
                       });
                     },
                   ),
@@ -156,6 +164,7 @@ class _TaskPageState extends State<TaskPage> {
                       setState(() {
                         selectedRadio = value;
                         _editedTask.priority = value;
+                        changeValue = true;
                       });
                     },
                   ),
@@ -175,6 +184,7 @@ class _TaskPageState extends State<TaskPage> {
                       setState(() {
                         selectedRadio = value;
                         _editedTask.priority = value;
+                        changeValue = true;
                       });
                     },
                   ),
@@ -212,21 +222,7 @@ class _TaskPageState extends State<TaskPage> {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blue,
-          onPressed: () {
-            if (widget.task != null && _editedTask.dateDue == null) {
-              _editedTask.due = widget.task.due;
-              DateFormat format = DateFormat("d MM y");
-              _editedTask.dateDue = format.parse(widget.task.due);
-            }
-            if (_editedTask.title.isNotEmpty &&
-                _editedTask.title != null &&
-                _editedTask.dateDue != null) {
-              if (_editedTask.subject == null) {
-                _editedTask.subject = "";
-              }
-              Navigator.pop(context, _editedTask);
-            } else {}
-          },
+          onPressed: saveTask,
           child: Icon(
             Icons.save,
             color: Colors.white,
@@ -234,6 +230,22 @@ class _TaskPageState extends State<TaskPage> {
         ),
       ),
     );
+  }
+
+  void saveTask() {
+    if (widget.task != null && _editedTask.dateDue == null) {
+      _editedTask.due = widget.task.due;
+      DateFormat format = DateFormat("d MM y");
+      _editedTask.dateDue = format.parse(widget.task.due);
+    }
+    if (_editedTask.title.isNotEmpty &&
+        _editedTask.title != null &&
+        _editedTask.dateDue != null) {
+      if (_editedTask.subject == null) {
+        _editedTask.subject = "";
+      }
+      Navigator.pop(context, _editedTask);
+    } else {}
   }
 
   void datePickerDue() {
