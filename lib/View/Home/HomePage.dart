@@ -1,5 +1,7 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/Widgets/listViewCard.dart';
@@ -14,10 +16,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
+  int _cardTap = -1;
+  bool _cardBool = false;
+  List<Task> tasksDone = [];
+  bool _pinned = false;
+  int _lastRemovedPos;
+  Task _lastRemoved;
+
   List<Task> tasks = [];
   List<Task> tasksPinned = [];
 
-  List<Task> tasksDone = [];
   int _menuIndex = 1;
 
   var controller = ThemeController.to;
@@ -117,11 +125,277 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(height: 30),
-            ListViewCard(tasks),
+            ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                DateFormat format = DateFormat("d MM y");
+                var dateUpdate = format.parse(tasks[index].due);
+                tasks[index].diference =
+                    (dateUpdate.difference(DateTime.now()).inHours / 24)
+                        .round();
+
+                return Container(
+                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _cardTap = index;
+                        _cardBool = !_cardBool;
+                      });
+                    },
+                    child: Dismissible(
+                      key:
+                          Key(DateTime.now().millisecondsSinceEpoch.toString()),
+                      direction: DismissDirection.horizontal,
+                      background: Container(
+                        color: Colors.red,
+                        child: Align(
+                          alignment: Alignment(-0.9, 0),
+                          child: Icon(Icons.delete, color: Colors.white),
+                        ),
+                      ),
+                      onDismissed: (direction) {
+                        setState(() {
+                          _cardTap = -1;
+                          _lastRemoved = tasks[index];
+                          helper.deleTask(tasks[index].id);
+                          tasks.removeAt(index);
+                          _lastRemovedPos = index;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            content: Row(
+                              children: [
+                                Icon(Icons.warning, color: Colors.yellow),
+                                Expanded(
+                                  child: RichText(
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                          children: [
+                                            TextSpan(text: "A tarefa "),
+                                            TextSpan(
+                                                text:
+                                                    "\"${_lastRemoved.title}\"",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            TextSpan(text: " foi removida!"),
+                                          ])),
+                                ),
+                              ],
+                            ),
+                            action: SnackBarAction(
+                                textColor: Colors.white,
+                                label: 'Desfazer',
+                                onPressed: () {
+                                  setState(() {
+                                    tasks.insert(_lastRemovedPos, _lastRemoved);
+                                    helper.saveTask(_lastRemoved);
+                                  });
+                                }),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Theme.of(context).cardColor),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                top: 10.0,
+                                left: 15.0,
+                                bottom: 10.0,
+                                right: 12.0,
+                              ),
+                              width: MediaQuery.of(context).size.width,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    padding: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: tasks[index].priorityColor(),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          tasks[index].diference > 1
+                                              ? "${tasks[index].diference} "
+                                              : "${tasks[index].diference} ",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Text(
+                                          "dias",
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          tasks[index]
+                                              .title, // TITULO -------------------------------------
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 15,
+                                          ),
+                                          maxLines: (_cardTap == index) &&
+                                                  (_cardBool == true)
+                                              ? 2
+                                              : 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0, bottom: 8),
+                                          child: Text(
+                                            tasks[index]
+                                                .subject, // DESCRIÇÃO --------------------------------------------
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 13,
+                                            ),
+                                            maxLines: (_cardTap == index) &&
+                                                    (_cardBool == true)
+                                                ? 10
+                                                : 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(),
+                                            Container(
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: Colors.grey,
+                                                    size: 16,
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8.0),
+                                                    child: Text(
+                                                      tasks[index].due,
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            (_cardTap == index) && (_cardBool == true)
+                                ? Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 15),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    width: 400,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: tasks != tasksDone
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                  icon: Icon(Icons.edit),
+                                                  onPressed: () {
+                                                    _showTask(
+                                                        task: tasks[index]);
+                                                  }),
+                                              IconButton(
+                                                  icon: Icon(
+                                                      CommunityMaterialIcons
+                                                          .pin,
+                                                      color:
+                                                          tasks[index].pinned ==
+                                                                  1
+                                                              ? Colors.amber
+                                                              : Colors.white),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _pinned = !_pinned;
+                                                      if (tasks[index].pinned ==
+                                                          0) {
+                                                        tasks[index].pinned = 1;
+                                                        helper.upDateTask(
+                                                            tasks[index]);
+                                                        _gestAllTasks();
+                                                        //_gestAllPinnedTasks();
+                                                      } else {
+                                                        tasks[index].pinned = 0;
+                                                        helper.upDateTask(
+                                                            tasks[index]);
+                                                        _gestAllTasks();
+                                                      }
+                                                    });
+                                                  }),
+                                              IconButton(
+                                                  icon: Icon(
+                                                      CommunityMaterialIcons
+                                                          .bell_ring_outline),
+                                                  onPressed: null),
+                                            ],
+                                          )
+                                        : SizedBox(),
+                                  )
+                                : SizedBox(height: 0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void _gestAllPinnedTasks() {
+    helper.getAllTasks().then((list) {
+      setState(() {
+        tasks = list;
+      });
+    });
   }
 
   Route _createRouteAdd(Task task) {
