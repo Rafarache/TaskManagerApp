@@ -30,7 +30,6 @@ class _TaskPageState extends State<TaskPage> {
       DateFormat format = DateFormat("d MM y");
       _editedTask.dateDue = format.parse(widget.task.due);
       _editedTask.due = widget.task.due;
-      print("aqui ${_editedTask.dateStart}");
     }
   }
 

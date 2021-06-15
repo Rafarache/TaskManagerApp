@@ -8,9 +8,7 @@ class Task {
   int id;
   String title;
   String subject;
-  String start;
   String due;
-  DateTime dateStart;
   DateTime dateDue;
   num diference;
   int priority;
@@ -45,7 +43,6 @@ class Task {
     id = map[idColumn];
     title = map[titleColumn];
     subject = map[subjectColumn];
-    start = map[startColumn];
     due = map[dueColumn];
     diference = map[diferenceColumn];
     priority = map[priorityColumn];
@@ -55,7 +52,6 @@ class Task {
     Map<String, dynamic> map = {
       titleColumn: title,
       subjectColumn: subject,
-      startColumn: start,
       dueColumn: due,
       diferenceColumn: diference,
       priorityColumn: priority,
@@ -68,7 +64,7 @@ class Task {
 
   @override
   String toString() {
-    return "Task(id: $id, title: $title, subject: $subject,start: $start ,due: $due, diference: $diference, priority: $priority)";
+    return "Task(id: $id, title: $title, subject: $subject,due: $due, diference: $diference, priority: $priority)";
   }
 }
 
@@ -76,7 +72,6 @@ final String taskTable = "taskTable";
 final String idColumn = "idColumn";
 final String titleColumn = "titleColumn";
 final String subjectColumn = "subjectColumn";
-final String startColumn = "startColumn";
 final String dueColumn = "dueColumn";
 final String diferenceColumn = "diferenceColumn";
 final String priorityColumn = "priorityColumn";
@@ -108,7 +103,7 @@ class TaskHelper extends ChangeNotifier {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$startColumn TEXT, $dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER)");
+          "$dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER)");
     });
   }
 
@@ -126,7 +121,6 @@ class TaskHelper extends ChangeNotifier {
           idColumn,
           titleColumn,
           subjectColumn,
-          startColumn,
           dueColumn,
           diferenceColumn,
         ],
