@@ -15,6 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
+  List<Task> tasksPinned = [];
 
   List<Task> tasksDone = [];
   int _menuIndex = 1;
@@ -54,12 +55,13 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            GestureDetector(
+            /*  GestureDetector(
               onTap: () {
                 _showTask();
               },
               child: QuickTask(),
-            ),
+            ), */
+            ListViewCard(tasksPinned),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -149,10 +151,19 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void _gestAllTasksPinned() {
+    helper.getAPinnedTask().then((list) {
+      setState(() {
+        tasksPinned = list;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _gestAllTasks();
+    _gestAllTasksPinned();
     tasks.removeRange(0, tasks.length);
   }
 

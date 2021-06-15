@@ -12,6 +12,7 @@ class Task {
   DateTime dateDue;
   num diference;
   int priority;
+  int pinned = 0;
 
   // ignore: missing_return
   Color priorityColor() {
@@ -46,6 +47,7 @@ class Task {
     due = map[dueColumn];
     diference = map[diferenceColumn];
     priority = map[priorityColumn];
+    pinned = map[pinnedColumn];
   }
 
   Map toMap() {
@@ -55,16 +57,12 @@ class Task {
       dueColumn: due,
       diferenceColumn: diference,
       priorityColumn: priority,
+      pinnedColumn: pinned,
     };
     if (id != null) {
       map[idColumn] = id;
     }
     return map;
-  }
-
-  @override
-  String toString() {
-    return "Task(id: $id, title: $title, subject: $subject,due: $due, diference: $diference, priority: $priority)";
   }
 }
 
@@ -75,6 +73,7 @@ final String subjectColumn = "subjectColumn";
 final String dueColumn = "dueColumn";
 final String diferenceColumn = "diferenceColumn";
 final String priorityColumn = "priorityColumn";
+final String pinnedColumn = "pinnedColumn";
 
 class TaskHelper extends ChangeNotifier {
   //TaskHelper poderá possuir apenas 1 único objeto com 1 banco de dados
@@ -97,13 +96,13 @@ class TaskHelper extends ChangeNotifier {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasks110.db");
+    final path = join(databasesPath, "tasks1109.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER)");
+          "$dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER)");
     });
   }
 
@@ -123,6 +122,7 @@ class TaskHelper extends ChangeNotifier {
           subjectColumn,
           dueColumn,
           diferenceColumn,
+          pinnedColumn,
         ],
         where: "$idColumn = ?",
         whereArgs: [id]);
@@ -153,8 +153,7 @@ class TaskHelper extends ChangeNotifier {
   Future<int> getNumber() async {
     Database dbTask = await db;
     return Sqflite.firstIntValue(
-      await dbTask.rawQuery("SELECT COUNT(*) FROM $taskTable"),
-    );
+        await dbTask.rawQuery("SELECT COUNT(*) FROM $taskTable"));
   }
 
   Future close() async {
@@ -164,7 +163,20 @@ class TaskHelper extends ChangeNotifier {
 
   Future<List> getAllTasks() async {
     Database dbTask = await db;
-    List listMap = await dbTask.rawQuery("SELECT * FROM $taskTable");
+    List listMap = await dbTask
+        .rawQuery("SELECT * FROM $taskTable where $pinnedColumn =0");
+    List<Task> listTask = [];
+
+    for (Map m in listMap) {
+      listTask.add(Task.fromMap(m));
+    }
+    return listTask;
+  }
+
+  Future<List> getAPinnedTask() async {
+    Database dbTask = await db;
+    List listMap = await dbTask
+        .rawQuery("SELECT * FROM $taskTable where $pinnedColumn = 1");
     List<Task> listTask = [];
 
     for (Map m in listMap) {

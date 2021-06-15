@@ -231,14 +231,27 @@ class _ListViewCardState extends State<ListViewCard> {
                                           }),
                                       IconButton(
                                           icon: Icon(CommunityMaterialIcons.pin,
-                                              color: _pinned == true
-                                                  ? Colors.amber
-                                                  : Colors.white),
+                                              color:
+                                                  widget.tasks[index].pinned ==
+                                                          1
+                                                      ? Colors.amber
+                                                      : Colors.white),
                                           onPressed: () {
-                                            /*  setState(() {
-                                              _favoriteTap =
-                                                  !_favoriteTap;
-                                            }); */
+                                            setState(() {
+                                              _pinned = !_pinned;
+                                              if (widget.tasks[index].pinned ==
+                                                  0) {
+                                                widget.tasks[index].pinned = 1;
+                                                helper.upDateTask(
+                                                    widget.tasks[index]);
+                                                _gestAllTasks();
+                                              } else {
+                                                widget.tasks[index].pinned = 0;
+                                                helper.upDateTask(
+                                                    widget.tasks[index]);
+                                                //_gestAllTasks();
+                                              }
+                                            });
                                           }),
                                       IconButton(
                                           icon: Icon(CommunityMaterialIcons
