@@ -54,6 +54,7 @@ class _ListViewCardState extends State<ListViewCard> {
               ),
               onDismissed: (direction) {
                 setState(() {
+                  _cardTap = -1;
                   _lastRemoved = widget.tasks[index];
                   helper.deleTask(widget.tasks[index].id);
                   widget.tasks.removeAt(index);

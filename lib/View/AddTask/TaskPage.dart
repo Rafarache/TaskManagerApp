@@ -39,7 +39,7 @@ class _TaskPageState extends State<TaskPage> {
     initializeDateFormatting('pt_BR', null);
     return WillPopScope(
       onWillPop: () {
-        if (changeValue) {
+        if (changeValue && widget.task != null) {
           showDialog(
               context: context,
               builder: (context) {
