@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
   int _cardTapPinned = -1;
   bool _cardBoolPinned = false;
 
-  bool _pinned = false;
   int _lastRemovedPos;
   Task _lastRemoved;
   bool showPinned = false;
@@ -376,7 +375,10 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(left: 25.0),
                           child: TextButton(
                             style: TextButton.styleFrom(
-                                primary: Theme.of(context).accentColor),
+                                textStyle: TextStyle(
+                              fontWeight:
+                                  _menuIndex == 1 ? FontWeight.bold : null,
+                            )),
                             onPressed: () {
                               setState(() {
                                 _menuIndex = 1;
@@ -384,17 +386,17 @@ class _HomeState extends State<Home> {
                             },
                             child: Text(
                               "Fazendo(${tasks.length + tasksPinned.length})",
-                              style: TextStyle(
-                                fontWeight:
-                                    _menuIndex == 1 ? FontWeight.bold : null,
-                              ),
                             ),
                           )),
                       Padding(
                           padding: const EdgeInsets.only(left: 25.0),
                           child: TextButton(
                             style: TextButton.styleFrom(
-                                primary: Theme.of(context).accentColor),
+                              textStyle: TextStyle(
+                                fontWeight:
+                                    _menuIndex == 0 ? FontWeight.bold : null,
+                              ),
+                            ),
                             onPressed: () {
                               setState(() {
                                 _menuIndex = 0;
@@ -402,10 +404,6 @@ class _HomeState extends State<Home> {
                             },
                             child: Text(
                               "Feitos()",
-                              style: TextStyle(
-                                fontWeight:
-                                    _menuIndex == 0 ? FontWeight.bold : null,
-                              ),
                             ),
                           )),
                     ],
