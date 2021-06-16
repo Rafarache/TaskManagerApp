@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
   List<Task> tasksPinned = [];
+  List<Task> tasksDone = [];
 
   int _cardTap = -1;
   bool _cardBool = false;
@@ -703,11 +704,20 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void _gestAllTasksDone() {
+    helper.getTaskDone().then((list) {
+      setState(() {
+        tasksDone = list;
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _gestAllTasks();
     _gestAllTasksPinned();
+    _gestAllTasksDone();
     tasks.removeRange(0, tasks.length);
   }
 
