@@ -36,38 +36,34 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            leading: GestureDetector(
-              onTap: () {},
-              child: Icon(Icons.menu_open),
-            ),
-            centerTitle: true,
-            title: Text(
-              'Tarefas',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  _showTask();
-                },
-              ),
-              IconButton(
-                icon: Obx(() => controller.isDark.value
-                    ? Icon(Icons.brightness_7)
-                    : Icon(Icons.brightness_2)),
-                onPressed: () => controller.changeTheme(),
-              ),
-            ],
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {},
+          child: Icon(Icons.menu_open),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Tarefas',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              _showTask();
+            },
+          ),
+          IconButton(
+            icon: Obx(() => controller.isDark.value
+                ? Icon(Icons.brightness_7)
+                : Icon(Icons.brightness_2)),
+            onPressed: () => controller.changeTheme(),
           ),
         ],
       ),
-/*       body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             /*  GestureDetector(
@@ -77,7 +73,6 @@ class _HomeState extends State<Home> {
               child: QuickTask(),
             ), */
             ListView.builder(
-              
               primary: false,
               shrinkWrap: true,
               itemCount: tasksPinned.length,
@@ -629,7 +624,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      ), */
+      ),
     );
   }
 
