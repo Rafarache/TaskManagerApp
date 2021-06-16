@@ -375,21 +375,11 @@ class _HomeState extends State<Home> {
                       Padding(
                           padding: const EdgeInsets.only(left: 25.0),
                           child: TextButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                      (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed))
-                                  return Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(1);
-                                return null;
-                              }),
-                            ),
+                            style: TextButton.styleFrom(
+                                primary: Theme.of(context).accentColor),
                             onPressed: () {
                               setState(() {
-                                _menuIndex = 0;
+                                _menuIndex = 1;
                               });
                             },
                             child: Text(
@@ -400,25 +390,24 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           )),
-                      GestureDetector(
-                        child: Container(
-                          padding: EdgeInsets.all(15),
-                          //color: Colors.transparent,
-
-                          child: Text(
-                            "Feitos()",
-                            style: TextStyle(
-                              fontWeight:
-                                  _menuIndex == 0 ? FontWeight.bold : null,
+                      Padding(
+                          padding: const EdgeInsets.only(left: 25.0),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                                primary: Theme.of(context).accentColor),
+                            onPressed: () {
+                              setState(() {
+                                _menuIndex = 0;
+                              });
+                            },
+                            child: Text(
+                              "Feitos()",
+                              style: TextStyle(
+                                fontWeight:
+                                    _menuIndex == 0 ? FontWeight.bold : null,
+                              ),
                             ),
-                          ),
-                        ),
-                        onTap: () {
-                          /* setState(() {
-                            _menuIndex = 0;
-                          }); */
-                        },
-                      ),
+                          )),
                     ],
                   ),
                 ),
