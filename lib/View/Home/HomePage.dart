@@ -110,8 +110,7 @@ class _HomeState extends State<Home> {
                               .round();
 
                       return Container(
-                        margin:
-                            EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                        margin: EdgeInsets.only(left: 20, right: 20),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -194,7 +193,7 @@ class _HomeState extends State<Home> {
                                     padding: EdgeInsets.only(
                                       top: 10.0,
                                       left: 15.0,
-                                      bottom: 10.0,
+                                      // bottom: 10.0,
                                       right: 12.0,
                                     ),
                                     width: MediaQuery.of(context).size.width,
@@ -249,7 +248,7 @@ class _HomeState extends State<Home> {
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.only(
-                                                    top: 8.0, bottom: 8),
+                                                    top: 8.0),
                                                 child: Text(
                                                   tasksPinned[index]
                                                       .subject, // DESCRIÇÃO --------------------------------------------
@@ -267,6 +266,48 @@ class _HomeState extends State<Home> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
+                                              !((_cardTapPinned == index) &&
+                                                      (_cardBoolPinned == true))
+                                                  ? Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        SizedBox(),
+                                                        Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  right: 15,
+                                                                  bottom: 10.0,
+                                                                  top: 10),
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .calendar_today,
+                                                                color:
+                                                                    Colors.grey,
+                                                                size: 16,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 4),
+                                                              Text(
+                                                                tasksPinned[
+                                                                        index]
+                                                                    .due,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 11,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : SizedBox()
                                             ],
                                           ),
                                         ),
@@ -339,34 +380,39 @@ class _HomeState extends State<Home> {
                                             ],
                                           ))
                                       : SizedBox(),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(),
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: 15, bottom: 10.0),
-                                        child: Row(
+                                  (_cardTapPinned == index) &&
+                                          (_cardBoolPinned == true)
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Icon(
-                                              Icons.calendar_today,
-                                              color: Colors.grey,
-                                              size: 16,
-                                            ),
-                                            SizedBox(width: 4),
-                                            Text(
-                                              tasksPinned[index].due,
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                color: Colors.grey,
+                                            SizedBox(),
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  right: 30,
+                                                  bottom: 10.0,
+                                                  top: 0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: Colors.grey,
+                                                    size: 16,
+                                                  ),
+                                                  SizedBox(width: 4),
+                                                  Text(
+                                                    tasksPinned[index].due,
+                                                    style: TextStyle(
+                                                      fontSize: 11,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
+                                        )
+                                      : SizedBox()
                                 ],
                               ),
                             ),
