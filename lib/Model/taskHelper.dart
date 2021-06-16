@@ -189,4 +189,16 @@ class TaskHelper extends ChangeNotifier {
     }
     return listTask;
   }
+
+  Future<List> getTaskDone() async {
+    Database dbTask = await db;
+    List listMap = await dbTask.rawQuery(
+        "SELECT * FROM $taskTable where  $taskDoneColumn =1  ORDER BY $diferenceColumn");
+    List<Task> listTask = [];
+
+    for (Map m in listMap) {
+      listTask.add(Task.fromMap(m));
+    }
+    return listTask;
+  }
 }
