@@ -197,20 +197,35 @@ class _TaskPageState extends State<TaskPage> {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Flexible(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 2.3,
+                      width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextButton(
-                        child: Text(_editedTask.dateDue == null
-                            ? "Dia"
+                        child: Text(_editedTask.dateDue == null &&
+                                widget.task == null
+                            ? "Dia de conclusão"
                             : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDue)}"),
                         onPressed: datePickerDue,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextButton(
+                        child: Text("Salvar",
+                            style: TextStyle(color: Colors.white)),
+                        onPressed: saveTask,
                       ),
                     ),
                   ),
