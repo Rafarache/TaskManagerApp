@@ -267,40 +267,6 @@ class _HomeState extends State<Home> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SizedBox(),
-                                                  Container(
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.calendar_today,
-                                                          color: Colors.grey,
-                                                          size: 16,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8.0),
-                                                          child: Text(
-                                                            tasksPinned[index]
-                                                                .due,
-                                                            style: TextStyle(
-                                                              fontSize: 11,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -372,7 +338,35 @@ class _HomeState extends State<Home> {
                                                   }),
                                             ],
                                           ))
-                                      : SizedBox(height: 0),
+                                      : SizedBox(),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            right: 15, bottom: 10.0),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.calendar_today,
+                                              color: Colors.grey,
+                                              size: 16,
+                                            ),
+                                            SizedBox(width: 4),
+                                            Text(
+                                              tasksPinned[index].due,
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
