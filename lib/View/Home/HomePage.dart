@@ -485,8 +485,7 @@ class _HomeState extends State<Home> {
                               .round();
 
                       return Container(
-                        margin:
-                            EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                        margin: EdgeInsets.only(left: 20, right: 20),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -638,39 +637,48 @@ class _HomeState extends State<Home> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SizedBox(),
-                                                  Container(
-                                                    child: Row(
+                                              (_cardTap == index) &&
+                                                      (_cardBool == true)
+                                                  ? SizedBox()
+                                                  : Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        Icon(
-                                                          Icons.calendar_today,
-                                                          color: Colors.grey,
-                                                          size: 16,
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8.0),
-                                                          child: Text(
-                                                            tasks[index].due,
-                                                            style: TextStyle(
-                                                              fontSize: 11,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
+                                                        SizedBox(),
+                                                        Container(
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .calendar_today,
+                                                                color:
+                                                                    Colors.grey,
+                                                                size: 16,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            8.0),
+                                                                child: Text(
+                                                                  tasks[index]
+                                                                      .due,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        11,
+                                                                    color: Colors
+                                                                        .grey,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
                                             ],
                                           ),
                                         ),
@@ -739,6 +747,38 @@ class _HomeState extends State<Home> {
                                             ],
                                           ))
                                       : SizedBox(height: 0),
+                                  (_cardTap == index) && (_cardBool == true)
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(),
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  right: 30,
+                                                  bottom: 10.0,
+                                                  top: 0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: Colors.grey,
+                                                    size: 16,
+                                                  ),
+                                                  SizedBox(width: 4),
+                                                  Text(
+                                                    tasks[index].due,
+                                                    style: TextStyle(
+                                                      fontSize: 11,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : SizedBox()
                                 ],
                               ),
                             ),
