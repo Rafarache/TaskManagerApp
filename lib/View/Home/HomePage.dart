@@ -84,6 +84,7 @@ class _HomeState extends State<Home> {
                   },
                   child: Row(
                     children: [
+                      Icon(CommunityMaterialIcons.pin),
                       Text("Fixos(${tasksPinned.length})"),
                       !showPinned
                           ? Icon(Icons.keyboard_arrow_up)
