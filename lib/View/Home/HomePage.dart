@@ -374,23 +374,31 @@ class _HomeState extends State<Home> {
                     children: [
                       Padding(
                           padding: const EdgeInsets.only(left: 25.0),
-                          child: GestureDetector(
-                            child: Container(
-                              padding: EdgeInsets.all(15),
-                              color: Colors.transparent,
-                              child: Text(
-                                "Fazendo(${tasks.length + tasksPinned.length})",
-                                style: TextStyle(
-                                  fontWeight:
-                                      _menuIndex == 1 ? FontWeight.bold : null,
-                                ),
+                          child: TextButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                      (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed))
+                                  return Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(1);
+                                return null;
+                              }),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _menuIndex = 0;
+                              });
+                            },
+                            child: Text(
+                              "Fazendo(${tasks.length + tasksPinned.length})",
+                              style: TextStyle(
+                                fontWeight:
+                                    _menuIndex == 1 ? FontWeight.bold : null,
                               ),
                             ),
-                            onTap: () {
-                              /*  setState(() {
-                                _menuIndex = 1;
-                              }); */
-                            },
                           )),
                       GestureDetector(
                         child: Container(
@@ -672,25 +680,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Route _createRouteAdd(Task task) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          TaskPage(task: task),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(1, 0);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   void _gestAllTasks() {
     helper.getAllTasks().then((list) {
       setState(() {
@@ -713,6 +702,25 @@ class _HomeState extends State<Home> {
     _gestAllTasks();
     _gestAllTasksPinned();
     tasks.removeRange(0, tasks.length);
+  }
+
+  Route _createRouteAdd(Task task) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          TaskPage(task: task),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1, 0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 
   void _showTask({Task task}) async {
