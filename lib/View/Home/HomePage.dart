@@ -4,8 +4,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
-import 'package:taskmanager/Widgets/listViewCard.dart';
-import 'package:taskmanager/Widgets/quickTask.dart';
 import 'package:taskmanager/blocs/theme.dart';
 
 // ignore: must_be_immutable
@@ -822,6 +820,7 @@ class _HomeState extends State<Home> {
                                           ),
                                           child: Icon(
                                             Icons.done,
+                                            color: Colors.white,
                                             size: 30,
                                           ),
                                         ),
@@ -858,11 +857,16 @@ class _HomeState extends State<Home> {
                                                               (_cardBoolDone ==
                                                                   true)
                                                           ? 10
-                                                          : 2,
+                                                          : 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
+                                              (_cardTapDone == index) &&
+                                                      (_cardBoolDone == true)
+                                                  ? Icon(CommunityMaterialIcons
+                                                      .restart)
+                                                  : SizedBox(),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
