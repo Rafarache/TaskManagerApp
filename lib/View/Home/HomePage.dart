@@ -110,7 +110,8 @@ class _HomeState extends State<Home> {
                               .round();
 
                       return Container(
-                        margin: EdgeInsets.only(left: 20, right: 20),
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -182,7 +183,7 @@ class _HomeState extends State<Home> {
                               );
                             },
                             child: Container(
-                              padding: EdgeInsets.only(right: 10),
+                              padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   color: Theme.of(context).cardColor),
@@ -190,7 +191,7 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                       top: 10.0,
                                       left: 15.0,
                                       // bottom: 10.0,
@@ -202,8 +203,9 @@ class _HomeState extends State<Home> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.all(20),
+                                          margin:
+                                              const EdgeInsets.only(right: 10),
+                                          padding: const EdgeInsets.all(20),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: tasksPinned[index]
@@ -276,7 +278,8 @@ class _HomeState extends State<Home> {
                                                         SizedBox(),
                                                         Container(
                                                           margin:
-                                                              EdgeInsets.only(
+                                                              const EdgeInsets
+                                                                      .only(
                                                                   right: 15,
                                                                   bottom: 10.0,
                                                                   top: 10),
@@ -317,9 +320,9 @@ class _HomeState extends State<Home> {
                                   (_cardTapPinned == index) &&
                                           (_cardBoolPinned == true)
                                       ? Container(
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                               horizontal: 15),
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 20),
                                           width: 400,
                                           decoration: BoxDecoration(
@@ -388,7 +391,7 @@ class _HomeState extends State<Home> {
                                           children: [
                                             SizedBox(),
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   right: 30,
                                                   bottom: 10.0,
                                                   top: 0),
@@ -485,7 +488,8 @@ class _HomeState extends State<Home> {
                               .round();
 
                       return Container(
-                        margin: EdgeInsets.only(left: 20, right: 20),
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -557,7 +561,7 @@ class _HomeState extends State<Home> {
                               );
                             },
                             child: Container(
-                              padding: EdgeInsets.only(right: 10),
+                              padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   color: Theme.of(context).cardColor),
@@ -565,7 +569,7 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                       top: 10.0,
                                       left: 15.0,
                                       bottom: 10.0,
@@ -577,8 +581,9 @@ class _HomeState extends State<Home> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.all(20),
+                                          margin:
+                                              const EdgeInsets.only(right: 10),
+                                          padding: const EdgeInsets.all(20),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: tasks[index].priorityColor(),
@@ -687,9 +692,9 @@ class _HomeState extends State<Home> {
                                   ),
                                   (_cardTap == index) && (_cardBool == true)
                                       ? Container(
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                               horizontal: 15),
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 20),
                                           width: 400,
                                           decoration: BoxDecoration(
@@ -754,7 +759,7 @@ class _HomeState extends State<Home> {
                                           children: [
                                             SizedBox(),
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   right: 30,
                                                   bottom: 10.0,
                                                   top: 0),
@@ -799,8 +804,8 @@ class _HomeState extends State<Home> {
                               .round();
 
                       return Container(
-                        margin:
-                            EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 10),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -872,7 +877,7 @@ class _HomeState extends State<Home> {
                               );
                             },
                             child: Container(
-                              padding: EdgeInsets.only(right: 10),
+                              padding: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   color: Theme.of(context).cardColor),
@@ -880,7 +885,7 @@ class _HomeState extends State<Home> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                       top: 10.0,
                                       left: 15.0,
                                       bottom: 10.0,
@@ -892,8 +897,9 @@ class _HomeState extends State<Home> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.all(10),
+                                          margin:
+                                              const EdgeInsets.only(right: 10),
+                                          padding: const EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.green,
