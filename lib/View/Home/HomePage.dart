@@ -357,7 +357,21 @@ class _HomeState extends State<Home> {
                                                   icon: Icon(
                                                       CommunityMaterialIcons
                                                           .bell_ring_outline),
-                                                  onPressed: null),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _cardTapPinned = -1;
+                                                      _cardTap = -1;
+                                                      tasksPinned[index]
+                                                          .taskDone = 1;
+                                                      tasksPinned[index]
+                                                          .pinned = 0;
+                                                      helper.upDateTask(
+                                                          tasksPinned[index]);
+                                                      _gestAllTasks();
+                                                      _gestAllTasksDone();
+                                                      _gestAllTasksPinned();
+                                                    });
+                                                  }),
                                             ],
                                           ))
                                       : SizedBox(height: 0),
@@ -407,7 +421,7 @@ class _HomeState extends State<Home> {
                               });
                             },
                             child: Text(
-                              "Feitos()",
+                              "Feitos(${tasksDone.length})",
                             ),
                           )),
                     ],
@@ -672,7 +686,18 @@ class _HomeState extends State<Home> {
                                                   icon: Icon(
                                                       CommunityMaterialIcons
                                                           .bell_ring_outline),
-                                                  onPressed: null),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _cardTap = -1;
+                                                      tasks[index].taskDone = 1;
+                                                      tasks[index].pinned = 0;
+                                                      helper.upDateTask(
+                                                          tasks[index]);
+                                                      _gestAllTasks();
+                                                      _gestAllTasksDone();
+                                                      _gestAllTasksPinned();
+                                                    });
+                                                  }),
                                             ],
                                           ))
                                       : SizedBox(height: 0),
