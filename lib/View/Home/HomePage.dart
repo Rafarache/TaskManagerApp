@@ -18,19 +18,18 @@ class _HomeState extends State<Home> {
   List<Task> tasksPinned = [];
   List<Task> tasksDone = [];
 
-  int _cardTap = -1;
-  bool _cardBool = false;
-
-  int _cardTapPinned = -1;
-  bool _cardBoolPinned = false;
-
-  int _cardTapDone = -1;
-  bool _cardBoolDone = false;
-
   int _lastRemovedPos;
   Task _lastRemoved;
-  bool showPinned = false;
+
+  int _cardTap = -1;
+  int _cardTapPinned = -1;
+  int _cardTapDone = -1;
   int _menuIndex = 1;
+
+  bool _cardBool = false;
+  bool _cardBoolPinned = false;
+  bool _cardBoolDone = false;
+  bool showPinned = false;
 
   var controller = ThemeController.to;
   @override
