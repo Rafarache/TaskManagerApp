@@ -298,6 +298,8 @@ class _HomeState extends State<Home> {
                                                         : Colors.white),
                                             onPressed: () {
                                               setState(() {
+                                                _cardTapPinned = -1;
+                                                _cardTap = -1;
                                                 tasksPinned[index].pinned = 0;
                                                 helper.upDateTask(
                                                     tasksPinned[index]);
@@ -333,7 +335,7 @@ class _HomeState extends State<Home> {
                               padding: EdgeInsets.all(15),
                               color: Colors.transparent,
                               child: Text(
-                                "Fazendo(${tasks.length})",
+                                "Fazendo(${tasks.length + tasksPinned.length})",
                                 style: TextStyle(
                                   fontWeight:
                                       _menuIndex == 1 ? FontWeight.bold : null,
@@ -595,6 +597,8 @@ class _HomeState extends State<Home> {
                                                     : Colors.white),
                                             onPressed: () {
                                               setState(() {
+                                                _cardTapPinned = -1;
+                                                _cardTap = -1;
                                                 tasks[index].pinned = 1;
                                                 helper.upDateTask(tasks[index]);
                                                 _gestAllTasks();
@@ -676,6 +680,7 @@ class _HomeState extends State<Home> {
         await helper.saveTask(recTask);
       }
       _gestAllTasks();
+      _gestAllTasksPinned();
     }
   }
 }
