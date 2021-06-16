@@ -784,7 +784,7 @@ class _HomeState extends State<Home> {
                                       label: 'Desfazer',
                                       onPressed: () {
                                         setState(() {
-                                          tasks.insert(
+                                          tasksDone.insert(
                                               _lastRemovedPos, _lastRemoved);
                                           helper.saveTask(_lastRemoved);
                                         });
@@ -815,27 +815,14 @@ class _HomeState extends State<Home> {
                                       children: [
                                         Container(
                                           margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.all(20),
+                                          padding: EdgeInsets.all(10),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: tasksDone[index]
-                                                .priorityColor(),
+                                            color: Colors.green,
                                           ),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                tasksDone[index].diference > 1
-                                                    ? "${tasksDone[index].diference} "
-                                                    : "${tasksDone[index].diference} ",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              Text(
-                                                "dias",
-                                                style: TextStyle(fontSize: 12),
-                                              ),
-                                            ],
+                                          child: Icon(
+                                            Icons.done,
+                                            size: 30,
                                           ),
                                         ),
                                         Flexible(
@@ -916,59 +903,6 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                   ),
-                                  (_cardTapDone == index) &&
-                                          (_cardBoolDone == true)
-                                      ? Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          width: 400,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              IconButton(
-                                                  icon: Icon(Icons.edit),
-                                                  onPressed: () {
-                                                    _showTask(
-                                                        task: tasksDone[index]);
-                                                  }),
-                                              IconButton(
-                                                  icon: Icon(
-                                                      CommunityMaterialIcons
-                                                          .pin,
-                                                      color: tasksDone[index]
-                                                                  .pinned ==
-                                                              1
-                                                          ? Colors.amber
-                                                          : Colors.white),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      _cardTapPinned = -1;
-                                                      _cardTap = -1;
-                                                      tasksDone[index].pinned =
-                                                          1;
-                                                      helper.upDateTask(
-                                                          tasksDone[index]);
-                                                      _gestAllTasks();
-                                                      _gestAllTasksPinned();
-
-                                                      //_gestAllPinnedTasks();
-                                                    });
-                                                  }),
-                                              IconButton(
-                                                  icon: Icon(
-                                                      CommunityMaterialIcons
-                                                          .bell_ring_outline),
-                                                  onPressed: null),
-                                            ],
-                                          ))
-                                      : SizedBox(height: 0),
                                 ],
                               ),
                             ),
