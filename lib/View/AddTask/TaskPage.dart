@@ -234,14 +234,6 @@ class _TaskPageState extends State<TaskPage> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue,
-          onPressed: saveTask,
-          child: Icon(
-            Icons.save,
-            color: Colors.white,
-          ),
-        ),
       ),
     );
   }
