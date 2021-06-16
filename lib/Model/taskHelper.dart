@@ -100,7 +100,7 @@ class TaskHelper extends ChangeNotifier {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "tasks1109.db");
+    final path = join(databasesPath, "tasks1108.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {

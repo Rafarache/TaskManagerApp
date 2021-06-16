@@ -26,6 +26,9 @@ class _HomeState extends State<Home> {
   int _cardTapPinned = -1;
   bool _cardBoolPinned = false;
 
+  int _cardTapDone = -1;
+  bool _cardBoolDone = false;
+
   int _lastRemovedPos;
   Task _lastRemoved;
   bool showPinned = false;
@@ -681,7 +684,274 @@ class _HomeState extends State<Home> {
                       );
                     },
                   )
-                : SizedBox(),
+                : ListView.builder(
+                    primary: false,
+                    shrinkWrap: true,
+                    itemCount: tasksDone.length,
+                    itemBuilder: (context, index) {
+                      DateFormat format = DateFormat("d MM y");
+                      var dateUpdate = format.parse(tasksDone[index].due);
+                      tasksDone[index].diference =
+                          (dateUpdate.difference(DateTime.now()).inHours / 24)
+                              .round();
+
+                      return Container(
+                        margin:
+                            EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _cardTapDone = index;
+                              _cardBoolDone = !_cardBoolDone;
+                            });
+                          },
+                          child: Dismissible(
+                            key: Key(DateTime.now()
+                                .millisecondsSinceEpoch
+                                .toString()),
+                            direction: DismissDirection.horizontal,
+                            background: Container(
+                              color: Colors.red,
+                              child: Align(
+                                alignment: Alignment(-0.9, 0),
+                                child: Icon(Icons.delete, color: Colors.white),
+                              ),
+                            ),
+                            onDismissed: (direction) {
+                              setState(() {
+                                _cardTapDone = -1;
+                                _lastRemoved = tasksDone[index];
+                                helper.deleTask(tasksDone[index].id);
+                                tasksDone.removeAt(index);
+                                _lastRemovedPos = index;
+                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                  content: Row(
+                                    children: [
+                                      Icon(Icons.warning, color: Colors.yellow),
+                                      Expanded(
+                                        child: RichText(
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 3,
+                                            text: TextSpan(
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                                children: [
+                                                  TextSpan(text: "A tarefa "),
+                                                  TextSpan(
+                                                      text:
+                                                          "\"${_lastRemoved.title}\"",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  TextSpan(
+                                                      text: " foi removida!"),
+                                                ])),
+                                      ),
+                                    ],
+                                  ),
+                                  action: SnackBarAction(
+                                      textColor: Colors.white,
+                                      label: 'Desfazer',
+                                      onPressed: () {
+                                        setState(() {
+                                          tasks.insert(
+                                              _lastRemovedPos, _lastRemoved);
+                                          helper.saveTask(_lastRemoved);
+                                        });
+                                      }),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: Theme.of(context).cardColor),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      top: 10.0,
+                                      left: 15.0,
+                                      bottom: 10.0,
+                                      right: 12.0,
+                                    ),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          padding: EdgeInsets.all(20),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: tasksDone[index]
+                                                .priorityColor(),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                tasksDone[index].diference > 1
+                                                    ? "${tasksDone[index].diference} "
+                                                    : "${tasksDone[index].diference} ",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              Text(
+                                                "dias",
+                                                style: TextStyle(fontSize: 12),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                tasksDone[index]
+                                                    .title, // TITULO -------------------------------------
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 15,
+                                                ),
+                                                maxLines: (_cardTap == index) &&
+                                                        (_cardBool == true)
+                                                    ? 2
+                                                    : 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0, bottom: 8),
+                                                child: Text(
+                                                  tasksDone[index]
+                                                      .subject, // DESCRIÇÃO --------------------------------------------
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 13,
+                                                  ),
+                                                  maxLines:
+                                                      (_cardTapDone == index) &&
+                                                              (_cardBoolDone ==
+                                                                  true)
+                                                          ? 10
+                                                          : 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  SizedBox(),
+                                                  Container(
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.calendar_today,
+                                                          color: Colors.grey,
+                                                          size: 16,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 8.0),
+                                                          child: Text(
+                                                            tasksDone[index]
+                                                                .due,
+                                                            style: TextStyle(
+                                                              fontSize: 11,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  (_cardTapDone == index) &&
+                                          (_cardBoolDone == true)
+                                      ? Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          width: 400,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                  icon: Icon(Icons.edit),
+                                                  onPressed: () {
+                                                    _showTask(
+                                                        task: tasksDone[index]);
+                                                  }),
+                                              IconButton(
+                                                  icon: Icon(
+                                                      CommunityMaterialIcons
+                                                          .pin,
+                                                      color: tasksDone[index]
+                                                                  .pinned ==
+                                                              1
+                                                          ? Colors.amber
+                                                          : Colors.white),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _cardTapPinned = -1;
+                                                      _cardTap = -1;
+                                                      tasksDone[index].pinned =
+                                                          1;
+                                                      helper.upDateTask(
+                                                          tasksDone[index]);
+                                                      _gestAllTasks();
+                                                      _gestAllTasksPinned();
+
+                                                      //_gestAllPinnedTasks();
+                                                    });
+                                                  }),
+                                              IconButton(
+                                                  icon: Icon(
+                                                      CommunityMaterialIcons
+                                                          .bell_ring_outline),
+                                                  onPressed: null),
+                                            ],
+                                          ))
+                                      : SizedBox(height: 0),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),
