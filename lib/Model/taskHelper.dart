@@ -13,6 +13,7 @@ class Task {
   num diference;
   int priority;
   int pinned = 0;
+  int taskDone = 0;
 
   // ignore: missing_return
   Color priorityColor() {
@@ -48,6 +49,7 @@ class Task {
     diference = map[diferenceColumn];
     priority = map[priorityColumn];
     pinned = map[pinnedColumn];
+    taskDone = map[taskDoneColumn];
   }
 
   Map toMap() {
@@ -58,6 +60,7 @@ class Task {
       diferenceColumn: diference,
       priorityColumn: priority,
       pinnedColumn: pinned,
+      taskDoneColumn: taskDone,
     };
     if (id != null) {
       map[idColumn] = id;
@@ -74,6 +77,7 @@ final String dueColumn = "dueColumn";
 final String diferenceColumn = "diferenceColumn";
 final String priorityColumn = "priorityColumn";
 final String pinnedColumn = "pinnedColumn";
+final String taskDoneColumn = "taskDoneColumn";
 
 class TaskHelper extends ChangeNotifier {
   //TaskHelper poderá possuir apenas 1 único objeto com 1 banco de dados
@@ -102,7 +106,7 @@ class TaskHelper extends ChangeNotifier {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER)");
+          "$dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER,$taskDoneColumn INTEGER)");
     });
   }
 
@@ -123,6 +127,7 @@ class TaskHelper extends ChangeNotifier {
           dueColumn,
           diferenceColumn,
           pinnedColumn,
+          taskDoneColumn,
         ],
         where: "$idColumn = ?",
         whereArgs: [id]);
@@ -164,7 +169,7 @@ class TaskHelper extends ChangeNotifier {
   Future<List> getAllTasks() async {
     Database dbTask = await db;
     List listMap = await dbTask.rawQuery(
-        "SELECT * FROM $taskTable where $pinnedColumn =0 ORDER BY $diferenceColumn");
+        "SELECT * FROM $taskTable where $pinnedColumn =0 AND $taskDoneColumn =0 ORDER BY $diferenceColumn");
     List<Task> listTask = [];
 
     for (Map m in listMap) {
@@ -176,7 +181,7 @@ class TaskHelper extends ChangeNotifier {
   Future<List> getAPinnedTask() async {
     Database dbTask = await db;
     List listMap = await dbTask.rawQuery(
-        "SELECT * FROM $taskTable where $pinnedColumn =1 ORDER BY $diferenceColumn");
+        "SELECT * FROM $taskTable where $pinnedColumn =1 AND $taskDoneColumn =0  ORDER BY $diferenceColumn");
     List<Task> listTask = [];
 
     for (Map m in listMap) {
