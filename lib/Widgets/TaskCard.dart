@@ -7,10 +7,10 @@ import 'package:taskmanager/View/AddTask/TaskPage.dart';
 // ignore: must_be_immutable
 class TaskCard extends StatefulWidget {
   TaskCard(this.helper, this.tasks, this._getAllTasks, this._getAllTasksDone,
-      this._getAllTasksPinned, this._showTask);
+      this._showTask);
   Function _getAllTasks;
   Function _getAllTasksDone;
-  Function _getAllTasksPinned;
+
   Function _showTask;
 
   TaskHelper helper = TaskHelper();
@@ -249,7 +249,6 @@ class _TaskCardState extends State<TaskCard> {
                                         widget.helper
                                             .upDateTask(widget.tasks[index]);
                                         widget._getAllTasks();
-                                        widget._getAllTasksPinned();
                                       });
                                     }),
                                 IconButton(
@@ -264,7 +263,6 @@ class _TaskCardState extends State<TaskCard> {
                                             .upDateTask(widget.tasks[index]);
                                         widget._getAllTasks();
                                         widget._getAllTasksDone();
-                                        widget._getAllTasksPinned();
                                       });
                                     }),
                               ],

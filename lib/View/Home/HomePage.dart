@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
             !showPinned
                 ? SizedBox()
                 : TaskCard(helper, tasksPinned, _getAllTasks, _getAllTasksDone,
-                    _getAllTasksPinned, _showTask),
+                    _showTask),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -145,8 +145,8 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 30),
             _menuIndex == 1
-                ? TaskCard(helper, tasks, _getAllTasks, _getAllTasksDone,
-                    _getAllTasksPinned, _showTask)
+                ? TaskCard(
+                    helper, tasks, _getAllTasks, _getAllTasksDone, _showTask)
                 : ListView.builder(
                     primary: false,
                     shrinkWrap: true,
@@ -363,9 +363,6 @@ class _HomeState extends State<Home> {
         tasks = list;
       });
     });
-  }
-
-  void _getAllTasksPinned() {
     helper.getAPinnedTask().then((list) {
       setState(() {
         tasksPinned = list;
@@ -385,7 +382,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _getAllTasks();
-    _getAllTasksPinned();
+
     _getAllTasksDone();
     tasks.removeRange(0, tasks.length);
   }
@@ -418,7 +415,6 @@ class _HomeState extends State<Home> {
         await helper.saveTask(recTask);
       }
       _getAllTasks();
-      _getAllTasksPinned();
     }
   }
 }
