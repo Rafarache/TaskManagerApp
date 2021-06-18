@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
+import 'package:taskmanager/Widgets/TaskCard.dart';
 import 'package:taskmanager/blocs/theme.dart';
 
 // ignore: must_be_immutable
@@ -468,6 +469,8 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(height: 30),
+            TaskCard(helper, tasks, _getAllTasks, _getAllTasksDone,
+                _getAllTasksPinned, _showTask),
             _menuIndex == 1
                 ? ListView.builder(
                     primary: false,

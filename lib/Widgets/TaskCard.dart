@@ -5,8 +5,8 @@ import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 
 // ignore: must_be_immutable
-class Card1 extends StatefulWidget {
-  Card1(this.helper, this.tasks, this._getAllTasks, this._getAllTasksDone,
+class TaskCard extends StatefulWidget {
+  TaskCard(this.helper, this.tasks, this._getAllTasks, this._getAllTasksDone,
       this._getAllTasksPinned, this._showTask);
   Function _getAllTasks;
   Function _getAllTasksDone;
@@ -18,10 +18,10 @@ class Card1 extends StatefulWidget {
   List<Task> tasks = [];
 
   @override
-  _Card1State createState() => _Card1State();
+  _TaskCardState createState() => _TaskCardState();
 }
 
-class _Card1State extends State<Card1> {
+class _TaskCardState extends State<TaskCard> {
   int _cardTap = -1;
   bool _cardBool = false;
   Task _lastRemoved;
