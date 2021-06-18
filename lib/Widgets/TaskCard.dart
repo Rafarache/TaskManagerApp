@@ -107,6 +107,7 @@ class _TaskCardState extends State<TaskCard> {
   }
 }
 
+// ignore: must_be_immutable
 class CardTask extends StatefulWidget {
   Task tasks;
   TaskHelper helper = TaskHelper();
@@ -116,7 +117,6 @@ class CardTask extends StatefulWidget {
   int index;
   Function _getAllTasks;
   Function _getAllTasksDone;
-
   Function _showTask;
 
   @override
@@ -129,7 +129,9 @@ class _CardTaskState extends State<CardTask> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        _cardBool = !_cardBool;
+        setState(() {
+          _cardBool = !_cardBool;
+        });
       },
       child: Container(
         padding: const EdgeInsets.only(right: 10),
