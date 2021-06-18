@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   int _menuIndex = 1;
   bool showPinned = false;
 
-  var controller = ThemeController.to;
+  ThemeController controller = ThemeController.to;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
