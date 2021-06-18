@@ -313,22 +313,6 @@ class _Card1State extends State<Card1> {
     );
   }
 
-  void _getAllTasksPinned() {
-    widget.helper.getAPinnedTask().then((list) {
-      setState(() {
-        widget.tasksPinned = list;
-      });
-    });
-  }
-
-  void _getAllTasksDone() {
-    widget.helper.getTaskDone().then((list) {
-      setState(() {
-        widget.tasksDone = list;
-      });
-    });
-  }
-
   Route _createRouteAdd(Task task) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
