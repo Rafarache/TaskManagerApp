@@ -4,13 +4,16 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
+import 'package:taskmanager/Model/userPreferences.dart';
 import 'package:taskmanager/blocs/theme.dart';
 import 'View/Home/HomePage.dart';
 import 'View/Home/TableCalenar/tableCalendar.dart';
 import 'View/SettingsPage/settingsPage.dart';
 
-void main() {
+void main() async {
   Get.lazyPut<ThemeController>(() => ThemeController());
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences().init();
   runApp(MyApp());
 }
 

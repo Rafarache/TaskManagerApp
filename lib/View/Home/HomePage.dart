@@ -2,6 +2,7 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
+import 'package:taskmanager/Model/userPreferences.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
 import 'package:taskmanager/blocs/theme.dart';
@@ -93,8 +94,9 @@ class _HomeState extends State<Home> {
                     children: [
                       GestureDetector(
                           onTap: () {
+                            UserPreferences().data = 1;
                             setState(() {
-                              _menuIndex = 1;
+                              _menuIndex = UserPreferences().data;
                             });
                           },
                           child: Container(
@@ -110,8 +112,9 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.only(right: 10.0),
                         child: GestureDetector(
                             onTap: () {
+                              UserPreferences().data = 0;
                               setState(() {
-                                _menuIndex = 0;
+                                _menuIndex = UserPreferences().data;
                               });
                             },
                             child: Container(
@@ -164,8 +167,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    final prefs = UserPreferences().data;
+    _menuIndex = UserPreferences().data;
     _getAllTasks();
-
     _getAllTasksDone();
     tasks.removeRange(0, tasks.length);
   }
