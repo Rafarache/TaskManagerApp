@@ -66,12 +66,6 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /*  GestureDetector(
-              onTap: () {
-                _showTask();
-              },
-              child: QuickTask(),
-            ), */
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
