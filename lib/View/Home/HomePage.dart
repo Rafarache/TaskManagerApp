@@ -66,14 +66,17 @@ class _HomeState extends State<Home> {
                       showPinned = !showPinned;
                     });
                   },
-                  child: Row(
-                    children: [
-                      Icon(CommunityMaterialIcons.pin),
-                      Text("Fixos(${tasksPinned.length})"),
-                      !showPinned
-                          ? Icon(Icons.keyboard_arrow_up)
-                          : Icon(Icons.keyboard_arrow_down)
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Row(
+                      children: [
+                        Icon(CommunityMaterialIcons.pin),
+                        Text("Fixos(${tasksPinned.length})"),
+                        !showPinned
+                            ? Icon(Icons.keyboard_arrow_up)
+                            : Icon(Icons.keyboard_arrow_down)
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -83,46 +86,46 @@ class _HomeState extends State<Home> {
                 : TaskCard(helper, tasksPinned, _getAllTasks, _getAllTasksDone,
                     _showTask),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
                   child: Row(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(left: 25.0),
-                          child: TextButton(
-                              style: TextButton.styleFrom(
-                                  textStyle: TextStyle(
-                                fontWeight:
-                                    _menuIndex == 1 ? FontWeight.bold : null,
-                              )),
-                              onPressed: () {
-                                setState(() {
-                                  _menuIndex = 1;
-                                });
-                              },
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _menuIndex = 1;
+                            });
+                          },
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              color: Colors.transparent,
                               child: Text(
-                                  "Fazendo(${tasks.length + tasksPinned.length})"))),
+                                  "Fazendo(${tasks.length + tasksPinned.length})",
+                                  style: TextStyle(
+                                      fontWeight: _menuIndex == 1
+                                          ? FontWeight.bold
+                                          : null)))),
                       Padding(
-                          padding: const EdgeInsets.only(left: 25.0),
-                          child: TextButton(
-                              style: TextButton.styleFrom(
-                                  textStyle: TextStyle(
-                                fontWeight:
-                                    _menuIndex == 0 ? FontWeight.bold : null,
-                              )),
-                              onPressed: () {
-                                setState(() {
-                                  _menuIndex = 0;
-                                });
-                              },
-                              child: Text("Feitos(${tasksDone.length})"))),
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _menuIndex = 0;
+                              });
+                            },
+                            child: Container(
+                                padding: EdgeInsets.all(10),
+                                color: Colors.transparent,
+                                child: Text("Feitos(${tasksDone.length})",
+                                    style: TextStyle(
+                                        fontWeight: _menuIndex == 0
+                                            ? FontWeight.bold
+                                            : null)))),
+                      ),
                     ],
                   ),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: IconButton(icon: Icon(Icons.menu), onPressed: null)),
               ],
             ),
             SizedBox(height: 30),
