@@ -22,8 +22,6 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
-  int _cardTap = -1;
-  bool _cardBool = false;
   Task _lastRemoved;
   int _lastRemovedPos;
   @override
@@ -41,14 +39,7 @@ class _TaskCardState extends State<TaskCard> {
 
         return Container(
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                _cardTap = index;
-                _cardBool = !_cardBool;
-              });
-            },
-            child: Dismissible(
+          child: Dismissible(
               key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
               direction: DismissDirection.horizontal,
               background: Container(
@@ -60,7 +51,6 @@ class _TaskCardState extends State<TaskCard> {
               ),
               onDismissed: (direction) {
                 setState(() {
-                  _cardTap = -1;
                   _lastRemoved = widget.tasks[index];
                   widget.helper.deleTask(widget.tasks[index].id);
                   widget.tasks.removeAt(index);
@@ -104,235 +94,248 @@ class _TaskCardState extends State<TaskCard> {
                   ),
                 );
               },
-              child: Container(
-                padding: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Theme.of(context).cardColor),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(
-                        top: 10.0,
-                        left: 15.0,
-                        // bottom: 10.0,
-                        right: 12.0,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            padding: widget.tasks[index].taskDone == 1
-                                ? null
-                                : const EdgeInsets.all(20),
-                            decoration: widget.tasks[index].taskDone == 1
-                                ? null
-                                : BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: widget.tasks[index].priorityColor(),
-                                  ),
-                            child: Column(
-                              children: [
-                                widget.tasks[index].taskDone == 1
-                                    ? Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.green,
-                                        ),
-                                        child: Icon(
-                                          Icons.done,
-                                          color: Colors.white,
-                                          size: 30,
-                                        ),
-                                      )
-                                    : Column(
-                                        children: [
-                                          Text(
-                                            "${widget.tasks[index].diference} ",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          Text(
-                                            "dias",
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                              ],
-                            ),
-                          ),
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.tasks[index]
-                                      .title, // TITULO -------------------------------------
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 15,
-                                  ),
-                                  maxLines:
-                                      (_cardTap == index) && (_cardBool == true)
-                                          ? 2
-                                          : 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    widget.tasks[index]
-                                        .subject, // DESCRIÇÃO --------------------------------------------
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 13,
-                                    ),
-                                    maxLines: (_cardTap == index) &&
-                                            (_cardBool == true)
-                                        ? 10
-                                        : 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                !((_cardTap == index) &&
-                                        (_cardBool == true) &&
-                                        widget.tasks[index].taskDone == 0)
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(),
-                                          Container(
-                                            margin: const EdgeInsets.only(
-                                                right: 10,
-                                                bottom: 10.0,
-                                                top: 10),
-                                            child: Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.calendar_today,
-                                                  color: Colors.grey,
-                                                  size: 16,
-                                                ),
-                                                SizedBox(width: 4),
-                                                Text(
-                                                  widget.tasks[index].due,
-                                                  style: TextStyle(
-                                                    fontSize: 11,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : SizedBox()
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    (_cardTap == index) &&
-                            (_cardBool == true) &&
-                            (widget.tasks[index].taskDone == 0)
-                        ? Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            width: 400,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed: () {
-                                      widget._showTask(
-                                          task: widget.tasks[index]);
-                                    }),
-                                IconButton(
-                                    icon: Icon(CommunityMaterialIcons.pin,
-                                        color: widget.tasks[index].pinned == 1
-                                            ? Colors.amber
-                                            : Colors.white),
-                                    onPressed: () {
-                                      setState(() {
-                                        _cardTap = -1;
-                                        if (widget.tasks[index].pinned == 0) {
-                                          widget.tasks[index].pinned = 1;
-                                        } else {
-                                          widget.tasks[index].pinned = 0;
-                                        }
-                                        widget.helper
-                                            .upDateTask(widget.tasks[index]);
-                                        widget._getAllTasks();
-                                      });
-                                    }),
-                                IconButton(
-                                    icon: Icon(CommunityMaterialIcons
-                                        .bell_ring_outline),
-                                    onPressed: () {
-                                      setState(() {
-                                        _cardTap = -1;
-                                        widget.tasks[index].taskDone = 1;
-                                        widget.tasks[index].pinned = 0;
-                                        widget.helper
-                                            .upDateTask(widget.tasks[index]);
-                                        widget._getAllTasks();
-                                        widget._getAllTasksDone();
-                                      });
-                                    }),
-                              ],
-                            ))
-                        : SizedBox(),
-                    (_cardTap == index) &&
-                            (_cardBool == true) &&
-                            (widget.tasks[index].taskDone == 0)
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    right: 22, bottom: 10.0, top: 0),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.calendar_today,
-                                      color: Colors.grey,
-                                      size: 16,
-                                    ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      widget.tasks[index].due,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                        : SizedBox()
-                  ],
-                ),
-              ),
-            ),
-          ),
+              child: CardTask(
+                  widget.tasks[index],
+                  widget.helper,
+                  widget._getAllTasks,
+                  widget._getAllTasksDone,
+                  widget._showTask,
+                  index)),
         );
       },
+    );
+  }
+}
+
+class CardTask extends StatefulWidget {
+  Task tasks;
+  TaskHelper helper = TaskHelper();
+
+  CardTask(this.tasks, this.helper, this._getAllTasks, this._getAllTasksDone,
+      this._showTask, this.index);
+  int index;
+  Function _getAllTasks;
+  Function _getAllTasksDone;
+
+  Function _showTask;
+
+  @override
+  _CardTaskState createState() => _CardTaskState();
+}
+
+class _CardTaskState extends State<CardTask> {
+  bool _cardBool = false;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        _cardBool = !_cardBool;
+      },
+      child: Container(
+        padding: const EdgeInsets.only(right: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).cardColor),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(
+                top: 10.0,
+                left: 15.0,
+                // bottom: 10.0,
+                right: 12.0,
+              ),
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    padding: widget.tasks.taskDone == 1
+                        ? null
+                        : const EdgeInsets.all(20),
+                    decoration: widget.tasks.taskDone == 1
+                        ? null
+                        : BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: widget.tasks.priorityColor(),
+                          ),
+                    child: Column(
+                      children: [
+                        widget.tasks.taskDone == 1
+                            ? Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.green,
+                                ),
+                                child: Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  Text(
+                                    "${widget.tasks.diference} ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Text(
+                                    "dias",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
+                              ),
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.tasks
+                              .title, // TITULO -------------------------------------
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
+                          ),
+                          maxLines: (_cardBool == true) ? 2 : 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            widget.tasks
+                                .subject, // DESCRIÇÃO --------------------------------------------
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                            ),
+                            maxLines: (_cardBool == true) ? 10 : 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        !((_cardBool == true) && widget.tasks.taskDone == 0)
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        right: 10, bottom: 10.0, top: 10),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.grey,
+                                          size: 16,
+                                        ),
+                                        SizedBox(width: 4),
+                                        Text(
+                                          widget.tasks.due,
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SizedBox()
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            (_cardBool == true) && (widget.tasks.taskDone == 0)
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    width: 400,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                              widget._showTask(task: widget.tasks);
+                            }),
+                        IconButton(
+                            icon: Icon(CommunityMaterialIcons.pin,
+                                color: widget.tasks.pinned == 1
+                                    ? Colors.amber
+                                    : Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                if (widget.tasks.pinned == 0) {
+                                  widget.tasks.pinned = 1;
+                                } else {
+                                  widget.tasks.pinned = 0;
+                                }
+                                widget.helper.upDateTask(widget.tasks);
+                                widget._getAllTasks();
+                              });
+                            }),
+                        IconButton(
+                            icon:
+                                Icon(CommunityMaterialIcons.bell_ring_outline),
+                            onPressed: () {
+                              setState(() {
+                                widget.tasks.taskDone = 1;
+                                widget.tasks.pinned = 0;
+                                widget.helper.upDateTask(widget.tasks);
+                                widget._getAllTasks();
+                                widget._getAllTasksDone();
+                              });
+                            }),
+                      ],
+                    ))
+                : SizedBox(),
+            (_cardBool == true) && (widget.tasks.taskDone == 0)
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(),
+                      Container(
+                        margin: const EdgeInsets.only(
+                            right: 22, bottom: 10.0, top: 0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                              size: 16,
+                            ),
+                            SizedBox(width: 4),
+                            Text(
+                              widget.tasks.due,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : SizedBox()
+          ],
+        ),
+      ),
     );
   }
 }
