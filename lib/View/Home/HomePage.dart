@@ -19,8 +19,8 @@ class _HomeState extends State<Home> {
   List<Task> tasksPinned = [];
   List<Task> tasksDone = [];
 
-  int _menuIndex = 1;
-  bool showPinned = false;
+  int _menuIndex;
+  bool showPinned;
 
   ThemeController controller = ThemeController.to;
   @override
@@ -63,8 +63,9 @@ class _HomeState extends State<Home> {
                 SizedBox(),
                 TextButton(
                   onPressed: () {
+                    UserPreferences().showPinned = !showPinned;
                     setState(() {
-                      showPinned = !showPinned;
+                      showPinned = UserPreferences().showPinned;
                     });
                   },
                   child: Padding(
@@ -169,6 +170,7 @@ class _HomeState extends State<Home> {
     super.initState();
     final prefs = UserPreferences().data;
     _menuIndex = UserPreferences().data;
+    showPinned = UserPreferences().showPinned;
     _getAllTasks();
     _getAllTasksDone();
     tasks.removeRange(0, tasks.length);

@@ -21,4 +21,12 @@ class UserPreferences {
   set data(int value) {
     _prefs.setInt('data', value);
   }
+
+  get showPinned {
+    return _prefs.getBool('showPinned') ?? false;
+  }
+
+  set showPinned(bool value) {
+    _prefs.setBool('showPinned', value);
+  }
 }
