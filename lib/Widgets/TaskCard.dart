@@ -169,8 +169,7 @@ class _CardTaskState extends State<CardTask> {
                       children: [
                         widget.tasks.taskDone == 1
                             ? Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(17),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.green,
