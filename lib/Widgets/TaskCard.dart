@@ -6,11 +6,19 @@ import 'package:taskmanager/View/AddTask/TaskPage.dart';
 
 // ignore: must_be_immutable
 class Card1 extends StatefulWidget {
-  Card1(this.helper, this.tasks, this.tasksDone, this.tasksPinned,
-      this._getAllTasks, this._getAllTasksDone, this._getAllTasksPinned);
+  Card1(
+      this.helper,
+      this.tasks,
+      this.tasksDone,
+      this.tasksPinned,
+      this._getAllTasks,
+      this._getAllTasksDone,
+      this._getAllTasksPinned,
+      this._showTask);
   Function _getAllTasks;
   Function _getAllTasksDone;
   Function _getAllTasksPinned;
+  Function _showTask;
 
   TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
@@ -234,7 +242,7 @@ class _Card1State extends State<Card1> {
                                 IconButton(
                                     icon: Icon(Icons.edit),
                                     onPressed: () {
-                                      _showTask(
+                                      widget._showTask(
                                           task: widget.tasksPinned[index]);
                                     }),
                                 IconButton(
@@ -311,37 +319,5 @@ class _Card1State extends State<Card1> {
         );
       },
     );
-  }
-
-  Route _createRouteAdd(Task task) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          TaskPage(task: task),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(1, 0);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
-  void _showTask({Task task}) async {
-    final recTask = await Navigator.push(context, _createRouteAdd(task));
-    if (recTask != null) {
-      if (task != null) {
-        await widget.helper.upDateTask(recTask);
-      } else {
-        await widget.helper.saveTask(recTask);
-      }
-      widget._getAllTasks();
-      widget._getAllTasksPinned();
-    }
   }
 }
