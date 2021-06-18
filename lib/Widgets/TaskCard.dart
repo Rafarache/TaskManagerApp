@@ -6,24 +6,17 @@ import 'package:taskmanager/View/AddTask/TaskPage.dart';
 
 // ignore: must_be_immutable
 class Card1 extends StatefulWidget {
-  Card1(
-      this.helper,
-      this.tasks,
-      this.tasksDone,
-      this.tasksPinned,
-      this._getAllTasks,
-      this._getAllTasksDone,
-      this._getAllTasksPinned,
-      this._showTask);
+  Card1(this.helper, this.tasksPinned, this._getAllTasks, this._getAllTasksDone,
+      this._getAllTasksPinned, this._showTask);
   Function _getAllTasks;
   Function _getAllTasksDone;
   Function _getAllTasksPinned;
   Function _showTask;
 
   TaskHelper helper = TaskHelper();
-  List<Task> tasks = [];
+
   List<Task> tasksPinned = [];
-  List<Task> tasksDone = [];
+
   @override
   _Card1State createState() => _Card1State();
 }
@@ -33,7 +26,7 @@ class _Card1State extends State<Card1> {
   bool _cardBoolPinned = false;
   Task _lastRemoved;
   int _lastRemovedPos;
-  int _cardTap = 1;
+  int _cardTap = -1;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -255,8 +248,12 @@ class _Card1State extends State<Card1> {
                                     onPressed: () {
                                       setState(() {
                                         _cardTapPinned = -1;
-                                        _cardTap = -1;
-                                        widget.tasksPinned[index].pinned = 0;
+                                        if (widget.tasksPinned[index].pinned ==
+                                            0) {
+                                          widget.tasksPinned[index].pinned = 1;
+                                        } else {
+                                          widget.tasksPinned[index].pinned = 0;
+                                        }
                                         widget.helper.upDateTask(
                                             widget.tasksPinned[index]);
                                         widget._getAllTasks();
