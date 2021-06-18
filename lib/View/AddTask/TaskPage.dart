@@ -159,7 +159,6 @@ class _TaskPageState extends State<TaskPage> {
                     groupValue: selectedRadio,
                     activeColor: Colors.orange,
                     onChanged: (value) {
-                      print("Radio1: $value");
                       setState(() {
                         selectedRadio = value;
                         _editedTask.priority = value;
@@ -179,7 +178,6 @@ class _TaskPageState extends State<TaskPage> {
                     groupValue: selectedRadio,
                     activeColor: Colors.red,
                     onChanged: (value) {
-                      print("Radio1: $value");
                       setState(() {
                         selectedRadio = value;
                         _editedTask.priority = value;

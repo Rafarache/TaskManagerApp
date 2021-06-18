@@ -168,7 +168,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    final prefs = UserPreferences().data;
     _menuIndex = UserPreferences().data;
     showPinned = UserPreferences().showPinned;
     _getAllTasks();
