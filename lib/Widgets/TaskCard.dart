@@ -6,7 +6,7 @@ import 'package:taskmanager/View/AddTask/TaskPage.dart';
 
 // ignore: must_be_immutable
 class Card1 extends StatefulWidget {
-  Card1(this.helper, this.tasksPinned, this._getAllTasks, this._getAllTasksDone,
+  Card1(this.helper, this.tasks, this._getAllTasks, this._getAllTasksDone,
       this._getAllTasksPinned, this._showTask);
   Function _getAllTasks;
   Function _getAllTasksDone;
@@ -15,29 +15,28 @@ class Card1 extends StatefulWidget {
 
   TaskHelper helper = TaskHelper();
 
-  List<Task> tasksPinned = [];
+  List<Task> tasks = [];
 
   @override
   _Card1State createState() => _Card1State();
 }
 
 class _Card1State extends State<Card1> {
-  int _cardTapPinned = -1;
-  bool _cardBoolPinned = false;
+  int _cardTap = -1;
+  bool _cardBool = false;
   Task _lastRemoved;
   int _lastRemovedPos;
-  int _cardTap = -1;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: ScrollPhysics(),
       primary: false,
       shrinkWrap: true,
-      itemCount: widget.tasksPinned.length,
+      itemCount: widget.tasks.length,
       itemBuilder: (context, index) {
         DateFormat format = DateFormat("d MM y");
-        var dateUpdate = format.parse(widget.tasksPinned[index].due);
-        widget.tasksPinned[index].diference =
+        var dateUpdate = format.parse(widget.tasks[index].due);
+        widget.tasks[index].diference =
             (dateUpdate.difference(DateTime.now()).inHours / 24).round();
 
         return Container(
@@ -45,8 +44,8 @@ class _Card1State extends State<Card1> {
           child: GestureDetector(
             onTap: () {
               setState(() {
-                _cardTapPinned = index;
-                _cardBoolPinned = !_cardBoolPinned;
+                _cardTap = index;
+                _cardBool = !_cardBool;
               });
             },
             child: Dismissible(
@@ -61,10 +60,10 @@ class _Card1State extends State<Card1> {
               ),
               onDismissed: (direction) {
                 setState(() {
-                  _cardTapPinned = -1;
-                  _lastRemoved = widget.tasksPinned[index];
-                  widget.helper.deleTask(widget.tasksPinned[index].id);
-                  widget.tasksPinned.removeAt(index);
+                  _cardTap = -1;
+                  _lastRemoved = widget.tasks[index];
+                  widget.helper.deleTask(widget.tasks[index].id);
+                  widget.tasks.removeAt(index);
                   _lastRemovedPos = index;
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -97,8 +96,7 @@ class _Card1State extends State<Card1> {
                         label: 'Desfazer',
                         onPressed: () {
                           setState(() {
-                            widget.tasksPinned
-                                .insert(_lastRemovedPos, _lastRemoved);
+                            widget.tasks.insert(_lastRemovedPos, _lastRemoved);
                             widget.helper.saveTask(_lastRemoved);
                           });
                         }),
@@ -130,14 +128,12 @@ class _Card1State extends State<Card1> {
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: widget.tasksPinned[index].priorityColor(),
+                              color: widget.tasks[index].priorityColor(),
                             ),
                             child: Column(
                               children: [
                                 Text(
-                                  widget.tasksPinned[index].diference > 1
-                                      ? "${widget.tasksPinned[index].diference} "
-                                      : "${widget.tasksPinned[index].diference} ",
+                                  "${widget.tasks[index].diference} ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -154,36 +150,35 @@ class _Card1State extends State<Card1> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.tasksPinned[index]
+                                  widget.tasks[index]
                                       .title, // TITULO -------------------------------------
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 15,
                                   ),
-                                  maxLines: (_cardTapPinned == index) &&
-                                          (_cardBoolPinned == true)
-                                      ? 2
-                                      : 1,
+                                  maxLines:
+                                      (_cardTap == index) && (_cardBool == true)
+                                          ? 2
+                                          : 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
                                   child: Text(
-                                    widget.tasksPinned[index]
+                                    widget.tasks[index]
                                         .subject, // DESCRIÇÃO --------------------------------------------
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 13,
                                     ),
-                                    maxLines: (_cardTapPinned == index) &&
-                                            (_cardBoolPinned == true)
+                                    maxLines: (_cardTap == index) &&
+                                            (_cardBool == true)
                                         ? 10
                                         : 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                !((_cardTapPinned == index) &&
-                                        (_cardBoolPinned == true))
+                                !((_cardTap == index) && (_cardBool == true))
                                     ? Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -203,7 +198,7 @@ class _Card1State extends State<Card1> {
                                                 ),
                                                 SizedBox(width: 4),
                                                 Text(
-                                                  widget.tasksPinned[index].due,
+                                                  widget.tasks[index].due,
                                                   style: TextStyle(
                                                     fontSize: 11,
                                                     color: Colors.grey,
@@ -221,7 +216,7 @@ class _Card1State extends State<Card1> {
                         ],
                       ),
                     ),
-                    (_cardTapPinned == index) && (_cardBoolPinned == true)
+                    (_cardTap == index) && (_cardBool == true)
                         ? Container(
                             margin: const EdgeInsets.symmetric(horizontal: 15),
                             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -236,26 +231,23 @@ class _Card1State extends State<Card1> {
                                     icon: Icon(Icons.edit),
                                     onPressed: () {
                                       widget._showTask(
-                                          task: widget.tasksPinned[index]);
+                                          task: widget.tasks[index]);
                                     }),
                                 IconButton(
                                     icon: Icon(CommunityMaterialIcons.pin,
-                                        color:
-                                            widget.tasksPinned[index].pinned ==
-                                                    1
-                                                ? Colors.amber
-                                                : Colors.white),
+                                        color: widget.tasks[index].pinned == 1
+                                            ? Colors.amber
+                                            : Colors.white),
                                     onPressed: () {
                                       setState(() {
-                                        _cardTapPinned = -1;
-                                        if (widget.tasksPinned[index].pinned ==
-                                            0) {
-                                          widget.tasksPinned[index].pinned = 1;
+                                        _cardTap = -1;
+                                        if (widget.tasks[index].pinned == 0) {
+                                          widget.tasks[index].pinned = 1;
                                         } else {
-                                          widget.tasksPinned[index].pinned = 0;
+                                          widget.tasks[index].pinned = 0;
                                         }
-                                        widget.helper.upDateTask(
-                                            widget.tasksPinned[index]);
+                                        widget.helper
+                                            .upDateTask(widget.tasks[index]);
                                         widget._getAllTasks();
                                         widget._getAllTasksPinned();
                                       });
@@ -265,12 +257,11 @@ class _Card1State extends State<Card1> {
                                         .bell_ring_outline),
                                     onPressed: () {
                                       setState(() {
-                                        _cardTapPinned = -1;
                                         _cardTap = -1;
-                                        widget.tasksPinned[index].taskDone = 1;
-                                        widget.tasksPinned[index].pinned = 0;
-                                        widget.helper.upDateTask(
-                                            widget.tasksPinned[index]);
+                                        widget.tasks[index].taskDone = 1;
+                                        widget.tasks[index].pinned = 0;
+                                        widget.helper
+                                            .upDateTask(widget.tasks[index]);
                                         widget._getAllTasks();
                                         widget._getAllTasksDone();
                                         widget._getAllTasksPinned();
@@ -279,7 +270,7 @@ class _Card1State extends State<Card1> {
                               ],
                             ))
                         : SizedBox(),
-                    (_cardTapPinned == index) && (_cardBoolPinned == true)
+                    (_cardTap == index) && (_cardBool == true)
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -296,7 +287,7 @@ class _Card1State extends State<Card1> {
                                     ),
                                     SizedBox(width: 4),
                                     Text(
-                                      widget.tasksPinned[index].due,
+                                      widget.tasks[index].due,
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: Colors.grey,
