@@ -356,8 +356,8 @@ class _HomeState extends State<Home> {
                                                           .pinned = 0;
                                                       helper.upDateTask(
                                                           tasksPinned[index]);
-                                                      _gestAllTasks();
-                                                      _gestAllTasksPinned();
+                                                      _getAllTasks();
+                                                      _getAllTasksPinned();
                                                     });
                                                   }),
                                               IconButton(
@@ -374,9 +374,9 @@ class _HomeState extends State<Home> {
                                                           .pinned = 0;
                                                       helper.upDateTask(
                                                           tasksPinned[index]);
-                                                      _gestAllTasks();
-                                                      _gestAllTasksDone();
-                                                      _gestAllTasksPinned();
+                                                      _getAllTasks();
+                                                      _getAllTasksDone();
+                                                      _getAllTasksPinned();
                                                     });
                                                   }),
                                             ],
@@ -726,8 +726,8 @@ class _HomeState extends State<Home> {
                                                       tasks[index].pinned = 1;
                                                       helper.upDateTask(
                                                           tasks[index]);
-                                                      _gestAllTasks();
-                                                      _gestAllTasksPinned();
+                                                      _getAllTasks();
+                                                      _getAllTasksPinned();
 
                                                       //_gestAllPinnedTasks();
                                                     });
@@ -743,9 +743,9 @@ class _HomeState extends State<Home> {
                                                       tasks[index].pinned = 0;
                                                       helper.upDateTask(
                                                           tasks[index]);
-                                                      _gestAllTasks();
-                                                      _gestAllTasksDone();
-                                                      _gestAllTasksPinned();
+                                                      _getAllTasks();
+                                                      _getAllTasksDone();
+                                                      _getAllTasksPinned();
                                                     });
                                                   }),
                                             ],
@@ -1006,7 +1006,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _gestAllTasks() {
+  void _getAllTasks() {
     helper.getAllTasks().then((list) {
       setState(() {
         tasks = list;
@@ -1014,7 +1014,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _gestAllTasksPinned() {
+  void _getAllTasksPinned() {
     helper.getAPinnedTask().then((list) {
       setState(() {
         tasksPinned = list;
@@ -1022,7 +1022,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _gestAllTasksDone() {
+  void _getAllTasksDone() {
     helper.getTaskDone().then((list) {
       setState(() {
         tasksDone = list;
@@ -1033,9 +1033,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _gestAllTasks();
-    _gestAllTasksPinned();
-    _gestAllTasksDone();
+    _getAllTasks();
+    _getAllTasksPinned();
+    _getAllTasksDone();
     tasks.removeRange(0, tasks.length);
   }
 
@@ -1066,8 +1066,8 @@ class _HomeState extends State<Home> {
       } else {
         await helper.saveTask(recTask);
       }
-      _gestAllTasks();
-      _gestAllTasksPinned();
+      _getAllTasks();
+      _getAllTasksPinned();
     }
   }
 }
