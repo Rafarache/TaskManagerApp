@@ -1,7 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
@@ -19,17 +18,7 @@ class _HomeState extends State<Home> {
   List<Task> tasksPinned = [];
   List<Task> tasksDone = [];
 
-  int _lastRemovedPos;
-  Task _lastRemoved;
-
-  int _cardTap = -1;
-  int _cardTapPinned = -1;
-  int _cardTapDone = -1;
   int _menuIndex = 1;
-
-  bool _cardBool = false;
-  bool _cardBoolPinned = false;
-  bool _cardBoolDone = false;
   bool showPinned = false;
 
   var controller = ThemeController.to;
