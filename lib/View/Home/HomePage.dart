@@ -303,11 +303,6 @@ class _HomeState extends State<Home> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              (_cardTapDone == index) &&
-                                                      (_cardBoolDone == true)
-                                                  ? Icon(CommunityMaterialIcons
-                                                      .restart)
-                                                  : SizedBox(),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
