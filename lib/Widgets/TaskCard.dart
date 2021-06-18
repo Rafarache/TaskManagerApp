@@ -125,23 +125,46 @@ class _TaskCardState extends State<TaskCard> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(right: 10),
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: widget.tasks[index].priorityColor(),
-                            ),
+                            padding: widget.tasks[index].taskDone == 1
+                                ? null
+                                : const EdgeInsets.all(20),
+                            decoration: widget.tasks[index].taskDone == 1
+                                ? null
+                                : BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: widget.tasks[index].priorityColor(),
+                                  ),
                             child: Column(
                               children: [
-                                Text(
-                                  "${widget.tasks[index].diference} ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Text(
-                                  "dias",
-                                  style: TextStyle(fontSize: 12),
-                                ),
+                                widget.tasks[index].taskDone == 1
+                                    ? Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.green,
+                                        ),
+                                        child: Icon(
+                                          Icons.done,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                      )
+                                    : Column(
+                                        children: [
+                                          Text(
+                                            "${widget.tasks[index].diference} ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          Text(
+                                            "dias",
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
                               ],
                             ),
                           ),
@@ -178,7 +201,9 @@ class _TaskCardState extends State<TaskCard> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                !((_cardTap == index) && (_cardBool == true))
+                                !((_cardTap == index) &&
+                                        (_cardBool == true) &&
+                                        widget.tasks[index].taskDone == 0)
                                     ? Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -186,7 +211,7 @@ class _TaskCardState extends State<TaskCard> {
                                           SizedBox(),
                                           Container(
                                             margin: const EdgeInsets.only(
-                                                right: 15,
+                                                right: 10,
                                                 bottom: 10.0,
                                                 top: 10),
                                             child: Row(
@@ -216,10 +241,12 @@ class _TaskCardState extends State<TaskCard> {
                         ],
                       ),
                     ),
-                    (_cardTap == index) && (_cardBool == true)
+                    (_cardTap == index) &&
+                            (_cardBool == true) &&
+                            (widget.tasks[index].taskDone == 0)
                         ? Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             width: 400,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -268,14 +295,16 @@ class _TaskCardState extends State<TaskCard> {
                               ],
                             ))
                         : SizedBox(),
-                    (_cardTap == index) && (_cardBool == true)
+                    (_cardTap == index) &&
+                            (_cardBool == true) &&
+                            (widget.tasks[index].taskDone == 0)
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(),
                               Container(
                                 margin: const EdgeInsets.only(
-                                    right: 30, bottom: 10.0, top: 0),
+                                    right: 22, bottom: 10.0, top: 0),
                                 child: Row(
                                   children: [
                                     Icon(
