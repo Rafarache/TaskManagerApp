@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -40,12 +42,6 @@ class _HomeState extends State<Home> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              _showTask();
-            },
-          ),
           IconButton(
             icon: Obx(() => controller.isDark.value
                 ? Icon(Icons.brightness_7)
@@ -132,7 +128,28 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            SizedBox(height: 30),
+            _menuIndex == 1
+                ? GestureDetector(
+                    onTap: _showTask,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.10,
+                      height: MediaQuery.of(context).size.height / 15,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.blue,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add),
+                          Text("ADICIONAR TAREFA",
+                              style: TextStyle(fontWeight: FontWeight.bold))
+                        ],
+                      ),
+                    ),
+                  )
+                : SizedBox(),
+            SizedBox(height: 20),
             _menuIndex == 1
                 ? TaskCard(
                     helper, tasks, _getAllTasks, _getAllTasksDone, _showTask)

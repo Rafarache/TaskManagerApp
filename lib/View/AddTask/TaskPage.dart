@@ -207,7 +207,7 @@ class _TaskPageState extends State<TaskPage> {
                       child: TextButton(
                         child: Text(_editedTask.dateDue == null &&
                                 widget.task == null
-                            ? "Dia de conclusão"
+                            ? "Data de conclusão"
                             : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDue)}"),
                         onPressed: datePickerDue,
                       ),
@@ -221,8 +221,10 @@ class _TaskPageState extends State<TaskPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextButton(
-                        child: Text("Salvar",
-                            style: TextStyle(color: Colors.white)),
+                        child: Text("SALVAR",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
                         onPressed: saveTask,
                       ),
                     ),
