@@ -220,7 +220,7 @@ class _CardTaskState extends State<CardTask> {
                               color: Colors.grey,
                               fontSize: 13,
                             ),
-                            maxLines: (_cardBool == true) ? 10 : 2,
+                            maxLines: (_cardBool == true) ? 20 : 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
