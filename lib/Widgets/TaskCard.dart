@@ -136,7 +136,7 @@ class _CardTaskState extends State<CardTask> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.only(right: 10),
+        width: MediaQuery.of(context).size.width / 1.10,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: Theme.of(context).cardColor),
