@@ -11,9 +11,32 @@ class TableCalendarPage extends StatefulWidget {
 }
 
 class _TableCalendarPageState extends State<TableCalendarPage> {
+  DateTime _selectedDay = DateTime.now();
+
   CalendarController _controller;
   Map<DateTime, List<dynamic>> _events = {};
   List<Task> data = [];
+
+  List<dynamic> _selectedEvents = [];
+  List<Widget> get _eventWidget =>
+      _selectedEvents.map((e) => events(e)).toList();
+
+  Widget events(var d) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+          decoration: BoxDecoration(
+              border: Border(
+            top: BorderSide(color: Theme.of(context).dividerColor),
+          )),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(d, style: Theme.of(context).primaryTextTheme.bodyText1),
+          ])),
+    );
+  }
 
   @override
   void initState() {
@@ -25,6 +48,13 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+  }
+
+  void _onDaySelected(DateTime day, List events, _) {
+    setState(() {
+      _selectedDay = day;
+      _selectedEvents = events;
+    });
   }
 
   @override
@@ -44,6 +74,12 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   selectedColor: Colors.orange[500],
                 ),
                 calendarController: _controller,
+                onDaySelected: (DateTime day, List events, onDaySelected) {
+                  setState(() {
+                    _selectedDay = day;
+                    _selectedEvents = events;
+                  });
+                },
               ),
               Container(
                 decoration: BoxDecoration(
