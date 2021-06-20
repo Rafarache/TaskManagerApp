@@ -11,8 +11,9 @@ class TableCalendarPage extends StatefulWidget {
 }
 
 class _TableCalendarPageState extends State<TableCalendarPage> {
-  Map<DateTime, List<Task>> _events;
   CalendarController _controller;
+  Map<DateTime, List<dynamic>> _events = {};
+  List<Task> data = [];
 
   @override
   void initState() {

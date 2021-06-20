@@ -11,12 +11,13 @@ import 'package:taskmanager/blocs/theme.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
+  Home(this.helper);
+  TaskHelper helper = TaskHelper();
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  TaskHelper helper = TaskHelper();
   List<Task> tasks = [];
   List<Task> tasksPinned = [];
   List<Task> tasksDone = [];
@@ -81,8 +82,8 @@ class _HomeState extends State<Home> {
             ),
             !showPinned
                 ? SizedBox()
-                : TaskCard(helper, tasksPinned, _getAllTasks, _getAllTasksDone,
-                    _showTask),
+                : TaskCard(widget.helper, tasksPinned, _getAllTasks,
+                    _getAllTasksDone, _showTask),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -151,10 +152,10 @@ class _HomeState extends State<Home> {
                 : SizedBox(),
             SizedBox(height: 20),
             _menuIndex == 1
-                ? TaskCard(
-                    helper, tasks, _getAllTasks, _getAllTasksDone, _showTask)
-                : TaskCard(helper, tasksDone, _getAllTasks, _getAllTasksDone,
-                    _showTask),
+                ? TaskCard(widget.helper, tasks, _getAllTasks, _getAllTasksDone,
+                    _showTask)
+                : TaskCard(widget.helper, tasksDone, _getAllTasks,
+                    _getAllTasksDone, _showTask),
           ],
         ),
       ),
@@ -162,12 +163,12 @@ class _HomeState extends State<Home> {
   }
 
   void _getAllTasks() {
-    helper.getAllTasks().then((list) {
+    widget.helper.getAllTasks().then((list) {
       setState(() {
         tasks = list;
       });
     });
-    helper.getAPinnedTask().then((list) {
+    widget.helper.getAPinnedTask().then((list) {
       setState(() {
         tasksPinned = list;
       });
@@ -175,7 +176,7 @@ class _HomeState extends State<Home> {
   }
 
   void _getAllTasksDone() {
-    helper.getTaskDone().then((list) {
+    widget.helper.getTaskDone().then((list) {
       setState(() {
         tasksDone = list;
       });
@@ -215,9 +216,9 @@ class _HomeState extends State<Home> {
     final recTask = await Navigator.push(context, _createRouteAdd(task));
     if (recTask != null) {
       if (task != null) {
-        await helper.upDateTask(recTask);
+        await widget.helper.upDateTask(recTask);
       } else {
-        await helper.saveTask(recTask);
+        await widget.helper.saveTask(recTask);
       }
       _getAllTasks();
     }

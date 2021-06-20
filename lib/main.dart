@@ -84,6 +84,7 @@ class FirsPage extends StatefulWidget {
 }
 
 class _FirsPageState extends State<FirsPage> {
+  TaskHelper helper = TaskHelper();
   int _seletedPage = 1;
   PageController pageController =
       PageController(initialPage: 1, keepPage: true);
@@ -120,7 +121,7 @@ class _FirsPageState extends State<FirsPage> {
       },
       children: [
         TableCalendarPage(),
-        Home(),
+        Home(helper),
         SettingsPage(),
       ],
     );
