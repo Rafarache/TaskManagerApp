@@ -70,20 +70,37 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     super.initState();
     _getAllTasks();
     data.removeRange(0, data.length);
-    // _controller = CalendarController();
+    setState(() {
+      filterTask(DateTime.now(), data);
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    //_controller.dispose();
   }
 
-  void _onDaySelected(DateTime day, List events, _) {
-    setState(() {
-      _selectedDay = day;
-      _selectedEvents = events;
-    });
+  String _lastUserId = null;
+  String _lastPassword = null;
+
+  Map<DateTime, Map<String, String>> _bookings = {
+    DateTime.utc(2021, 6, 11): {"aaa": "AAA"},
+    DateTime.utc(2021, 6, 21): {"aaa": "AAA"},
+    DateTime.utc(2021, 6, 23): {"aaa": "AAA"},
+    DateTime.utc(2021, 7, 7): {"aaa": "AAA"},
+    DateTime.utc(2021, 7, 13): {"aaa": "AAA"},
+  };
+
+  List<int> bookingsOnDay(DateTime day) {
+    Map<String, String> b = _bookings[day];
+    if (b == null) return [];
+    if (_lastUserId != null) {
+      var pw = b[_lastUserId];
+      if (pw != null && pw == _lastPassword) {
+        return [b.length, 1];
+      }
+    }
+    return [b.length];
   }
 
   var focusDay = DateTime.now();
@@ -93,15 +110,16 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TableCalendar(
+                eventLoader: bookingsOnDay,
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 10, 16),
                 focusedDay: focusDay,
                 onDaySelected: (day, focusDay) {
                   setState(() {
                     focusDay = focusDay;
-                    _selectedDay = day;
                     filterTask(day, data);
                   });
                   for (var i = 0; i < eventos.length; i++) {
