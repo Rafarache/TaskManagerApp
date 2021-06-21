@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
+import 'package:taskmanager/Widgets/TaskCard.dart';
 
 // ignore: must_be_immutable
 class TableCalendarPage extends StatefulWidget {
@@ -108,13 +109,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   }
                 },
               ),
-              Column(
-                children: [
-                  Container(
-                    child: Text("${_selectedDay.toString()} - ${data[0].due}"),
-                  )
-                ],
-              ),
+              TaskCard(widget.helper, eventos, _getAllTasks, null, null),
             ],
           ),
         ),
