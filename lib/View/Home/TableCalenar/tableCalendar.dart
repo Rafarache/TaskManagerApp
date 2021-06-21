@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 
 // ignore: must_be_immutable
 class TableCalendarPage extends StatefulWidget {
-  final List<Task> tasks;
-  TableCalendarPage([this.tasks]);
+  TaskHelper helper = TaskHelper();
+  TableCalendarPage(this.helper);
   @override
   _TableCalendarPageState createState() => _TableCalendarPageState();
 }
@@ -13,13 +14,16 @@ class TableCalendarPage extends StatefulWidget {
 class _TableCalendarPageState extends State<TableCalendarPage> {
   DateTime _selectedDay = DateTime.now();
 
-  CalendarController _controller;
+  //CalendarController _controller;
   Map<DateTime, List<dynamic>> _events = {};
   List<Task> data = [];
 
   List<dynamic> _selectedEvents = [];
   List<Widget> get _eventWidget =>
       _selectedEvents.map((e) => events(e)).toList();
+
+  /* DateFormat format = DateFormat("d MM y");
+        var dateUpdate = format.parse(data[1].due); */
 
   Widget events(var d) {
     return Container(
@@ -38,16 +42,40 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     );
   }
 
+  void _getAllTasks() {
+    widget.helper.getAllTasks().then((list) {
+      setState(() {
+        data = list;
+      });
+    });
+  }
+
+  bool isSameDay(DateTime selectedDay, Task task) {
+    DateFormat formatter = DateFormat("d MM y");
+    var date = formatter.parse(task.due);
+    var date1 = DateFormat("d MM y").format(date);
+    var sel = DateFormat("d MM y").format(selectedDay);
+    return date1 == sel;
+  }
+
+  List<Task> eventos = [];
+
+  void filterTask(DateTime selectedDay, List<Task> task) {
+    eventos = task.where((i) => isSameDay(selectedDay, i)).toList();
+  }
+
   @override
   void initState() {
     super.initState();
-    _controller = CalendarController();
+    _getAllTasks();
+    data.removeRange(0, data.length);
+    // _controller = CalendarController();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    //_controller.dispose();
   }
 
   void _onDaySelected(DateTime day, List events, _) {
@@ -57,6 +85,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     });
   }
 
+  var focusDay = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,45 +94,27 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
           child: Column(
             children: [
               TableCalendar(
-                events: _events,
-                locale: 'pt_Br',
-                formatAnimation: FormatAnimation.scale,
-                initialCalendarFormat: CalendarFormat.month,
-                calendarStyle: CalendarStyle(
-                  todayColor: Colors.blue[500],
-                  selectedColor: Colors.orange[500],
-                ),
-                calendarController: _controller,
-                onDaySelected: (DateTime day, List events, onDaySelected) {
+                firstDay: DateTime.utc(2010, 10, 16),
+                lastDay: DateTime.utc(2030, 10, 16),
+                focusedDay: focusDay,
+                onDaySelected: (day, focusDay) {
                   setState(() {
+                    focusDay = focusDay;
                     _selectedDay = day;
-                    _selectedEvents = events;
+                    filterTask(day, data);
                   });
+                  for (var i = 0; i < eventos.length; i++) {
+                    print(eventos[i].title);
+                  }
                 },
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.red[900],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                height: 800,
-                width: MediaQuery.of(context).size.width / 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "EM PROGRESSO!",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              Column(
+                children: [
+                  Container(
+                    child: Text("${_selectedDay.toString()} - ${data[0].due}"),
+                  )
+                ],
+              ),
             ],
           ),
         ),
