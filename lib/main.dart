@@ -120,7 +120,7 @@ class _FirsPageState extends State<FirsPage> {
         pageChanged(index);
       },
       children: [
-        TableCalendarPage(),
+        TableCalendarPage(helper),
         Home(helper),
         SettingsPage(),
       ],
