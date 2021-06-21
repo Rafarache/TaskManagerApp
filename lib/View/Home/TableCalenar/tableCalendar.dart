@@ -86,7 +86,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   Map<DateTime, Map<String, String>> _bookings = {
     DateTime.utc(2021, 6, 11): {"aaa": "AAA"},
     DateTime.utc(2021, 6, 21): {"aaa": "AAA"},
-    DateTime.utc(2021, 6, 23): {"aaa": "AAA"},
+    DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
     DateTime.utc(2021, 7, 7): {"aaa": "AAA"},
     DateTime.utc(2021, 7, 13): {"aaa": "AAA"},
   };
@@ -108,6 +108,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.blue[100],
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
