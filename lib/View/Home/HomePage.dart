@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(right: 10.0),
                     child: Row(
                       children: [
-                        Icon(CommunityMaterialIcons.pin),
+                        Icon(Icons.access_time),
                         Text("Fazendo(${tasksPinned.length})"),
                         !showPinned
                             ? Icon(Icons.keyboard_arrow_up)
