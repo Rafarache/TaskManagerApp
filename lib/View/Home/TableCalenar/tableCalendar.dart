@@ -104,40 +104,54 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     return [b.length];
   }
 
-  var _focusDay = DateTime.now();
+  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  DateTime _focusedDay = DateTime.now();
   var teste = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blue[100],
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TableCalendar(
                 locale: 'pt,BR',
-                calendarStyle: CalendarStyle(
-                    selectedDecoration: BoxDecoration(color: Colors.blue),
-                    todayDecoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50)),
-                    rowDecoration:
-                        BoxDecoration(color: Theme.of(context).primaryColor)),
-                eventLoader: bookingsOnDay,
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 10, 16),
-                focusedDay: _focusDay,
+                eventLoader: bookingsOnDay,
+                focusedDay: _focusedDay,
+                calendarFormat: _calendarFormat,
+                calendarStyle: CalendarStyle(
+                  markerDecoration: BoxDecoration(
+                      color: Colors.pink,
+                      borderRadius: BorderRadius.circular(90)),
+                  selectedDecoration: BoxDecoration(color: Colors.blue),
+                  todayDecoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(50)),
+                ),
+                onFormatChanged: (format) {
+                  if (_calendarFormat != format) {
+                    // Call `setState()` when updating calendar format
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  }
+                },
                 onDaySelected: (day, focusDay) {
                   setState(() {
                     teste = day;
-                    _focusDay = focusDay;
+                    _focusedDay = focusDay;
                     filterTask(day, data);
                   });
                   for (var i = 0; i < eventos.length; i++) {
                     print(eventos[i].title);
                   }
                 },
+              ),
+              Divider(
+                endIndent: 10,
               ),
               eventos.isNotEmpty
                   ? Padding(
@@ -146,10 +160,17 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       child: Text(
                         "Tarefas do dia ${DateFormat("d.MM.y").format(teste)}",
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     )
-                  : Text("Não nehuma tarefa neste dia"),
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 8.0, left: 20),
+                      child: Text(
+                        "Não há nehuma tarefa para este dia",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
               TaskCard(widget.helper, eventos, _getAllTasks, null, null),
             ],
           ),
