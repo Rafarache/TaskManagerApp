@@ -158,7 +158,9 @@ class _CardTaskState extends State<CardTask> {
                     margin: const EdgeInsets.only(right: 10),
                     padding: widget.tasks.taskDone == 1
                         ? null
-                        : const EdgeInsets.all(20),
+                        : widget.tasks.pinned == 1
+                            ? null
+                            : const EdgeInsets.all(20),
                     decoration: widget.tasks.taskDone == 1
                         ? null
                         : BoxDecoration(
@@ -180,20 +182,33 @@ class _CardTaskState extends State<CardTask> {
                                   size: 30,
                                 ),
                               )
-                            : Column(
-                                children: [
-                                  Text(
-                                    "${widget.tasks.diference} ",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
+                            : widget.tasks.pinned == 1
+                                ? Container(
+                                    padding: const EdgeInsets.all(17),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      //color: Colors.green,
                                     ),
-                                  ),
-                                  Text(
-                                    "dias",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
+                                    child: Icon(
+                                      Icons.timer,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      Text(
+                                        "${widget.tasks.diference} ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Text(
+                                        "dias",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  )
                       ],
                     ),
                   ),
