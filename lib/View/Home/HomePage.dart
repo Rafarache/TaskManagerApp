@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
                     child: Row(
                       children: [
                         Icon(CommunityMaterialIcons.pin),
-                        Text("Fixos(${tasksPinned.length})"),
+                        Text("Fazendo(${tasksPinned.length})"),
                         !showPinned
                             ? Icon(Icons.keyboard_arrow_up)
                             : Icon(Icons.keyboard_arrow_down)
@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
                               padding: EdgeInsets.all(10),
                               color: Colors.transparent,
                               child: Text(
-                                  "Fazendo(${tasks.length + tasksPinned.length})",
+                                  "A fazer(${tasks.length})",
                                   style: TextStyle(
                                       fontWeight: _menuIndex == 1
                                           ? FontWeight.bold
