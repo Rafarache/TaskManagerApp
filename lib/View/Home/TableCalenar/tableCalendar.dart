@@ -150,21 +150,22 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   }
                 },
               ),
-              Divider(
-                endIndent: 10,
-              ),
+              Divider(endIndent: 10),
               eventos.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(
-                          top: 8.0, left: 20.0, bottom: 10),
+                          top: 8.0, left: 20.0, bottom: 20),
                       child: Text(
-                        "Tarefas do dia ${DateFormat("d 'de' MMMM 'de' y", "pt").format(teste)}",
+                        "Tarefas dia ${DateFormat("d 'de' MMMM 'de' y", "pt").format(teste)}",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     )
                   : Padding(
-                      padding: const EdgeInsets.only(top: 8.0, left: 20),
+                      padding: const EdgeInsets.only(
+                        top: 8.0,
+                        left: 20,
+                      ),
                       child: Text(
                         "Não há nehuma tarefa para ${DateFormat("d 'de' MMMM", "pt").format(teste)}",
                         style: TextStyle(
