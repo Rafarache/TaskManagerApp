@@ -88,7 +88,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
     DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
     DateTime.utc(2021, 6, 30): {"aaa": "AAA"},
-    DateTime.utc(2021, 7, 1): {"aaa": "AAA"},
+    DateTime.utc(2021, 7, 14): {"aaa": "AAA"},
     DateTime.utc(2021, 7, 5): {"aaa": "AAA"},
   };
 
@@ -156,7 +156,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       padding: const EdgeInsets.only(
                           top: 8.0, left: 20.0, bottom: 20),
                       child: Text(
-                        "Tarefas dia ${DateFormat("d 'de' MMMM 'de' y", "pt").format(teste)}",
+                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(teste)}",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
