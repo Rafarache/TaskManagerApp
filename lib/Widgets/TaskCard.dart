@@ -292,7 +292,7 @@ class _CardTaskState extends State<CardTask> {
                               widget._showTask(task: widget.tasks);
                             }),
                         IconButton(
-                            icon: Icon(CommunityMaterialIcons.pin,
+                            icon: Icon(Icons.timer,
                                 color: widget.tasks.pinned == 1
                                     ? Colors.amber
                                     : Colors.white),
