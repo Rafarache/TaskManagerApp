@@ -17,23 +17,19 @@ class Task {
 
   // ignore: missing_return
   Color priorityColor() {
-    if (diference <= 1) {
-      return Colors.red;
-    } else {
-      switch (this.priority) {
-        case 1:
-          return Colors.green;
-          break;
-        case 2:
-          return Colors.orange;
-          break;
-        case 3:
-          return Colors.red;
-          break;
-        default:
-          return Colors.purple;
-          break;
-      }
+    switch (this.priority) {
+      case 1:
+        return Colors.green;
+        break;
+      case 2:
+        return Colors.orange;
+        break;
+      case 3:
+        return Colors.red;
+        break;
+      default:
+        return Colors.purple;
+        break;
     }
   }
 
