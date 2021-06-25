@@ -165,7 +165,7 @@ class _HomeState extends State<Home> {
   }
 
   void _getAllTasks() {
-    widget.helper.getAllTasks().then((list) {
+    widget.helper.getAllTasksDoing().then((list) {
       setState(() {
         tasks = list;
       });

@@ -162,7 +162,7 @@ class TaskHelper extends ChangeNotifier {
     await dbTask.close();
   }
 
-  Future<List> getAllTasks() async {
+  Future<List> getAllTasksDoing() async {
     Database dbTask = await db;
     List listMap = await dbTask.rawQuery(
         "SELECT * FROM $taskTable where $pinnedColumn =0 AND $taskDoneColumn =0 ORDER BY $diferenceColumn");
