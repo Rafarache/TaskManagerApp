@@ -84,11 +84,12 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   String _lastPassword = null;
 
   Map<DateTime, Map<String, String>> _bookings = {
-    DateTime.utc(2021, 6, 11): {"aaa": "AAA"},
-    DateTime.utc(2021, 6, 21): {"aaa": "AAA"},
+    DateTime.utc(2021, 6, 27): {"aaa": "AAA"},
     DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
-    DateTime.utc(2021, 7, 7): {"aaa": "AAA"},
-    DateTime.utc(2021, 7, 13): {"aaa": "AAA"},
+    DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
+    DateTime.utc(2021, 6, 30): {"aaa": "AAA"},
+    DateTime.utc(2021, 7, 1): {"aaa": "AAA"},
+    DateTime.utc(2021, 7, 5): {"aaa": "AAA"},
   };
 
   List<int> bookingsOnDay(DateTime day) {
@@ -103,7 +104,8 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     return [b.length];
   }
 
-  var focusDay = DateTime.now();
+  var _focusDay = DateTime.now();
+  var teste = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -114,13 +116,22 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TableCalendar(
+                locale: 'pt,BR',
+                calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(color: Colors.blue),
+                    todayDecoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50)),
+                    rowDecoration:
+                        BoxDecoration(color: Theme.of(context).primaryColor)),
                 eventLoader: bookingsOnDay,
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 10, 16),
-                focusedDay: focusDay,
+                focusedDay: _focusDay,
                 onDaySelected: (day, focusDay) {
                   setState(() {
-                    focusDay = focusDay;
+                    teste = day;
+                    _focusDay = focusDay;
                     filterTask(day, data);
                   });
                   for (var i = 0; i < eventos.length; i++) {
@@ -128,6 +139,17 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   }
                 },
               ),
+              eventos.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          top: 8.0, left: 20.0, bottom: 10),
+                      child: Text(
+                        "Tarefas do dia ${DateFormat("d.MM.y").format(teste)}",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  : Text("Não nehuma tarefa neste dia"),
               TaskCard(widget.helper, eventos, _getAllTasks, null, null),
             ],
           ),
