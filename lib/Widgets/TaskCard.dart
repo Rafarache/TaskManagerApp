@@ -1,5 +1,6 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/AddTask/TaskPage.dart';
@@ -308,8 +309,7 @@ class _CardTaskState extends State<CardTask> {
                               });
                             }),
                         IconButton(
-                            icon:
-                                Icon(CommunityMaterialIcons.bell_ring_outline),
+                            icon: Icon(IcoFontIcons.like),
                             onPressed: () {
                               setState(() {
                                 widget.tasks.taskDone = 1;
