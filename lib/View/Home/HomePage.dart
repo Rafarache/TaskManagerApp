@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                 : TaskCard(widget.helper, tasksPinned, _getAllTasks,
                     _getAllTasksDone, _showTask),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   child: Row(
@@ -97,55 +97,57 @@ class _HomeState extends State<Home> {
                               _menuIndex = UserPreferences().data;
                             });
                           },
-                          child: Container(
-                              padding: EdgeInsets.all(10),
-                              color: Colors.transparent,
-                              child: Text(
-                                  "A fazer(${tasks.length})",
-                                  style: TextStyle(
-                                      fontWeight: _menuIndex == 1
-                                          ? FontWeight.bold
-                                          : null)))),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: GestureDetector(
-                            onTap: () {
-                              UserPreferences().data = 0;
-                              setState(() {
-                                _menuIndex = UserPreferences().data;
-                              });
-                            },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: Container(
                                 padding: EdgeInsets.all(10),
                                 color: Colors.transparent,
-                                child: Text("Feitos(${tasksDone.length})",
+                                child: Text("A fazer(${tasks.length})",
                                     style: TextStyle(
-                                        fontWeight: _menuIndex == 0
+                                        fontWeight: _menuIndex == 1
                                             ? FontWeight.bold
-                                            : null)))),
-                      ),
+                                            : null))),
+                          )),
+                      GestureDetector(
+                          onTap: () {
+                            UserPreferences().data = 0;
+                            setState(() {
+                              _menuIndex = UserPreferences().data;
+                            });
+                          },
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              color: Colors.transparent,
+                              child: Text("Feitos(${tasksDone.length})",
+                                  style: TextStyle(
+                                      fontWeight: _menuIndex == 0
+                                          ? FontWeight.bold
+                                          : null)))),
                     ],
                   ),
                 ),
               ],
             ),
             _menuIndex == 1
-                ? GestureDetector(
-                    onTap: _showTask,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.10,
-                      height: MediaQuery.of(context).size.height / 15,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.add),
-                          Text("ADICIONAR TAREFA",
-                              style: TextStyle(fontWeight: FontWeight.bold))
-                        ],
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: GestureDetector(
+                      onTap: _showTask,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.10,
+                        height: MediaQuery.of(context).size.height / 15,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blue,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add),
+                            Text("ADICIONAR TAREFA",
+                                style: TextStyle(fontWeight: FontWeight.bold))
+                          ],
+                        ),
                       ),
                     ),
                   )
