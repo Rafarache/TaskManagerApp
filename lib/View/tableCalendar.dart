@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -14,15 +12,6 @@ class TableCalendarPage extends StatefulWidget {
   _TableCalendarPageState createState() => _TableCalendarPageState();
 }
 
-class Event {
-  final String title;
-
-  const Event(this.title);
-
-  @override
-  String toString() => title;
-}
-
 class _TableCalendarPageState extends State<TableCalendarPage> {
   List<Task> data = [];
   DateTime _selectedDay = DateTime.now();
@@ -30,16 +19,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
 
-  String _lastUserId = null;
-  String _lastPassword = null;
-  Map<DateTime, Map<String, String>> _bookings = {
-    DateTime.utc(2021, 6, 27): {"aaa": "AAA"},
-    DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
-    DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
-    DateTime.utc(2021, 6, 30): {"aaa": "AAA"},
-    DateTime.utc(2021, 7, 14): {"aaa": "AAA"},
-    DateTime.utc(2021, 7, 5): {"aaa": "AAA"},
-  };
   List<DateTime> eventsDays = [];
 
   @override
@@ -160,11 +139,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   bool isSameDay1(DateTime selectedDay, Task task) {
     DateFormat formatter = DateFormat("d MM y");
     var date = formatter.parse(task.day);
@@ -175,17 +149,5 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
 
   void filterTask(DateTime selectedDay, List<Task> task) {
     eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
-  }
-
-  List<int> bookingsOnDay(DateTime day) {
-    Map<String, String> b = _bookings[day];
-    if (b == null) return [];
-    if (_lastUserId != null) {
-      var pw = b[_lastUserId];
-      if (pw != null && pw == _lastPassword) {
-        return [b.length, 1];
-      }
-    }
-    return [b.length];
   }
 }
