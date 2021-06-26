@@ -63,6 +63,11 @@ class Task {
     }
     return map;
   }
+
+  @override
+  String toString() {
+    return "Tarefa:($title,$due)";
+  }
 }
 
 final String taskTable = "taskTable";

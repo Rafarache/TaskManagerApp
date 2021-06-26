@@ -40,9 +40,11 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     DateTime.utc(2021, 7, 14): {"aaa": "AAA"},
     DateTime.utc(2021, 7, 5): {"aaa": "AAA"},
   };
+  List<DateTime> dias = [];
 
   @override
   Widget build(BuildContext context) {
+    print(dias);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -53,7 +55,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                 locale: 'pt,BR',
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 10, 16),
-                eventLoader: bookingsOnDay,
                 focusedDay: _focusedDay,
                 calendarFormat: _calendarFormat,
                 calendarStyle: CalendarStyle(
@@ -69,6 +70,21 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                     shape: BoxShape.circle,
                   ),
                 ),
+                eventLoader: (day) {
+                  var test = [];
+                  var test1 = [];
+                  test =
+                      dias.where((element) => isSameDay(day, element)).toList();
+                  for (var i = 0; i < test.length; i++) {
+                    test1.add(1);
+                  }
+                  return test1;
+                  /*   if (dias.where((element) => isSameDay(day, element)).length >
+                      0) {
+                    return [1];
+                  } else
+                    return []; */
+                },
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
                     // Call `setState()` when updating calendar format
@@ -120,22 +136,12 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     );
   }
 
-  bool isSameDay1(DateTime selectedDay, Task task) {
-    DateFormat formatter = DateFormat("d MM y");
-    var date = formatter.parse(task.due);
-    var date1 = DateFormat("d MM y").format(date);
-    var sel = DateFormat("d MM y").format(selectedDay);
-    return date1 == sel;
-  }
-
-  void filterTask(DateTime selectedDay, List<Task> task) {
-    eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
-  }
-
   void _getAllTasks() {
+    DateFormat formatter = DateFormat("d MM y");
     widget.helper.getAllTasks().then((list) {
       setState(() {
         data = list;
+        dias = data.map((element) => formatter.parse(element.due)).toList();
       });
     });
   }
@@ -155,6 +161,18 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  bool isSameDay1(DateTime selectedDay, Task task) {
+    DateFormat formatter = DateFormat("d MM y");
+    var date = formatter.parse(task.due);
+    var date1 = DateFormat("d MM y").format(date);
+    var sel = DateFormat("d MM y").format(selectedDay);
+    return date1 == sel;
+  }
+
+  void filterTask(DateTime selectedDay, List<Task> task) {
+    eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
   }
 
   List<int> bookingsOnDay(DateTime day) {
