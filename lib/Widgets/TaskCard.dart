@@ -32,7 +32,7 @@ class _TaskCardState extends State<TaskCard> {
       itemCount: widget.tasks.length,
       itemBuilder: (context, index) {
         DateFormat format = DateFormat("d MM y");
-        var dateUpdate = format.parse(widget.tasks[index].due);
+        var dateUpdate = format.parse(widget.tasks[index].day);
         widget.tasks[index].diference =
             (dateUpdate.difference(DateTime.now()).inHours / 24).round();
 
@@ -256,7 +256,7 @@ class _CardTaskState extends State<CardTask> {
                                         ),
                                         SizedBox(width: 4),
                                         Text(
-                                          widget.tasks.due,
+                                          widget.tasks.day,
                                           style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.grey,
@@ -337,7 +337,7 @@ class _CardTaskState extends State<CardTask> {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              widget.tasks.due,
+                              widget.tasks.day,
                               style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.grey,

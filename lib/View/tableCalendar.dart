@@ -40,11 +40,10 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     DateTime.utc(2021, 7, 14): {"aaa": "AAA"},
     DateTime.utc(2021, 7, 5): {"aaa": "AAA"},
   };
-  List<DateTime> dias = [];
+  List<DateTime> eventsDays = [];
 
   @override
   Widget build(BuildContext context) {
-    print(dias);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -71,19 +70,14 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   ),
                 ),
                 eventLoader: (day) {
-                  var test = [];
+                  var sameDays = eventsDays
+                      .where((element) => isSameDay(day, element))
+                      .toList();
                   var test1 = [];
-                  test =
-                      dias.where((element) => isSameDay(day, element)).toList();
-                  for (var i = 0; i < test.length; i++) {
+                  for (var i = 0; i < sameDays.length; i++) {
                     test1.add(1);
                   }
                   return test1;
-                  /*   if (dias.where((element) => isSameDay(day, element)).length >
-                      0) {
-                    return [1];
-                  } else
-                    return []; */
                 },
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
@@ -141,7 +135,8 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     widget.helper.getAllTasks().then((list) {
       setState(() {
         data = list;
-        dias = data.map((element) => formatter.parse(element.due)).toList();
+        eventsDays =
+            data.map((element) => formatter.parse(element.day)).toList();
       });
     });
   }
@@ -165,7 +160,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
 
   bool isSameDay1(DateTime selectedDay, Task task) {
     DateFormat formatter = DateFormat("d MM y");
-    var date = formatter.parse(task.due);
+    var date = formatter.parse(task.day);
     var date1 = DateFormat("d MM y").format(date);
     var sel = DateFormat("d MM y").format(selectedDay);
     return date1 == sel;

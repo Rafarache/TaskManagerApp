@@ -8,8 +8,8 @@ class Task {
   int id;
   String title;
   String subject;
-  String due;
-  DateTime dateDue;
+  String day;
+  DateTime dateDay;
   num diference;
   int priority;
   int pinned = 0;
@@ -41,7 +41,7 @@ class Task {
     id = map[idColumn];
     title = map[titleColumn];
     subject = map[subjectColumn];
-    due = map[dueColumn];
+    day = map[dayColumn];
     diference = map[diferenceColumn];
     priority = map[priorityColumn];
     pinned = map[pinnedColumn];
@@ -52,7 +52,7 @@ class Task {
     Map<String, dynamic> map = {
       titleColumn: title,
       subjectColumn: subject,
-      dueColumn: due,
+      dayColumn: day,
       diferenceColumn: diference,
       priorityColumn: priority,
       pinnedColumn: pinned,
@@ -66,7 +66,7 @@ class Task {
 
   @override
   String toString() {
-    return "Tarefa:($title,$due)";
+    return "Tarefa:($title,$day)";
   }
 }
 
@@ -74,7 +74,7 @@ final String taskTable = "taskTable";
 final String idColumn = "idColumn";
 final String titleColumn = "titleColumn";
 final String subjectColumn = "subjectColumn";
-final String dueColumn = "dueColumn";
+final String dayColumn = "dayColumn";
 final String diferenceColumn = "diferenceColumn";
 final String priorityColumn = "priorityColumn";
 final String pinnedColumn = "pinnedColumn";
@@ -107,7 +107,7 @@ class TaskHelper extends ChangeNotifier {
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$dueColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER,$taskDoneColumn INTEGER)");
+          "$dayColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER,$taskDoneColumn INTEGER)");
     });
   }
 
@@ -125,7 +125,7 @@ class TaskHelper extends ChangeNotifier {
           idColumn,
           titleColumn,
           subjectColumn,
-          dueColumn,
+          dayColumn,
           diferenceColumn,
           pinnedColumn,
           taskDoneColumn,

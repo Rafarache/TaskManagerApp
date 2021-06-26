@@ -28,8 +28,8 @@ class _TaskPageState extends State<TaskPage> {
       widget.task.priority = _editedTask.priority;
       selectedRadio = widget.task.priority;
       DateFormat format = DateFormat("d MM y");
-      _editedTask.dateDue = format.parse(widget.task.due);
-      _editedTask.due = widget.task.due;
+      _editedTask.dateDay = format.parse(widget.task.day);
+      _editedTask.day = widget.task.day;
     }
   }
 
@@ -205,10 +205,10 @@ class _TaskPageState extends State<TaskPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextButton(
-                        child: Text(_editedTask.dateDue == null &&
+                        child: Text(_editedTask.dateDay == null &&
                                 widget.task == null
                             ? "Data de conclusão"
-                            : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDue)}"),
+                            : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}"),
                         onPressed: datePickerDue,
                       ),
                     ),
@@ -239,14 +239,14 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   void saveTask() {
-    if (widget.task != null && _editedTask.dateDue == null) {
-      _editedTask.due = widget.task.due;
+    if (widget.task != null && _editedTask.dateDay == null) {
+      _editedTask.day = widget.task.day;
       DateFormat format = DateFormat("d MM y");
-      _editedTask.dateDue = format.parse(widget.task.due);
+      _editedTask.dateDay = format.parse(widget.task.day);
     }
     if (_editedTask.title.isNotEmpty &&
         _editedTask.title != null &&
-        _editedTask.dateDue != null) {
+        _editedTask.dateDay != null) {
       if (_editedTask.subject == null) {
         _editedTask.subject = "";
       }
@@ -259,7 +259,7 @@ class _TaskPageState extends State<TaskPage> {
       helpText: DateFormat('d MMM y').format(DateTime.now()),
       currentDate: DateTime.now(),
       context: context,
-      initialDate: widget.task != null ? _editedTask.dateDue : DateTime.now(),
+      initialDate: widget.task != null ? _editedTask.dateDay : DateTime.now(),
       //initialDate: _editedTask.dateStart,
       firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 2),
@@ -267,8 +267,8 @@ class _TaskPageState extends State<TaskPage> {
       (date) {
         setState(
           () {
-            _editedTask.dateDue = date;
-            _editedTask.due = DateFormat("d MM y", 'pt').format(date);
+            _editedTask.dateDay = date;
+            _editedTask.day = DateFormat("d MM y", 'pt').format(date);
             changeValue = true;
           },
         );
