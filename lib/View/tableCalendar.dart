@@ -51,7 +51,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     });
   }
 
-  bool isSameDay(DateTime selectedDay, Task task) {
+  bool isSameDay1(DateTime selectedDay, Task task) {
     DateFormat formatter = DateFormat("d MM y");
     var date = formatter.parse(task.due);
     var date1 = DateFormat("d MM y").format(date);
@@ -62,7 +62,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   List<Task> eventos = [];
 
   void filterTask(DateTime selectedDay, List<Task> task) {
-    eventos = task.where((i) => isSameDay(selectedDay, i)).toList();
+    eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
   }
 
   @override
@@ -139,15 +139,19 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                     });
                   }
                 },
-                onDaySelected: (day, focusDay) {
-                  setState(() {
-                    teste = day;
-                    _focusedDay = focusDay;
-                    filterTask(day, data);
-                  });
-                  for (var i = 0; i < eventos.length; i++) {
-                    print(eventos[i].title);
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(_selectedDay, selectedDay)) {
+                    // Call `setState()` when updating the selected day
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
                   }
+                  setState(() {
+                    teste = selectedDay;
+                    _focusedDay = focusedDay;
+                    filterTask(selectedDay, data);
+                  });
                 },
               ),
               Divider(endIndent: 10),
