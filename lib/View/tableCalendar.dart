@@ -139,16 +139,16 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                     });
                   }
                 },
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
                 onDaySelected: (selectedDay, focusedDay) {
                   if (!isSameDay(_selectedDay, selectedDay)) {
-                    // Call `setState()` when updating the selected day
                     setState(() {
                       _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
                     });
                   }
                   setState(() {
-                    teste = selectedDay;
                     _focusedDay = focusedDay;
                     filterTask(selectedDay, data);
                   });
@@ -160,7 +160,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       padding: const EdgeInsets.only(
                           top: 8.0, left: 20.0, bottom: 20),
                       child: Text(
-                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(teste)}",
+                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(_selectedDay)}",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
