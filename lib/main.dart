@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/Model/userPreferences.dart';
 import 'package:taskmanager/blocs/theme.dart';
-import 'View/Home/HomePage.dart';
-import 'View/Home/TableCalenar/tableCalendar.dart';
-import 'View/SettingsPage/settingsPage.dart';
+import 'View/HomePage.dart';
+import 'View/tableCalendar.dart';
+import 'View/settingsPage.dart';
 
 void main() async {
   Get.lazyPut<ThemeController>(() => ThemeController());
