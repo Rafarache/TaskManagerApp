@@ -104,6 +104,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     return [b.length];
   }
 
+  var day = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   var teste = DateTime.now();
@@ -150,9 +151,11 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   if (!isSameDay(_selectedDay, selectedDay)) {
                     setState(() {
                       _selectedDay = selectedDay;
+                      day = selectedDay;
                     });
                   }
                   setState(() {
+                    day = selectedDay;
                     _focusedDay = focusedDay;
                     filterTask(selectedDay, data);
                   });
@@ -164,7 +167,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       padding: const EdgeInsets.only(
                           top: 8.0, left: 20.0, bottom: 20),
                       child: Text(
-                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(_selectedDay)}",
+                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(day)}",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
