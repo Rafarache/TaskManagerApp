@@ -124,12 +124,16 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                 calendarFormat: _calendarFormat,
                 calendarStyle: CalendarStyle(
                   markerDecoration: BoxDecoration(
-                      color: Colors.pink,
-                      borderRadius: BorderRadius.circular(90)),
-                  selectedDecoration: BoxDecoration(color: Colors.blue),
+                    color: Colors.pink,
+                    shape: BoxShape.circle,
+                  ),
+                  selectedDecoration:
+                      BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+                  weekendTextStyle: TextStyle(color: Colors.red),
                   todayDecoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(50)),
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
