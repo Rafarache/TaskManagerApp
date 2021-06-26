@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -12,77 +14,24 @@ class TableCalendarPage extends StatefulWidget {
   _TableCalendarPageState createState() => _TableCalendarPageState();
 }
 
+class Event {
+  final String title;
+
+  const Event(this.title);
+
+  @override
+  String toString() => title;
+}
+
 class _TableCalendarPageState extends State<TableCalendarPage> {
-  DateTime _selectedDay = DateTime.now();
-
-  //CalendarController _controller;
-  Map<DateTime, List<dynamic>> _events = {};
   List<Task> data = [];
-
-  List<dynamic> _selectedEvents = [];
-  List<Widget> get _eventWidget =>
-      _selectedEvents.map((e) => events(e)).toList();
-
-  /* DateFormat format = DateFormat("d MM y");
-        var dateUpdate = format.parse(data[1].due); */
-
-  Widget events(var d) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      child: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-          decoration: BoxDecoration(
-              border: Border(
-            top: BorderSide(color: Theme.of(context).dividerColor),
-          )),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(d, style: Theme.of(context).primaryTextTheme.bodyText1),
-          ])),
-    );
-  }
-
-  void _getAllTasks() {
-    widget.helper.getAllTasks().then((list) {
-      setState(() {
-        data = list;
-      });
-    });
-  }
-
-  bool isSameDay1(DateTime selectedDay, Task task) {
-    DateFormat formatter = DateFormat("d MM y");
-    var date = formatter.parse(task.due);
-    var date1 = DateFormat("d MM y").format(date);
-    var sel = DateFormat("d MM y").format(selectedDay);
-    return date1 == sel;
-  }
-
+  DateTime _selectedDay = DateTime.now();
   List<Task> eventos = [];
-
-  void filterTask(DateTime selectedDay, List<Task> task) {
-    eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getAllTasks();
-    data.removeRange(0, data.length);
-    setState(() {
-      filterTask(DateTime.now(), data);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  DateTime _focusedDay = DateTime.now();
 
   String _lastUserId = null;
   String _lastPassword = null;
-
   Map<DateTime, Map<String, String>> _bookings = {
     DateTime.utc(2021, 6, 27): {"aaa": "AAA"},
     DateTime.utc(2021, 6, 29): {"aaa": "AAA"},
@@ -92,22 +41,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     DateTime.utc(2021, 7, 5): {"aaa": "AAA"},
   };
 
-  List<int> bookingsOnDay(DateTime day) {
-    Map<String, String> b = _bookings[day];
-    if (b == null) return [];
-    if (_lastUserId != null) {
-      var pw = b[_lastUserId];
-      if (pw != null && pw == _lastPassword) {
-        return [b.length, 1];
-      }
-    }
-    return [b.length];
-  }
-
-  var day = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
-  DateTime _focusedDay = DateTime.now();
-  var teste = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -151,14 +84,10 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                   if (!isSameDay(_selectedDay, selectedDay)) {
                     setState(() {
                       _selectedDay = selectedDay;
-                      day = selectedDay;
+                      _focusedDay = focusedDay;
+                      filterTask(selectedDay, data);
                     });
                   }
-                  setState(() {
-                    day = selectedDay;
-                    _focusedDay = focusedDay;
-                    filterTask(selectedDay, data);
-                  });
                 },
               ),
               Divider(endIndent: 10),
@@ -167,7 +96,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       padding: const EdgeInsets.only(
                           top: 8.0, left: 20.0, bottom: 20),
                       child: Text(
-                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(day)}",
+                        "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(_selectedDay)}",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -178,7 +107,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                         left: 20,
                       ),
                       child: Text(
-                        "Não há nehuma tarefa para ${DateFormat("d 'de' MMMM", "pt").format(teste)}",
+                        "Não há nehuma tarefa para ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -189,5 +118,54 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         ),
       ),
     );
+  }
+
+  bool isSameDay1(DateTime selectedDay, Task task) {
+    DateFormat formatter = DateFormat("d MM y");
+    var date = formatter.parse(task.due);
+    var date1 = DateFormat("d MM y").format(date);
+    var sel = DateFormat("d MM y").format(selectedDay);
+    return date1 == sel;
+  }
+
+  void filterTask(DateTime selectedDay, List<Task> task) {
+    eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
+  }
+
+  void _getAllTasks() {
+    widget.helper.getAllTasks().then((list) {
+      setState(() {
+        data = list;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _getAllTasks();
+    });
+    data.removeRange(0, data.length);
+    setState(() {
+      filterTask(DateTime.now(), data);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  List<int> bookingsOnDay(DateTime day) {
+    Map<String, String> b = _bookings[day];
+    if (b == null) return [];
+    if (_lastUserId != null) {
+      var pw = b[_lastUserId];
+      if (pw != null && pw == _lastPassword) {
+        return [b.length, 1];
+      }
+    }
+    return [b.length];
   }
 }
