@@ -1,9 +1,7 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
-import 'package:taskmanager/View/AddTask/TaskPage.dart';
 
 // ignore: must_be_immutable
 class TaskCard extends StatefulWidget {
