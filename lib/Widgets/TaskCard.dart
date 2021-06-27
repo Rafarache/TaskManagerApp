@@ -34,7 +34,7 @@ class _TaskCardState extends State<TaskCard> {
         DateFormat format = DateFormat("d MM y");
         var dateUpdate = format.parse(widget.tasks[index].day);
         widget.tasks[index].diference =
-            (dateUpdate.difference(DateTime.now()).inHours / 24).round();
+            (dateUpdate.difference(DateTime.now()).inDays);
 
         return Container(
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
