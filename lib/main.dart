@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'San Francisco',
         primarySwatch: Colors.grey,
         accentColor: Colors.grey,
-        cardColor: Colors.grey[900],
+        cardColor: Colors.grey[800],
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.grey[900],
         appBarTheme: AppBarTheme(
             backgroundColor: Colors.grey[900],
             centerTitle: true,
