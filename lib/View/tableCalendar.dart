@@ -16,11 +16,10 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   List<Task> data = [];
   DateTime _selectedDay = DateTime.now();
   List<Task> eventos = [];
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
 
   List<DateTime> eventsDays = [];
-  var colorMarker = Colors.blue;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,6 +34,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                 locale: 'pt,BR',
                 firstDay: DateTime.utc(2010, 10, 16),
                 lastDay: DateTime.utc(2030, 10, 16),
+                pageAnimationCurve: Curves.elasticIn,
                 focusedDay: _focusedDay,
                 calendarFormat: _calendarFormat,
                 calendarStyle: CalendarStyle(
@@ -69,7 +69,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                 },
                 onFormatChanged: (format) {
                   if (_calendarFormat != format) {
-                    // Call `setState()` when updating calendar format
                     setState(() {
                       _calendarFormat = format;
                     });
