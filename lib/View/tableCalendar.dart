@@ -89,33 +89,46 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                     }
                   },
                 ),
-                Divider(endIndent: 10),
-                eventos.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, left: 20.0, bottom: 20),
-                        child: Text(
-                          "Tarefas de ${DateFormat("d 'de' MMMM 'de' y", "pt").format(_selectedDay)}",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          left: 20,
-                        ),
-                        child: Text(
-                          "Não há nehuma tarefa para ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
                 Expanded(
                   child: Container(
-                      color: Colors.red,
-                      child: TaskCard(
-                          widget.helper, eventos, _getAllTasks, null, null)),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30)),
+                        color: Theme.of(context).backgroundColor,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            eventos.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20.0, left: 20.0, bottom: 20),
+                                    child: Text(
+                                      "Tarefas de ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 20.0,
+                                      left: 20,
+                                    ),
+                                    child: Text(
+                                      "Sem tarefa para ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                            TaskCard(widget.helper, eventos, _getAllTasks, null,
+                                null),
+                          ],
+                        ),
+                      )),
                 ),
               ],
             ),
