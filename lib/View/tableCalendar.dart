@@ -16,13 +16,17 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   List<Task> data = [];
   DateTime _selectedDay = DateTime.now();
   List<Task> eventos = [];
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
 
   List<DateTime> eventsDays = [];
-
+  var colorMarker = Colors.blue;
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      filterTask(DateTime.now(), data);
+      print("teste ${eventos.length}");
+    });
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -132,11 +136,9 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     super.initState();
     setState(() {
       _getAllTasks();
-    });
-    data.removeRange(0, data.length);
-    setState(() {
       filterTask(DateTime.now(), data);
     });
+    data.removeRange(0, data.length);
   }
 
   bool isSameDay1(DateTime selectedDay, Task task) {
