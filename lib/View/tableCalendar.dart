@@ -23,10 +23,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   var colorMarker = Colors.blue;
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      filterTask(DateTime.now(), data);
-      print("teste ${eventos.length}");
-    });
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -127,6 +123,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         data = list;
         eventsDays =
             data.map((element) => formatter.parse(element.day)).toList();
+        filterTask(DateTime.now(), data);
       });
     });
   }
@@ -136,7 +133,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     super.initState();
     setState(() {
       _getAllTasks();
-      filterTask(DateTime.now(), data);
     });
     data.removeRange(0, data.length);
   }
