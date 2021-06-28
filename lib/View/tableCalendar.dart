@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
+import 'package:taskmanager/View/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
 
 // ignore: must_be_immutable
@@ -145,6 +146,25 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         filterTask(DateTime.now(), data);
       });
     });
+  }
+
+  Route _createRouteAdd(Task task) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          TaskPage(task: task),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(1, 0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 
   @override
