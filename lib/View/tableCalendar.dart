@@ -167,6 +167,18 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     );
   }
 
+  void _showTask({Task task}) async {
+    final recTask = await Navigator.push(context, _createRouteAdd(task));
+    if (recTask != null) {
+      if (task != null) {
+        await widget.helper.upDateTask(recTask);
+      } else {
+        await widget.helper.saveTask(recTask);
+      }
+      _getAllTasks();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
