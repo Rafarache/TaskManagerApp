@@ -54,7 +54,9 @@ class _TaskCardState extends State<TaskCard> {
                   widget.helper.deleTask(widget.tasks[index].id);
                   widget.tasks.removeAt(index);
                   _lastRemovedPos = index;
-                  widget._getAllTasksDone();
+                  if (widget._getAllTasksDone != null) {
+                    widget._getAllTasksDone();
+                  }
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -88,7 +90,9 @@ class _TaskCardState extends State<TaskCard> {
                           setState(() {
                             widget.tasks.insert(_lastRemovedPos, _lastRemoved);
                             widget.helper.saveTask(_lastRemoved);
-                            widget._getAllTasksDone();
+                            if (widget._getAllTasksDone != null) {
+                              widget._getAllTasksDone();
+                            }
                           });
                         }),
                     duration: Duration(seconds: 2),
@@ -314,7 +318,9 @@ class _CardTaskState extends State<CardTask> {
                                 widget.tasks.pinned = 0;
                                 widget.helper.upDateTask(widget.tasks);
                                 widget._getAllTasks();
-                                widget._getAllTasksDone();
+                                if (widget._getAllTasksDone != null) {
+                                  widget._getAllTasksDone();
+                                }
                               });
                             }),
                       ],
