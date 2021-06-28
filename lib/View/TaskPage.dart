@@ -30,11 +30,11 @@ class _TaskPageState extends State<TaskPage> {
       DateFormat format = DateFormat("d MM y");
       _editedTask.dateDay = format.parse(widget.task.day);
       _editedTask.day = widget.task.day;
-    }
-    if (_editedTask.diference < 0) {
-      setState(() {
-        _firstDay = _editedTask.dateDay;
-      });
+      if (_editedTask.diference < 0) {
+        setState(() {
+          _firstDay = _editedTask.dateDay;
+        });
+      }
     }
   }
 

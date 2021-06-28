@@ -57,6 +57,7 @@ class _TaskCardState extends State<TaskCard> {
                   if (widget._getAllTasksDone != null) {
                     widget._getAllTasksDone();
                   }
+                  widget._getAllTasks();
                 });
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
