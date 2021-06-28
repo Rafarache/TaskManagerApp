@@ -12,7 +12,7 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   Task _editedTask;
-
+  DateTime _firstDay = DateTime.now();
   final _titleController = TextEditingController();
   final _subjectController = TextEditingController();
   int selectedRadio = 0;
@@ -30,6 +30,11 @@ class _TaskPageState extends State<TaskPage> {
       DateFormat format = DateFormat("d MM y");
       _editedTask.dateDay = format.parse(widget.task.day);
       _editedTask.day = widget.task.day;
+    }
+    if (_editedTask.diference < 0) {
+      setState(() {
+        _firstDay = _editedTask.dateDay;
+      });
     }
   }
 
@@ -261,7 +266,7 @@ class _TaskPageState extends State<TaskPage> {
       context: context,
       initialDate: widget.task != null ? _editedTask.dateDay : DateTime.now(),
       //initialDate: _editedTask.dateStart,
-      firstDate: DateTime.now(),
+      firstDate: _firstDay,
       lastDate: DateTime(DateTime.now().year + 2),
     ).then(
       (date) {
