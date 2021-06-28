@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         fontFamily: 'San Francisco',
         primarySwatch: Colors.grey,
-        accentColor: Colors.grey,
+        accentColor: Colors.grey[400],
         cardColor: Colors.grey[800],
         visualDensity: VisualDensity.adaptivePlatformDensity,
         backgroundColor: Colors.grey[900],
