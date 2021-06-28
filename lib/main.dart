@@ -108,7 +108,7 @@ class _FirsPageState extends State<FirsPage> {
     setState(() {
       _seletedPage = index;
       pageController.animateToPage(index,
-          duration: Duration(milliseconds: 400), curve: Curves.decelerate);
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
 
