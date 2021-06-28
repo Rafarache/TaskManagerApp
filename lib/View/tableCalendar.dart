@@ -123,8 +123,8 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                          TaskCard(
-                              widget.helper, eventos, _getAllTasks, null, null),
+                          TaskCard(widget.helper, eventos, _getAllTasks, null,
+                              _showTask),
                         ],
                       ),
                     )),
@@ -143,7 +143,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         data = list;
         eventsDays =
             data.map((element) => formatter.parse(element.day)).toList();
-        filterTask(DateTime.now(), data);
+        filterTask(_selectedDay, data);
       });
     });
   }
@@ -176,6 +176,10 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         await widget.helper.saveTask(recTask);
       }
       _getAllTasks();
+      setState(() {
+        filterTask(_selectedDay, data);
+      });
+      print(eventos);
     }
   }
 
