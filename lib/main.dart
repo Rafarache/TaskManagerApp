@@ -8,6 +8,7 @@ import 'package:taskmanager/blocs/theme.dart';
 import 'View/HomePage.dart';
 import 'View/tableCalendar.dart';
 import 'View/settingsPage.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   Get.lazyPut<ThemeController>(() => ThemeController());
