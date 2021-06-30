@@ -41,6 +41,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TableCalendar(
+                  formatAnimationDuration: Duration(milliseconds: 600),
                   onPageChanged: (day) {
                     setState(() {
                       _focusedDay = day;
