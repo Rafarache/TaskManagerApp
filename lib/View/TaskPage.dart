@@ -65,14 +65,28 @@ class _TaskPageState extends State<TaskPage> {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
-                      child: Text("Descartar"),
+                      child: Text(
+                        "Descartar",
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .subtitle1
+                                .color),
+                      ),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                         saveTask();
                       },
-                      child: Text("Salvar"),
+                      child: Text(
+                        "Salvar",
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .subtitle1
+                                .color),
+                      ),
                     ),
                   ],
                 );
@@ -218,10 +232,16 @@ class _TaskPageState extends State<TaskPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextButton(
-                        child: Text(_editedTask.dateDay == null &&
-                                widget.task == null
-                            ? "Data de conclusão"
-                            : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}"),
+                        child: Text(
+                          _editedTask.dateDay == null && widget.task == null
+                              ? "Data de conclusão"
+                              : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}",
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .subtitle1
+                                  .color),
+                        ),
                         onPressed: datePickerDue,
                       ),
                     ),
