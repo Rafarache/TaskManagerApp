@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
     ThemeController.to.loadThemeMode();
     return GetMaterialApp(
       theme: ThemeData(
+        primaryTextTheme: TextTheme(headline6: TextStyle(color: Colors.blue)),
         fontFamily: 'San Francisco',
         primaryColor: Color(0xFF024ACE),
         primaryColorDark: Color(0xFF024ACE),
