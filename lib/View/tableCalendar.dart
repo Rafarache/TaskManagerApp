@@ -17,7 +17,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   List<Task> data = [];
   DateTime _selectedDay = DateTime.now();
   List<Task> eventos = [];
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
 
   List<DateTime> eventsDays = [];
@@ -32,6 +32,11 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TableCalendar(
+                  onPageChanged: (day) {
+                    setState(() {
+                      _focusedDay = day;
+                    });
+                  },
                   locale: 'pt,BR',
                   firstDay: DateTime.utc(2010, 10, 16),
                   lastDay: DateTime.utc(2030, 10, 16),
