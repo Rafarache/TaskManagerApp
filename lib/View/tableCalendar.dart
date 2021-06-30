@@ -23,6 +23,15 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   List<DateTime> eventsDays = [];
   @override
   Widget build(BuildContext context) {
+    if (eventos.length >= 4) {
+      setState(() {
+        _calendarFormat = CalendarFormat.twoWeeks;
+      });
+    } else {
+      setState(() {
+        _calendarFormat = CalendarFormat.month;
+      });
+    }
     return SafeArea(
       child: Scaffold(
           body: ConstrainedBox(
@@ -74,11 +83,9 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                     return eventLength;
                   },
                   onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
+                    setState(() {
+                      _calendarFormat = format;
+                    });
                   },
                   selectedDayPredicate: (day) {
                     return isSameDay(_selectedDay, day);
