@@ -233,7 +233,10 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                       child: TextButton(
                         child: Text(
-                          showData(),
+                          _editedTask.dateDay == null && widget.task == null ||
+                                  _editedTask.dateDay == null
+                              ? 'Data de conclusao'
+                              : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}",
                           style: TextStyle(
                               color: Theme.of(context)
                                   .primaryTextTheme
@@ -267,16 +270,6 @@ class _TaskPageState extends State<TaskPage> {
         ),
       ),
     );
-  }
-
-  String showData() {
-    if (_editedTask.dateDay == null && widget.task == null ||
-        _editedTask.dateDay == null) {
-      return 'Data de conclusao';
-    } else {
-      print(_editedTask.dateDay);
-      return "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}";
-    }
   }
 
   void saveTask() {
