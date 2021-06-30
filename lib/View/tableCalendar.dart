@@ -143,7 +143,28 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
               if (isSameDay(_selectedDay, DateTime.now()) ||
                   !_selectedDay.isBefore(DateTime.now())) {
                 _showTask();
-              } else {}
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(),
+                        Text(
+                          "Não é possível adicionar tarefas no passado! ",
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headline6
+                                  .color),
+                        ),
+                      ],
+                    ),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
             },
             child: Icon(Icons.add),
           )),
