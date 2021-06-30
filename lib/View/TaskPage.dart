@@ -4,8 +4,9 @@ import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class TaskPage extends StatefulWidget {
+  DateTime selectedDay;
   final Task task;
-  TaskPage({this.task});
+  TaskPage({this.task, this.selectedDay});
   @override
   _TaskPageState createState() => _TaskPageState();
 }
@@ -21,6 +22,13 @@ class _TaskPageState extends State<TaskPage> {
     super.initState();
     if (widget.task == null) {
       _editedTask = Task();
+      if (widget.selectedDay != null) {
+        setState(() {
+          _editedTask.dateDay = widget.selectedDay;
+          _editedTask.day =
+              DateFormat("d MM y", 'pt').format(widget.selectedDay);
+        });
+      }
     } else {
       _editedTask = Task.fromMap(widget.task.toMap());
       _titleController.text = _editedTask.title;
