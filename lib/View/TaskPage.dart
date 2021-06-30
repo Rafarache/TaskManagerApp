@@ -233,9 +233,7 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                       child: TextButton(
                         child: Text(
-                          _editedTask.dateDay == null && widget.task == null
-                              ? "Data de conclusão"
-                              : "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}",
+                          showData(),
                           style: TextStyle(
                               color: Theme.of(context)
                                   .primaryTextTheme
@@ -271,6 +269,16 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
+  String showData() {
+    if (_editedTask.dateDay == null && widget.task == null ||
+        _editedTask.dateDay == null) {
+      return 'Data de conclusao';
+    } else {
+      print(_editedTask.dateDay);
+      return "Dia: ${DateFormat('d MM y', 'pt').format(_editedTask.dateDay)}";
+    }
+  }
+
   void saveTask() {
     if (widget.task != null && _editedTask.dateDay == null) {
       _editedTask.day = widget.task.day;
@@ -292,7 +300,11 @@ class _TaskPageState extends State<TaskPage> {
       helpText: DateFormat('d MMM y').format(DateTime.now()),
       currentDate: DateTime.now(),
       context: context,
-      initialDate: widget.task != null ? _editedTask.dateDay : DateTime.now(),
+      initialDate: widget.task != null
+          ? DateFormat("d MM y").parse(widget.task.day)
+          : _editedTask.dateDay != null
+              ? _editedTask.dateDay
+              : DateTime.now(),
       //initialDate: _editedTask.dateStart,
       firstDate: _firstDay,
       lastDate: DateTime(DateTime.now().year + 2),
@@ -300,9 +312,11 @@ class _TaskPageState extends State<TaskPage> {
       (date) {
         setState(
           () {
-            _editedTask.dateDay = date;
-            _editedTask.day = DateFormat("d MM y", 'pt').format(date);
-            changeValue = true;
+            if (date != null) {
+              _editedTask.dateDay = date;
+              _editedTask.day = DateFormat("d MM y", 'pt').format(date);
+              changeValue = true;
+            }
           },
         );
       },
