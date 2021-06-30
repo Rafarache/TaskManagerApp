@@ -40,15 +40,14 @@ class _TaskCardState extends State<TaskCard> {
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child: Dismissible(
               key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-              direction: DismissDirection.horizontal,
+              direction: DismissDirection.endToStart,
               background: Container(
-                color: Colors.red,
-                child: Align(
-                  alignment: Alignment(-0.9, 0),
-                  child: Icon(Icons.delete, color: Colors.white),
-                ),
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.only(right: 20),
+                color: Theme.of(context).errorColor,
+                child: Icon(Icons.delete, color: Colors.white, size: 30),
               ),
-              onDismissed: (direction) {
+              onDismissed: (_) {
                 setState(() {
                   _lastRemoved = widget.tasks[index];
                   widget.helper.deleTask(widget.tasks[index].id);
