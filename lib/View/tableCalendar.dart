@@ -139,7 +139,12 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.blue,
-            onPressed: _showTask,
+            onPressed: () {
+              if (isSameDay(_selectedDay, DateTime.now()) ||
+                  !_selectedDay.isBefore(DateTime.now())) {
+                _showTask();
+              } else {}
+            },
             child: Icon(Icons.add),
           )),
     );
@@ -160,7 +165,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   Route _createRouteAdd(Task task) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          TaskPage(task: task),
+          TaskPage(task: task, selectedDay: _selectedDay),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(1, 0);
         var end = Offset.zero;
@@ -176,7 +181,9 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     );
   }
 
-  void _showTask({Task task}) async {
+  void _showTask({
+    Task task,
+  }) async {
     final recTask = await Navigator.push(context, _createRouteAdd(task));
     if (recTask != null) {
       if (task != null) {
