@@ -42,6 +42,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
               children: [
                 TableCalendar(
                   formatAnimationDuration: Duration(milliseconds: 600),
+                  formatAnimationCurve: Curves.decelerate,
                   onPageChanged: (day) {
                     setState(() {
                       _focusedDay = day;
