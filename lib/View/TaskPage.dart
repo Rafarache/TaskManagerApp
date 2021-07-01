@@ -293,6 +293,7 @@ class _TaskPageState extends State<TaskPage> {
       onColorChanged: (Color color) {
         setState(() {
           dialogPickerColor = color;
+          _editedTask.color = color.toString();
         });
       },
       width: 40,
