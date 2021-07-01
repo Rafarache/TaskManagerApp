@@ -290,8 +290,11 @@ class _TaskPageState extends State<TaskPage> {
   Future<bool> colorPickerDialog() async {
     return ColorPicker(
       color: dialogPickerColor,
-      onColorChanged: (Color color) =>
-          setState(() => dialogPickerColor = color),
+      onColorChanged: (Color color) {
+        setState(() {
+          dialogPickerColor = color;
+        });
+      },
       width: 40,
       height: 40,
       borderRadius: 4,
@@ -299,10 +302,10 @@ class _TaskPageState extends State<TaskPage> {
       runSpacing: 5,
       wheelDiameter: 155,
       heading: Text(
-        'Select color',
+        'Selecione uma Cor',
       ),
       subheading: Text(
-        'Select color shade',
+        'Tonalidade',
       ),
       wheelSubheading: Text(
         'Selected color and its shades',
