@@ -100,8 +100,8 @@ class _FirsPageState extends State<FirsPage> {
       BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today), label: "Calendário"),
       BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-      BottomNavigationBarItem(
-          icon: Icon(Icons.settings), label: "Configurações"),
+      /* BottomNavigationBarItem(
+          icon: Icon(Icons.settings), label: "Configurações"), */
     ];
   }
 
@@ -128,7 +128,7 @@ class _FirsPageState extends State<FirsPage> {
       children: [
         TableCalendarPage(helper),
         Home(helper),
-        SettingsPage(),
+        //   SettingsPage(),
       ],
     );
   }
