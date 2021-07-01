@@ -43,6 +43,7 @@ class _TaskPageState extends State<TaskPage> {
       }
     } else {
       _editedTask = Task.fromMap(widget.task.toMap());
+      dialogPickerColor = widget.task.colorTask;
       _titleController.text = _editedTask.title;
       _subjectController.text = _editedTask.subject;
       widget.task.priority = _editedTask.priority;
