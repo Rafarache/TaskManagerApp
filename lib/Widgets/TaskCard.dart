@@ -253,6 +253,14 @@ class _CardTaskState extends State<CardTask> {
                                         right: 10, bottom: 10.0, top: 10),
                                     child: Row(
                                       children: [
+                                        widget.tasks.priority != null
+                                            ? Icon(
+                                                Icons.priority_high,
+                                                color:
+                                                    widget.tasks.priorityColor,
+                                                size: 16,
+                                              )
+                                            : SizedBox(),
                                         Icon(
                                           Icons.calendar_today,
                                           color: Colors.grey,
@@ -336,10 +344,21 @@ class _CardTaskState extends State<CardTask> {
                             right: 22, bottom: 10.0, top: 0),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.calendar_today,
-                              color: Colors.grey,
-                              size: 16,
+                            Stack(
+                              children: [
+                                Icon(
+                                  Icons.calendar_today,
+                                  color: Colors.grey,
+                                  size: 16,
+                                ),
+                                widget.tasks.priority != null
+                                    ? Icon(
+                                        Icons.priority_high,
+                                        color: widget.tasks.priorityColor,
+                                        size: 16,
+                                      )
+                                    : SizedBox(),
+                              ],
                             ),
                             SizedBox(width: 4),
                             Text(
