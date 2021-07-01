@@ -9,11 +9,18 @@ class Task {
   String title;
   String subject;
   String day;
+  String color;
   DateTime dateDay;
   num diference;
   int priority;
   int pinned = 0;
   int taskDone = 0;
+
+  Color get colorTask {
+    String valueString = color.split('(0x')[1].split(')')[0];
+    int value = int.parse(valueString, radix: 16);
+    return Color(value);
+  }
 
   // ignore: missing_return
   Color priorityColor() {
