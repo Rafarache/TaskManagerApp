@@ -344,23 +344,18 @@ class _CardTaskState extends State<CardTask> {
                             right: 22, bottom: 10.0, top: 0),
                         child: Row(
                           children: [
-                            Stack(
-                              children: [
-                                Icon(
-                                  Icons.calendar_today,
-                                  color: Colors.grey,
-                                  size: 16,
-                                ),
-                                widget.tasks.priority != null
-                                    ? Icon(
-                                        Icons.priority_high,
-                                        color: widget.tasks.priorityColor,
-                                        size: 16,
-                                      )
-                                    : SizedBox(),
-                              ],
+                            widget.tasks.priority != null
+                                ? Icon(
+                                    Icons.priority_high,
+                                    color: widget.tasks.priorityColor,
+                                    size: 16,
+                                  )
+                                : SizedBox(),
+                            Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                              size: 16,
                             ),
-                            SizedBox(width: 4),
                             Text(
                               widget.tasks.day,
                               style: TextStyle(
