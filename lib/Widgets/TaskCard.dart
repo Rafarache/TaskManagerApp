@@ -168,7 +168,7 @@ class _CardTaskState extends State<CardTask> {
                         ? null
                         : BoxDecoration(
                             shape: BoxShape.circle,
-                            color: widget.tasks.priorityColor(),
+                            color: widget.tasks.colorTask,
                           ),
                     child: Column(
                       children: [
