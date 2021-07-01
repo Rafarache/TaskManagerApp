@@ -49,6 +49,7 @@ class Task {
     title = map[titleColumn];
     subject = map[subjectColumn];
     day = map[dayColumn];
+    color = map[colorColumn];
     diference = map[diferenceColumn];
     priority = map[priorityColumn];
     pinned = map[pinnedColumn];
@@ -60,6 +61,7 @@ class Task {
       titleColumn: title,
       subjectColumn: subject,
       dayColumn: day,
+      colorColumn: color,
       diferenceColumn: diference,
       priorityColumn: priority,
       pinnedColumn: pinned,
@@ -82,6 +84,7 @@ final String idColumn = "idColumn";
 final String titleColumn = "titleColumn";
 final String subjectColumn = "subjectColumn";
 final String dayColumn = "dayColumn";
+final String colorColumn = "colorColumn";
 final String diferenceColumn = "diferenceColumn";
 final String priorityColumn = "priorityColumn";
 final String pinnedColumn = "pinnedColumn";
@@ -108,13 +111,13 @@ class TaskHelper extends ChangeNotifier {
   Future<Database> initDb() async {
     final databasesPath = await getDatabasesPath();
 
-    final path = join(databasesPath, "dataB.db");
+    final path = join(databasesPath, "dataBas.db");
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE $taskTable($idColumn INTEGER PRIMARY KEY, $titleColumn TEXT, $subjectColumn TEXT,"
-          "$dayColumn TEXT, $diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER,$taskDoneColumn INTEGER)");
+          "$dayColumn TEXT,$colorColumn TEXT,$diferenceColumn INTEGER, $priorityColumn INTEGER,$pinnedColumn INTEGER,$taskDoneColumn INTEGER)");
     });
   }
 
@@ -133,6 +136,7 @@ class TaskHelper extends ChangeNotifier {
           titleColumn,
           subjectColumn,
           dayColumn,
+          colorColumn,
           diferenceColumn,
           pinnedColumn,
           taskDoneColumn,
