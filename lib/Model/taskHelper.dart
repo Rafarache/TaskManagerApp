@@ -17,13 +17,17 @@ class Task {
   int taskDone = 0;
 
   Color get colorTask {
-    String valueString = color.split('(0x')[1].split(')')[0];
-    int value = int.parse(valueString, radix: 16);
-    return Color(value);
+    if (color != null) {
+      String valueString = color.split('(0x')[1].split(')')[0];
+      int value = int.parse(valueString, radix: 16);
+      return Color(value);
+    } else {
+      return priorityColor;
+    }
   }
 
   // ignore: missing_return
-  Color priorityColor() {
+  Color get priorityColor {
     switch (this.priority) {
       case 1:
         return Colors.green;
@@ -39,8 +43,6 @@ class Task {
         break;
     }
   }
-
-  List<Task> done;
 
   Task();
 
