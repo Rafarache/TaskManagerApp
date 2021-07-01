@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 
 class TaskPage extends StatefulWidget {
   DateTime selectedDay;
@@ -12,13 +13,24 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
+  static const Color guidePrimary = Color(0xFF6200EE);
+  static const Color guidePrimaryVariant = Color(0xFF3700B3);
+  static const Color guideSecondary = Color(0xFF03DAC6);
+  static const Color guideSecondaryVariant = Color(0xFF018786);
+  static const Color guideError = Color(0xFFB00020);
+  static const Color guideErrorDark = Color(0xFFCF6679);
+  static const Color blueBlues = Color(0xFF174378);
+
+  Color dialogPickerColor;
   Task _editedTask;
   DateTime _firstDay = DateTime.now();
   final _titleController = TextEditingController();
   final _subjectController = TextEditingController();
   int selectedRadio = 0;
   bool changeValue = false;
+
   void initState() {
+    dialogPickerColor = Colors.red;
     super.initState();
     if (widget.task == null) {
       _editedTask = Task();
@@ -158,6 +170,9 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                 ),
               ),
+              ElevatedButton(
+                  onPressed: colorPickerDialog, child: Text("olaaa")),
+              Text("Cor da tarefa"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -269,6 +284,44 @@ class _TaskPageState extends State<TaskPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<bool> colorPickerDialog() async {
+    return ColorPicker(
+      color: dialogPickerColor,
+      onColorChanged: (Color color) =>
+          setState(() => dialogPickerColor = color),
+      width: 40,
+      height: 40,
+      borderRadius: 4,
+      spacing: 5,
+      runSpacing: 5,
+      wheelDiameter: 155,
+      heading: Text(
+        'Select color',
+      ),
+      subheading: Text(
+        'Select color shade',
+      ),
+      wheelSubheading: Text(
+        'Selected color and its shades',
+      ),
+      showMaterialName: false,
+      showColorName: true,
+      showColorCode: false,
+      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
+        longPressMenu: true,
+      ),
+      pickersEnabled: const <ColorPickerType, bool>{
+        ColorPickerType.both: true,
+        ColorPickerType.primary: false,
+        ColorPickerType.accent: false,
+      },
+    ).showPickerDialog(
+      context,
+      constraints:
+          const BoxConstraints(minHeight: 200, minWidth: 300, maxWidth: 320),
     );
   }
 
