@@ -171,15 +171,13 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                  onPressed: colorPickerDialog, child: Text("olaaa")),
-              Text("Cor da tarefa"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Prioridade:"),
                   Radio(
                     value: 1,
+                    toggleable: true,
                     groupValue: selectedRadio,
                     activeColor: Colors.green,
                     onChanged: (value) {
@@ -199,6 +197,7 @@ class _TaskPageState extends State<TaskPage> {
                   ),
                   Radio(
                     value: 2,
+                    toggleable: true,
                     groupValue: selectedRadio,
                     activeColor: Colors.orange,
                     onChanged: (value) {
@@ -217,6 +216,7 @@ class _TaskPageState extends State<TaskPage> {
                     ),
                   ),
                   Radio(
+                    toggleable: true,
                     value: 3,
                     groupValue: selectedRadio,
                     activeColor: Colors.red,
