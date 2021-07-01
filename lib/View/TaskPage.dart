@@ -238,6 +238,17 @@ class _TaskPageState extends State<TaskPage> {
                 ],
               ),
               Row(
+                children: [
+                  Spacer(),
+                  Text("Cor da tarefa"),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: ElevatedButton(
+                        onPressed: colorPickerDialog, child: Text("olaaa")),
+                  ),
+                ],
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Flexible(
