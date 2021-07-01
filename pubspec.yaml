@@ -36,6 +36,7 @@ dependencies:
   table_calendar: ^3.0.0
   cupertino_back_gesture: ^0.1.0
   provider: 
+  flex_color_picker: ^2.0.2
   shared_preferences: ^2.0.5
   get:
 dev_dependencies:
