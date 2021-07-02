@@ -5,6 +5,7 @@ import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
 import 'package:date_utils/date_utils.dart';
+import 'package:taskmanager/Controller/CalendarPage_controller.dart';
 
 // ignore: must_be_immutable
 class TableCalendarPage extends StatefulWidget {
@@ -97,7 +98,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       setState(() {
                         _selectedDay = selectedDay;
                         _focusedDay = focusedDay;
-                        filterTask(selectedDay, data);
+                        eventos = filterTask(selectedDay, data);
                       });
                       test();
                     }
@@ -188,7 +189,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         data = list;
         eventsDays =
             data.map((element) => formatter.parse(element.day)).toList();
-        filterTask(_selectedDay, data);
+        eventos = filterTask(_selectedDay, data);
       });
     });
   }
@@ -213,8 +214,9 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   }
 
   void test() {
-    //bool = is
-    print("{}");
+    bool tests = isSameWeek(eventsDays[0], _selectedDay);
+    print("${eventsDays[0]}");
+    print(tests);
   }
 
   void _showTask({
@@ -229,7 +231,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
       }
       _getAllTasks();
       setState(() {
-        filterTask(_selectedDay, data);
+        eventos = filterTask(_selectedDay, data);
       });
       print(eventos);
     }
@@ -242,17 +244,5 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
       _getAllTasks();
     });
     data.removeRange(0, data.length);
-  }
-
-  bool isSameDay1(DateTime selectedDay, Task task) {
-    DateFormat formatter = DateFormat("d MM y");
-    var date = formatter.parse(task.day);
-    var date1 = DateFormat("d MM y").format(date);
-    var sel = DateFormat("d MM y").format(selectedDay);
-    return date1 == sel;
-  }
-
-  void filterTask(DateTime selectedDay, List<Task> task) {
-    eventos = task.where((i) => isSameDay1(selectedDay, i)).toList();
   }
 }
