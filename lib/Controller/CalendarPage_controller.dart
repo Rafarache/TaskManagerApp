@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:taskmanager/View/TaskPage.dart';
 
 import '../Model/taskHelper.dart';
 
@@ -29,4 +31,22 @@ bool isSameDay1(DateTime selectedDay, Task task) {
 
 List<Task> filterTask(DateTime selectedDay, List<Task> task) {
   return task.where((i) => isSameDay1(selectedDay, i)).toList();
+}
+
+Route createRouteAdd(Task task, DateTime selectedDay) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        TaskPage(task: task, selectedDay: selectedDay),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(1, 0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
