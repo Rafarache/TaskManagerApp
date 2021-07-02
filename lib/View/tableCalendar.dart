@@ -194,25 +194,6 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     });
   }
 
-  Route _createRouteAdd(Task task) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          TaskPage(task: task, selectedDay: _selectedDay),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(1, 0);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   void test() {
     bool tests = isSameWeek(eventsDays[0], _selectedDay);
     print("${eventsDays[0]}");
@@ -222,7 +203,8 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   void _showTask({
     Task task,
   }) async {
-    final recTask = await Navigator.push(context, _createRouteAdd(task));
+    final recTask =
+        await Navigator.push(context, createRouteAdd(task, _selectedDay));
     if (recTask != null) {
       if (task != null) {
         await widget.helper.upDateTask(recTask);
