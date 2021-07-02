@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.0.2"
   date_utils:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: date_utils
       url: "https://pub.flutter-io.cn/"

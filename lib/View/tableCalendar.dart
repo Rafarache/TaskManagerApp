@@ -4,6 +4,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
+import 'package:date_utils/date_utils.dart';
 
 // ignore: must_be_immutable
 class TableCalendarPage extends StatefulWidget {
@@ -98,6 +99,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                         _focusedDay = focusedDay;
                         filterTask(selectedDay, data);
                       });
+                      test();
                     }
                   },
                 ),
@@ -208,6 +210,11 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         );
       },
     );
+  }
+
+  void test() {
+    //bool = is
+    print("{}");
   }
 
   void _showTask({
