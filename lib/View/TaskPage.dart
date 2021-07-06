@@ -4,6 +4,7 @@ import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 
+// ignore: must_be_immutable
 class TaskPage extends StatefulWidget {
   DateTime selectedDay;
   final Task task;
@@ -13,14 +14,6 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  static const Color guidePrimary = Color(0xFF6200EE);
-  static const Color guidePrimaryVariant = Color(0xFF3700B3);
-  static const Color guideSecondary = Color(0xFF03DAC6);
-  static const Color guideSecondaryVariant = Color(0xFF018786);
-  static const Color guideError = Color(0xFFB00020);
-  static const Color guideErrorDark = Color(0xFFCF6679);
-  static const Color blueBlues = Color(0xFF174378);
-
   Color dialogPickerColor;
   Task _editedTask;
   DateTime _firstDay = DateTime.now();
@@ -30,7 +23,7 @@ class _TaskPageState extends State<TaskPage> {
   bool changeValue = false;
 
   void initState() {
-    dialogPickerColor = Colors.red;
+    dialogPickerColor = Colors.grey;
     super.initState();
     if (widget.task == null) {
       _editedTask = Task();
@@ -238,17 +231,6 @@ class _TaskPageState extends State<TaskPage> {
                 ],
               ),
               Row(
-                children: [
-                  Spacer(),
-                  Text("Cor da tarefa"),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: ElevatedButton(
-                        onPressed: colorPickerDialog, child: Text("olaaa")),
-                  ),
-                ],
-              ),
-              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Flexible(
@@ -274,19 +256,23 @@ class _TaskPageState extends State<TaskPage> {
                       ),
                     ),
                   ),
-                  Flexible(
+                  GestureDetector(
+                    onTap: colorPickerDialog,
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: TextButton(
-                        child: Text("SALVAR",
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "Cor da Tarefa:",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
-                        onPressed: saveTask,
+                                fontWeight: FontWeight.w400, fontSize: 15),
+                          ),
+                          CircleAvatar(backgroundColor: dialogPickerColor),
+                        ],
                       ),
                     ),
                   ),
@@ -294,6 +280,11 @@ class _TaskPageState extends State<TaskPage> {
               ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: saveTask,
+          child: Icon(Icons.save, color: Colors.white),
+          backgroundColor: Colors.blue,
         ),
       ),
     );
