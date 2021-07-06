@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   List<Task> tasks = [];
   List<Task> tasksPinned = [];
   List<Task> tasksDone = [];
-
+  String keyword;
   int _menuIndex;
   bool showPinned;
 
@@ -158,6 +158,14 @@ class _HomeState extends State<Home> {
                     _showTask)
                 : TaskCard(widget.helper, tasksDone, _getAllTasks,
                     _getAllTasksDone, _showTask),
+            TextField(
+              decoration: InputDecoration(hintText: "Search"),
+              onChanged: (text) {
+                setState(() {
+                  keyword = text;
+                });
+              },
+            ),
           ],
         ),
       ),

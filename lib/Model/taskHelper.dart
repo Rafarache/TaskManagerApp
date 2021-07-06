@@ -227,4 +227,17 @@ class TaskHelper extends ChangeNotifier {
     }
     return listTask;
   }
+
+  Future<List> searchTask(String text) async {
+    Database dbTask = await db;
+    List listMap = await dbTask.query('$taskTable',
+        where: '$titleColumn LIKE ? OR $subjectColumn LIKE ?',
+        whereArgs: ['%$text%', '%$text%']);
+    List<Task> listTask = [];
+    for (Map m in listMap) {
+      listTask.add(Task.fromMap(m));
+      print(m);
+    }
+    return listTask;
+  }
 }
