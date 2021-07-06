@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
@@ -33,7 +32,17 @@ class _HomeState extends State<Home> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         leading: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SearchPage(
+                          helper: widget.helper,
+                          getAllTasks: _getAllTasks,
+                          getAllTasksDone: _getAllTasksDone,
+                          showTask: _showTask,
+                        )));
+          },
           child: Icon(Icons.search),
         ),
         centerTitle: true,
@@ -44,13 +53,6 @@ class _HomeState extends State<Home> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SearchPage()));
-            },
-          ),
           IconButton(
             icon: Obx(() => controller.isDark.value
                 ? Icon(Icons.brightness_7)
@@ -166,14 +168,6 @@ class _HomeState extends State<Home> {
                     _showTask)
                 : TaskCard(widget.helper, tasksDone, _getAllTasks,
                     _getAllTasksDone, _showTask),
-            TextField(
-              decoration: InputDecoration(hintText: "Search"),
-              onChanged: (text) {
-                setState(() {
-                  keyword = text;
-                });
-              },
-            ),
           ],
         ),
       ),
