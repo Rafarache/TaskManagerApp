@@ -6,7 +6,7 @@
 
   Dark Calendar                |   Light Calendar       
 :-------------------------:|:-------------------------:
-![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Calendar%20-%20daek.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Calendar%20-%20light.jpg)|![]
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Calendar%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Calendar%20-%20light.jpg)|![]
 
   Dark HomePage/Done Task                 |   Add Task        
 :-------------------------:|:-------------------------:
@@ -16,9 +16,9 @@
 :-------------------------:|:-------------------------:
 ![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/DatePicker%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/DatePicker%20-%20light.jpg)|![]
 
-  Dark Calendar                |   Light Calendar       
+  Dark ColorPicker              |   Light ColorPicker       
 :-------------------------:|:-------------------------:
-![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/ColorPicker%20-%20ligth.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/ColorPicker%20-%20dark.jpg)|![]
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/ColorPicker%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/ColorPicker%20-%20light.jpg)|![]
 
 
   Empty SearchPage               |   SearchPage      
@@ -27,4 +27,4 @@
 
   Dialog              |   SnackBar     
 :-------------------------:|:-------------------------:
-![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Dialog.jp)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/snackBar.jp)|![]
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Dialog.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/snackBar.jpg)|![]
