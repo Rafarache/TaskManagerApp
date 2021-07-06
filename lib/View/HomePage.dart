@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/Model/userPreferences.dart';
 import 'package:taskmanager/View/TaskPage.dart';
+import 'package:taskmanager/View/searchPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
 import 'package:taskmanager/blocs/theme.dart';
 
@@ -33,7 +34,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {},
-          child: Icon(Icons.menu_open),
+          child: Icon(Icons.search),
         ),
         centerTitle: true,
         title: Text(
@@ -43,6 +44,13 @@ class _HomeState extends State<Home> {
           ),
         ),
         actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SearchPage()));
+            },
+          ),
           IconButton(
             icon: Obx(() => controller.isDark.value
                 ? Icon(Icons.brightness_7)
