@@ -1,16 +1,26 @@
 # Flutter Task Manager App
 
-A new Flutter project.
+  Dark HomePage                 |   Light HomePage        
+:-------------------------:|:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Home%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Home%20-%20light.jpg)|![]
 
-## Getting Started
+  Dark Calendar                |   Light Calendar       
+:-------------------------:|:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Calendar%20-%20daek.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Calendar%20-%20light.jpg)|![]
 
-This project is a starting point for a Flutter application.
+  Dark HomePage/Done Task                 |   Add Task        
+:-------------------------:|:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Home-done%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Add%20Task%20-%20light.jpg)|![]
 
-A few resources to get you started if this is your first Flutter project:
+  Dark DatePicker               |   Light DatePicker        
+:-------------------------:|:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/DatePicker%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/DatePicker%20-%20light.jpg)|![]
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  Dark Calendar                |   Light Calendar       
+:-------------------------:|:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/ColorPicker%20-%20ligth.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/ColorPicker%20-%20dark.jpg)|![]
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+  Empty SearchPage               |   SearchPage      
+:-------------------------:|:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Search%20Page%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Search%20-%20light.jpg)|![]
