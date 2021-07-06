@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
               var data = snapshot.data;
               return snapshot.hasData
                   ? TaskCard(widget.helper, data, widget.getAllTasks,
-                      widget.getAllTasksDone, widget.showTask)
+                      widget.getAllTasksDone, widget.showTask, true)
                   : SizedBox();
             },
           ),

@@ -6,7 +6,9 @@ import 'package:taskmanager/Model/taskHelper.dart';
 // ignore: must_be_immutable
 class TaskCard extends StatefulWidget {
   TaskCard(this.helper, this.tasks, this._getAllTasks, this._getAllTasksDone,
-      this._showTask);
+      this._showTask,
+      [this.isSearchPage = false]);
+  bool isSearchPage;
   Function _getAllTasks;
   Function _getAllTasksDone;
 
@@ -40,7 +42,9 @@ class _TaskCardState extends State<TaskCard> {
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
           child: Dismissible(
               key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-              direction: DismissDirection.endToStart,
+              direction: widget.isSearchPage != true
+                  ? DismissDirection.endToStart
+                  : DismissDirection.none,
               background: Container(
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.only(right: 20),
@@ -48,56 +52,59 @@ class _TaskCardState extends State<TaskCard> {
                 child: Icon(Icons.delete, color: Colors.white, size: 30),
               ),
               onDismissed: (_) {
-                setState(() {
-                  _lastRemoved = widget.tasks[index];
-                  widget.helper.deleTask(widget.tasks[index].id);
-                  widget.tasks.removeAt(index);
-                  _lastRemovedPos = index;
-                  if (widget._getAllTasksDone != null) {
-                    widget._getAllTasksDone();
-                  }
-                  widget._getAllTasks();
-                });
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    content: Row(
-                      children: [
-                        Icon(Icons.warning, color: Colors.yellow),
-                        Expanded(
-                          child: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              text: TextSpan(
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                  children: [
-                                    TextSpan(text: "A tarefa "),
-                                    TextSpan(
-                                        text: "\"${_lastRemoved.title}\"",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    TextSpan(text: " foi removida!"),
-                                  ])),
-                        ),
-                      ],
+                if (!widget.isSearchPage) {
+                  setState(() {
+                    _lastRemoved = widget.tasks[index];
+                    widget.helper.deleTask(widget.tasks[index].id);
+                    widget.tasks.removeAt(index);
+                    _lastRemovedPos = index;
+                    if (widget._getAllTasksDone != null) {
+                      widget._getAllTasksDone();
+                    }
+                    widget._getAllTasks();
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      content: Row(
+                        children: [
+                          Icon(Icons.warning, color: Colors.yellow),
+                          Expanded(
+                            child: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                text: TextSpan(
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                    children: [
+                                      TextSpan(text: "A tarefa "),
+                                      TextSpan(
+                                          text: "\"${_lastRemoved.title}\"",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      TextSpan(text: " foi removida!"),
+                                    ])),
+                          ),
+                        ],
+                      ),
+                      action: SnackBarAction(
+                          textColor: Colors.white,
+                          label: 'Desfazer',
+                          onPressed: () {
+                            setState(() {
+                              widget.tasks
+                                  .insert(_lastRemovedPos, _lastRemoved);
+                              widget.helper.saveTask(_lastRemoved);
+                              if (widget._getAllTasksDone != null) {
+                                widget._getAllTasksDone();
+                              }
+                            });
+                          }),
+                      duration: Duration(seconds: 2),
                     ),
-                    action: SnackBarAction(
-                        textColor: Colors.white,
-                        label: 'Desfazer',
-                        onPressed: () {
-                          setState(() {
-                            widget.tasks.insert(_lastRemovedPos, _lastRemoved);
-                            widget.helper.saveTask(_lastRemoved);
-                            if (widget._getAllTasksDone != null) {
-                              widget._getAllTasksDone();
-                            }
-                          });
-                        }),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+                  );
+                } else {}
               },
               child: CardTask(
                   widget.tasks[index],
@@ -105,7 +112,8 @@ class _TaskCardState extends State<TaskCard> {
                   widget._getAllTasks,
                   widget._getAllTasksDone,
                   widget._showTask,
-                  index)),
+                  index,
+                  widget.isSearchPage)),
         );
       },
     );
@@ -118,7 +126,9 @@ class CardTask extends StatefulWidget {
   TaskHelper helper = TaskHelper();
 
   CardTask(this.tasks, this.helper, this._getAllTasks, this._getAllTasksDone,
-      this._showTask, this.index);
+      this._showTask, this.index,
+      [this.isSearchPage = false]);
+  bool isSearchPage;
   int index;
   Function _getAllTasks;
   Function _getAllTasksDone;
@@ -294,45 +304,48 @@ class _CardTaskState extends State<CardTask> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              widget._showTask(task: widget.tasks);
-                            }),
-                        IconButton(
-                            icon: Icon(Icons.timer,
-                                color: widget.tasks.pinned == 1
-                                    ? Colors.amber
-                                    : Colors.white),
-                            onPressed: () {
-                              setState(() {
-                                if (widget.tasks.pinned == 0) {
-                                  widget.tasks.pinned = 1;
-                                } else {
-                                  widget.tasks.pinned = 0;
-                                }
-                                widget.helper.upDateTask(widget.tasks);
-                                widget._getAllTasks();
-                              });
-                            }),
-                        IconButton(
-                            icon: Icon(IcoFontIcons.like),
-                            onPressed: () {
-                              setState(() {
-                                widget.tasks.taskDone = 1;
-                                widget.tasks.pinned = 0;
-                                widget.helper.upDateTask(widget.tasks);
-                                widget._getAllTasks();
-                                if (widget._getAllTasksDone != null) {
-                                  widget._getAllTasksDone();
-                                }
-                              });
-                            }),
-                      ],
-                    ))
+                    child: widget.isSearchPage == false
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    widget._showTask(task: widget.tasks);
+                                  }),
+                              IconButton(
+                                  icon: Icon(Icons.timer,
+                                      color: widget.tasks.pinned == 1
+                                          ? Colors.amber
+                                          : Colors.white),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (widget.tasks.pinned == 0) {
+                                        widget.tasks.pinned = 1;
+                                      } else {
+                                        widget.tasks.pinned = 0;
+                                      }
+                                      widget.helper.upDateTask(widget.tasks);
+                                      widget._getAllTasks();
+                                    });
+                                  }),
+                              IconButton(
+                                  icon: Icon(IcoFontIcons.like),
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.tasks.taskDone = 1;
+                                      widget.tasks.pinned = 0;
+                                      widget.helper.upDateTask(widget.tasks);
+                                      widget._getAllTasks();
+                                      if (widget._getAllTasksDone != null) {
+                                        widget._getAllTasksDone();
+                                      }
+                                    });
+                                  }),
+                            ],
+                          )
+                        : SizedBox(),
+                  )
                 : SizedBox(),
             (_cardBool == true) && (widget.tasks.taskDone == 0)
                 ? Row(
