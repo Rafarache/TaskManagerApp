@@ -6,8 +6,20 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  var keyword;
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          decoration: InputDecoration(hintText: "Search"),
+          onChanged: (text) {
+            setState(() {
+              keyword = text;
+            });
+          },
+        ),
+      ),
+    );
   }
 }
