@@ -31,19 +31,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SearchPage(
-                          helper: widget.helper,
-                          getAllTasks: _getAllTasks,
-                          getAllTasksDone: _getAllTasksDone,
-                          showTask: _showTask,
-                        )));
-          },
-          child: Icon(Icons.search),
+        leading: IconButton(
+          icon: Obx(() => controller.isDark.value
+              ? Icon(Icons.brightness_7)
+              : Icon(Icons.brightness_2)),
+          onPressed: () => controller.changeTheme(),
         ),
         centerTitle: true,
         title: Text(
@@ -54,10 +46,18 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           IconButton(
-            icon: Obx(() => controller.isDark.value
-                ? Icon(Icons.brightness_7)
-                : Icon(Icons.brightness_2)),
-            onPressed: () => controller.changeTheme(),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SearchPage(
+                            helper: widget.helper,
+                            getAllTasks: _getAllTasks,
+                            getAllTasksDone: _getAllTasksDone,
+                            showTask: _showTask,
+                          )));
+            },
+            icon: Icon(Icons.search),
           ),
         ],
       ),
