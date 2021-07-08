@@ -75,10 +75,6 @@ class Task {
     return map;
   }
 
-  @override
-  String toString() {
-    return "Tarefa:($title,$day)";
-  }
 }
 
 final String taskTable = "taskTable";
@@ -93,12 +89,11 @@ final String pinnedColumn = "pinnedColumn";
 final String taskDoneColumn = "taskDoneColumn";
 
 class TaskHelper extends ChangeNotifier {
-  //TaskHelper poderá possuir apenas 1 único objeto com 1 banco de dados
+
   static final TaskHelper _instance = TaskHelper.internal();
   factory TaskHelper() => _instance;
   TaskHelper.internal();
 
-  //Essa variável é o banco de dados
   Database _db;
 
   Future<Database> get db async {
