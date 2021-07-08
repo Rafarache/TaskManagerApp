@@ -169,12 +169,6 @@ class TaskHelper extends ChangeNotifier {
     );
   }
 
-  Future<int> getNumber() async {
-    Database dbTask = await db;
-    return Sqflite.firstIntValue(
-        await dbTask.rawQuery("SELECT COUNT(*) FROM $taskTable"));
-  }
-
   Future close() async {
     Database dbTask = await db;
     await dbTask.close();
