@@ -48,7 +48,7 @@ dev_dependencies:
 
 flutter_native_splash:
   color: "#262626"
-  image: "A:/projetos/FLUTTER/taskmanager/lib/Assets/Icon/app_splash.png"
+  image: "A:/projetos/FLUTTER/taskmanager/lib/Assets/Icon/app_splashName.png"
   android: true
   ios: true
 
