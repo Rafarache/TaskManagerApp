@@ -47,7 +47,7 @@ dev_dependencies:
   date_utils: ^0.2.0
 
 flutter_native_splash:
-  color: "#FFFFD2"
+  color: "#262626"
   image: "A:/projetos/FLUTTER/taskmanager/lib/Assets/Icon/app_splash.png"
   android: true
   ios: true
