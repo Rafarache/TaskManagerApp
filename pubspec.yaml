@@ -47,15 +47,15 @@ dev_dependencies:
   date_utils: ^0.2.0
 
 flutter_native_splash:
-  color: "#F9D87B"
-  image: "A:/projetos/FLUTTER/taskmanager/lib/Assets/Icon/app_icon.jpg"
+  color: "#FFFFD2"
+  image: "A:/projetos/FLUTTER/taskmanager/lib/Assets/Icon/app_splash.png"
   android: true
   ios: true
 
 flutter_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "lib/Assets/Icon/app_logo.png"
+  image_path: "lib/Assets/Icon/app_icon.png"
   remove_alpha_ios: true
 
 # For information on the generic Dart part of this file, see the
