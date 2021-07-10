@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^2.0.5
   get:
   flutter_native_splash: ^1.1.8+4
+  flutter_launcher_icons: ^0.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
