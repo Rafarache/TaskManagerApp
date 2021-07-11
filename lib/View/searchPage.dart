@@ -21,13 +21,26 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          title: TextField(
-            decoration: InputDecoration(hintText: "Buscar Tarefa"),
-            onChanged: (text) {
-              setState(() {
-                keyword = text;
-              });
-            },
+          centerTitle: true,
+          title: Container(
+            padding: EdgeInsets.only(left:10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).cardColor,
+            ),
+            child: TextField(
+              
+              autofocus: true,
+              decoration: InputDecoration(hintText: "Buscar Tarefa",
+              border: InputBorder.none,
+
+              ),
+              onChanged: (text) {
+                setState(() {
+                  keyword = text;
+                });
+              },
+            ),
           ),
         ),
         body: Padding(
