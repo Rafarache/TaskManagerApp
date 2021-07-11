@@ -49,7 +49,7 @@ class _TaskCardState extends State<TaskCard> {
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.only(right: 20),
                 color: Theme.of(context).errorColor,
-                child: Icon(Icons.delete, color: Colors.white, size: 30),
+                child: const Icon(Icons.delete, color: Colors.white, size: 30),
               ),
               onDismissed: (_) {
                 if (!widget.isSearchPage) {
@@ -68,7 +68,7 @@ class _TaskCardState extends State<TaskCard> {
                       backgroundColor: Theme.of(context).primaryColor,
                       content: Row(
                         children: [
-                          Icon(Icons.warning, color: Colors.yellow),
+                          const Icon(Icons.warning, color: Colors.yellow),
                           Expanded(
                             child: RichText(
                                 overflow: TextOverflow.ellipsis,
@@ -78,12 +78,12 @@ class _TaskCardState extends State<TaskCard> {
                                       fontSize: 14,
                                     ),
                                     children: [
-                                      TextSpan(text: "A tarefa "),
+                                      const TextSpan(text: "A tarefa "),
                                       TextSpan(
                                           text: "\"${_lastRemoved.title}\"",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
-                                      TextSpan(text: " foi removida!"),
+                                      const TextSpan(text: " foi removida!"),
                                     ])),
                           ),
                         ],
@@ -101,10 +101,10 @@ class _TaskCardState extends State<TaskCard> {
                               }
                             });
                           }),
-                      duration: Duration(seconds: 2),
+                      duration: const Duration(seconds: 2),
                     ),
                   );
-                } else {}
+                } 
               },
               child: CardTask(
                   widget.tasks[index],
@@ -189,7 +189,7 @@ class _CardTaskState extends State<CardTask> {
                                   shape: BoxShape.circle,
                                   color: Colors.green,
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.done,
                                   color: Colors.white,
                                   size: 30,
@@ -202,7 +202,7 @@ class _CardTaskState extends State<CardTask> {
                                       shape: BoxShape.circle,
                                       //color: Colors.green,
                                     ),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.timer,
                                       color: Colors.white,
                                       size: 30,
@@ -216,7 +216,7 @@ class _CardTaskState extends State<CardTask> {
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         "dias",
                                         style: TextStyle(fontSize: 12),
                                       ),
@@ -263,20 +263,20 @@ class _CardTaskState extends State<CardTask> {
                                         right: 10, bottom: 10.0, top: 10),
                                     child: Row(
                                       children: [
-                                        widget.tasks.priority != null
-                                            ? Icon(
+                                        if(widget.tasks.priority != null)
+                                             Icon(
                                                 Icons.priority_high,
                                                 color:
                                                     widget.tasks.priorityColor,
                                                 size: 16,
-                                              )
-                                            : SizedBox(),
-                                        Icon(
+                                              ),
+                                          
+                                        const Icon(
                                           Icons.calendar_today,
                                           color: Colors.grey,
                                           size: 16,
                                         ),
-                                        SizedBox(width: 4),
+                                       const  SizedBox(width: 4),
                                         Text(
                                           widget.tasks.day,
                                           style: TextStyle(
@@ -309,7 +309,7 @@ class _CardTaskState extends State<CardTask> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                  icon: Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit),
                                   onPressed: () {
                                     widget._showTask(task: widget.tasks);
                                   }),
@@ -330,7 +330,7 @@ class _CardTaskState extends State<CardTask> {
                                     });
                                   }),
                               IconButton(
-                                  icon: Icon(IcoFontIcons.like),
+                                  icon:const  Icon(IcoFontIcons.like),
                                   onPressed: () {
                                     setState(() {
                                       widget.tasks.taskDone = 1;
@@ -351,20 +351,20 @@ class _CardTaskState extends State<CardTask> {
                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(),
+                     const SizedBox(),
                       Container(
                         margin: const EdgeInsets.only(
                             right: 22, bottom: 10.0, top: 0),
                         child: Row(
                           children: [
-                            widget.tasks.priority != null
-                                ? Icon(
+                            if(widget.tasks.priority != null)
+                                 Icon(
                                     Icons.priority_high,
                                     color: widget.tasks.priorityColor,
                                     size: 16,
-                                  )
-                                : SizedBox(),
-                            Icon(
+                                  ),
+                           
+                            const Icon(
                               Icons.calendar_today,
                               color: Colors.grey,
                               size: 16,
