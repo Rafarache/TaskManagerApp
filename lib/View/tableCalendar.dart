@@ -169,12 +169,12 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                         ),
                       ],
                     ),
-                    duration: Duration(seconds: 2),
+                    duration:const Duration(seconds: 2),
                   ),
                 );
               }
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           )),
     );
   }
