@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Task> tasks = [];
-  List<Task> tasksPinned = [];
+  List<Task> tasksDoing = [];
   List<Task> tasksDone = [];
   String keyword;
   int _menuIndex;
@@ -33,12 +33,12 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         leading: IconButton(
           icon: Obx(() => controller.isDark.value
-              ? Icon(Icons.brightness_7)
-              : Icon(Icons.brightness_2)),
+              ? const Icon(Icons.brightness_7)
+              : const Icon(Icons.brightness_2)),
           onPressed: () => controller.changeTheme(),
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Tarefas',
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
                             showTask: _showTask,
                           )));
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
         ],
       ),
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(),
+                const SizedBox(),
                 TextButton(
                   onPressed: () {
                     UserPreferences().showPinned = !showPinned;
@@ -79,11 +79,11 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(right: 10.0),
                     child: Row(
                       children: [
-                        Icon(Icons.access_time),
-                        Text("Fazendo(${tasksPinned.length})"),
+                        const Icon(Icons.access_time),
+                        Text("Fazendo(${tasksDoing.length})"),
                         !showPinned
-                            ? Icon(Icons.keyboard_arrow_up)
-                            : Icon(Icons.keyboard_arrow_down)
+                            ? const Icon(Icons.keyboard_arrow_up)
+                            : const Icon(Icons.keyboard_arrow_down)
                       ],
                     ),
                   ),
@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             if(showPinned)
-                TaskCard(widget.helper, tasksPinned, _getAllTasks,
+                TaskCard(widget.helper, tasksDoing, _getAllTasks,
                     _getAllTasksDone, _showTask),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
                             });
                           },
                           child: Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               color: Colors.transparent,
                               child: Text("Feitos(${tasksDone.length})",
                                   style: TextStyle(
@@ -142,7 +142,7 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: GestureDetector(
                       onTap: _showTask,
-                      child: Container(
+                      child: new Container(
                         width: MediaQuery.of(context).size.width / 1.10,
                         height: MediaQuery.of(context).size.height / 15,
                         decoration: BoxDecoration(
@@ -152,15 +152,15 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add),
-                            Text("ADICIONAR TAREFA",
+                            const Icon(Icons.add),
+                           const Text("ADICIONAR TAREFA",
                                 style: TextStyle(fontWeight: FontWeight.bold))
                           ],
                         ),
                       ),
                     ),
                   ),
-            SizedBox(height: 20),
+           const  SizedBox(height: 20),
             _menuIndex == 1
                 ? TaskCard(widget.helper, tasks, _getAllTasks, _getAllTasksDone,
                     _showTask)
@@ -180,7 +180,7 @@ class _HomeState extends State<Home> {
     });
     widget.helper.getAPinnedTask().then((list) {
       setState(() {
-        tasksPinned = list;
+        tasksDoing = list;
       });
     });
   }
