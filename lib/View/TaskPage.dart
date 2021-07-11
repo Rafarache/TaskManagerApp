@@ -64,7 +64,7 @@ class _TaskPageState extends State<TaskPage> {
                 return AlertDialog(
                   title: const Text("Descartar Alterações?",
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  content: Text("Ao sair, as alterações serão descartadas."),
+                  content: const Text("Ao sair, as alterações serão descartadas."),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -145,7 +145,7 @@ class _TaskPageState extends State<TaskPage> {
                   color: Theme.of(context).accentColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+                margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
@@ -283,7 +283,7 @@ class _TaskPageState extends State<TaskPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: saveTask,
-          child: Icon(Icons.save, color: Colors.white),
+          child: const Icon(Icons.save, color: Colors.white),
           backgroundColor: Colors.blue,
         ),
       ),
@@ -305,13 +305,13 @@ class _TaskPageState extends State<TaskPage> {
       spacing: 5,
       runSpacing: 5,
       wheelDiameter: 155,
-      heading: Text(
+      heading: const Text(
         'Selecione uma Cor',
       ),
-      subheading: Text(
+      subheading:const  Text(
         'Tonalidade',
       ),
-      wheelSubheading: Text(
+      wheelSubheading:const Text(
         'Selected color and its shades',
       ),
       showMaterialName: false,
