@@ -90,9 +90,8 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            !showPinned
-                ? SizedBox()
-                : TaskCard(widget.helper, tasksPinned, _getAllTasks,
+            if(showPinned)
+                TaskCard(widget.helper, tasksPinned, _getAllTasks,
                     _getAllTasksDone, _showTask),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -138,8 +137,8 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            _menuIndex == 1
-                ? Padding(
+            if(_menuIndex == 1)
+               Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: GestureDetector(
                       onTap: _showTask,
@@ -160,8 +159,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                  )
-                : SizedBox(),
+                  ),
             SizedBox(height: 20),
             _menuIndex == 1
                 ? TaskCard(widget.helper, tasks, _getAllTasks, _getAllTasksDone,

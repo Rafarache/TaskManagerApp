@@ -252,8 +252,8 @@ class _CardTaskState extends State<CardTask> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        !((_cardBool == true) && widget.tasks.taskDone == 0)
-                            ? Row(
+                        if(!((_cardBool == true) && widget.tasks.taskDone == 0))
+                             Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -289,22 +289,22 @@ class _CardTaskState extends State<CardTask> {
                                   ),
                                 ],
                               )
-                            : SizedBox()
+                            
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            (_cardBool == true) && (widget.tasks.taskDone == 0)
-                ? Container(
+            if((_cardBool == true) && (widget.tasks.taskDone == 0))
+                 Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     width: 400,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: widget.isSearchPage == false
+                    child: (widget.isSearchPage == false)
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -345,10 +345,10 @@ class _CardTaskState extends State<CardTask> {
                             ],
                           )
                         : SizedBox(),
-                  )
-                : SizedBox(),
-            (_cardBool == true) && (widget.tasks.taskDone == 0)
-                ? Row(
+                  ),
+                
+            if((_cardBool == true) && (widget.tasks.taskDone == 0))
+                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(),
@@ -381,7 +381,7 @@ class _CardTaskState extends State<CardTask> {
                       ),
                     ],
                   )
-                : SizedBox()
+                
           ],
         ),
       ),
