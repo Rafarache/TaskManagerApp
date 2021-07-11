@@ -1,6 +1,10 @@
 # Flutter Task Manager App
 
-  Dark HomePage                 |   Light HomePage        
+Splash Screen                   
+:-------------------------:
+![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/SplashScreen.png)|
+
+ Dark HomePage                 |   Light HomePage        
 :-------------------------:|:-------------------------:
 ![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Home%20-%20dark.jpg)|![](https://github.com/FilipeIlunga/TaskManagerApp/blob/master/ScreenShot/Home%20-%20light.jpg)|![]
 
