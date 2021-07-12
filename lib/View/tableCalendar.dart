@@ -24,6 +24,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   DateTime _focusedDay = DateTime.now();
 
   List<DateTime> eventsDays = [];
+  
   @override
   Widget build(BuildContext context) {
     if (eventos.length >= 4) {
@@ -35,6 +36,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
         _calendarFormat = CalendarFormat.month;
       });
     }
+  
     return SafeArea(
       child: Scaffold(
           body: ConstrainedBox(
@@ -115,7 +117,8 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                       ),
                       child: SingleChildScrollView(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: eventos.isNotEmpty ? CrossAxisAlignment.start :CrossAxisAlignment.center,
+                          
                           children: [
                             eventos.isNotEmpty
                                 ? Padding(
@@ -128,14 +131,22 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   )
-                                :  Image.asset(Assets.calendar,scale: 2,),
-                                   /*  Text(
-                                      Assets.calendar,
-                                      //"Sem tarefa para ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
+                                :  Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:50.0),
+                                      child: Image.asset((Theme.of(context).brightness == Brightness.dark)  ? Assets.darkCalendar : Assets.lightCalendar,scale: 2,),
+                                    ),
+                                    SizedBox(height: 20),
+                                     Text(
+                                      "Não há tarefa para fazer!\nAproveite seu dia ou adicione uma tarefa.",
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ), */
+                                          fontSize: 16,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                                   
                             TaskCard(widget.helper, eventos, _getAllTasks, null,
                                 _showTask),
@@ -221,6 +232,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
   void initState() {
     super.initState();
     setState(() {
+      
       _getAllTasks();
     });
     data.removeRange(0, data.length);
