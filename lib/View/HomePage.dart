@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:taskmanager/Assets/image/Image.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/Model/userPreferences.dart';
 import 'package:taskmanager/View/TaskPage.dart';
@@ -138,8 +139,8 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            _menuIndex == 1
-                ? Padding(
+            if(_menuIndex == 1)
+                Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: GestureDetector(
                       onTap: _showTask,
@@ -160,12 +161,19 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                  )
-                : SizedBox(),
+                  ),
+                
             SizedBox(height: 20),
             _menuIndex == 1
-                ? TaskCard(widget.helper, tasks, _getAllTasks, _getAllTasksDone,
+                ? tasks.isNotEmpty ? TaskCard(widget.helper, tasks, _getAllTasks, _getAllTasksDone,
                     _showTask)
+                 : Column(
+                   children: [
+                     Image.asset(Assets.emptyState,scale: 4,),
+                     Text("Não há nenhuma tarefa pendente")
+                   ],
+                 )
+
                 : TaskCard(widget.helper, tasksDone, _getAllTasks,
                     _getAllTasksDone, _showTask),
           ],
