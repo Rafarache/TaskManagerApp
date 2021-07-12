@@ -103,7 +103,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                         _focusedDay = focusedDay;
                         eventos = filterTask(selectedDay, data);
                       });
-                      test();
+                      
                     }
                   },
                 ),
@@ -135,7 +135,23 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top:50.0),
-                                      child: Image.asset((Theme.of(context).brightness == Brightness.dark)  ? Assets.darkCalendar : Assets.lightCalendar,scale: 2,),
+                                      child: Container(
+                                        height: MediaQuery.of(context).size.height/5,
+                                        child: 
+                                          
+                                            ClipRRect(
+                                               borderRadius: BorderRadius.circular(30),
+                                              child: Image.asset(         
+                                                          (Theme.of(context).brightness == Brightness.dark)  
+                                                ? Assets.darkCalendar 
+                                                : Assets.lightCalendar,  
+                                              ),
+                                            ),
+                                            
+                                            
+                                            
+                                        
+                                      ),
                                     ),
                                     SizedBox(height: 20),
                                      Text(
@@ -147,6 +163,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                     ),
                                   ],
                                 ),
+                                
                                   
                             TaskCard(widget.helper, eventos, _getAllTasks, null,
                                 _showTask),
@@ -203,12 +220,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
     });
   }
 
-  void test() {
-    bool tests = isSameWeek(eventsDays[0], _selectedDay);
-    print("${eventsDays[0]}");
-    print(tests);
-  }
-
+ 
   void _showTask({
     Task task,
   }) async {
@@ -224,7 +236,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
       setState(() {
         eventos = filterTask(_selectedDay, data);
       });
-      print(eventos);
+      
     }
   }
 
