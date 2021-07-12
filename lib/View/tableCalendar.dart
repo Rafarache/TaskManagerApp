@@ -72,20 +72,17 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                     ),
                   ),
                   eventLoader: (day) {
-                    //Filtra todas os eventos do mesmo dia que o paremetro [day]
+           
                     List<DateTime> eventsForDay = eventsDays
                         .where((element) => isSameDay(day, element))
                         .toList();
-                    // eventLength é responsavel pela quantidade de "bolinhas"
+                 
                     List<int> eventLength = [];
                     for (var i = 0; i < eventsForDay.length; i++) {
-                      //para cada do dia, adiciono um elemento no eventLength
-                      // o 1 não faz diferença, pode ser qualquer inteiro no .add
+              
                       eventLength.add(1);
                     }
-                    // se  eventsForDay tem 5 eventos, o eventLenth fica [1,1,1,1,1]
-                    //se eventsForDay tem 2 eventos, o eventLength fica [1,1] ...
-                    // a quantidade de elementos do eventLegth é a quantidade de bolinhas
+               
                     return eventLength;
                   },
                   onFormatChanged: (format) {
@@ -198,12 +195,12 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                         ),
                       ],
                     ),
-                    duration: Duration(seconds: 2),
+                    duration:const Duration(seconds: 2),
                   ),
                 );
               }
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           )),
     );
   }
