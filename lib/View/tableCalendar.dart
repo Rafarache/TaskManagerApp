@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:taskmanager/Assets/image/Image.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 import 'package:taskmanager/View/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
@@ -127,18 +128,15 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                   )
-                                : Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 20.0,
-                                      left: 20,
-                                    ),
-                                    child: Text(
-                                      "Sem tarefa para ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
+                                :  Image.asset(Assets.calendar,scale: 2,),
+                                   /*  Text(
+                                      Assets.calendar,
+                                      //"Sem tarefa para ${DateFormat("d 'de' MMMM", "pt").format(_selectedDay)}",
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
+                                    ), */
+                                  
                             TaskCard(widget.helper, eventos, _getAllTasks, null,
                                 _showTask),
                           ],
