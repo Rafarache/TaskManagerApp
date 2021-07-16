@@ -165,11 +165,15 @@ class _HomeState extends State<Home> {
             _menuIndex == 1
                 ? tasks.isNotEmpty ? TaskCard(widget.helper, tasks, _getAllTasks, _getAllTasksDone,
                     _showTask)
-                 : Column(
-                   children: [
-                     Image.asset(Assets.emptyState,scale: 4,),
-                     Text("Não há nenhuma tarefa pendente")
-                   ],
+                 : Padding(
+                   padding: const EdgeInsets.only(top:40.0),
+                   child: Column(
+                     children: [
+                       Image.asset(Assets.emptyState,),
+                       Text("Não há tarefa pendente", style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                       Text("Adicione uma nova tarefa", style: TextStyle(fontSize: 16),)
+                     ],
+                   ),
                  )
 
                 : TaskCard(widget.helper, tasksDone, _getAllTasks,
