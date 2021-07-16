@@ -72,8 +72,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/Assets/image/EmptyState.png
-    - lib/Assets/image/darkCalendar.jpg
-    - lib/Assets/image/lightCalendar.jpg
+    - lib/Assets/image/EmptyState2.png
+ 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
