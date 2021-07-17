@@ -23,18 +23,17 @@ class _SearchPageState extends State<SearchPage> {
         appBar: AppBar(
           centerTitle: true,
           title: Container(
-            padding: EdgeInsets.only(left:10),
+            padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-            color: Theme.of(context).cardColor,
+              color: Theme.of(context).cardColor,
             ),
             child: TextField(
-              
               autofocus: true,
-              decoration: InputDecoration(hintText: "Buscar Tarefa",
-              border: InputBorder.none,
-
-              ),
+              decoration: InputDecoration(
+                  hintText: "Buscar Tarefa",
+                  border: InputBorder.none,
+                  icon: Icon(Icons.search)),
               onChanged: (text) {
                 setState(() {
                   keyword = text;
