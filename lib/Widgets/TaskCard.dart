@@ -52,7 +52,7 @@ class _TaskCardState extends State<TaskCard> {
                 child: const Icon(Icons.delete, color: Colors.white, size: 30),
               ),
               onDismissed: (_) {
-                if (!widget.isSearchPage) {
+                if (widget.isSearchPage) return; 
                   setState(() {
                     _lastRemoved = widget.tasks[index];
                     widget.helper.deleTask(widget.tasks[index].id);
@@ -62,7 +62,7 @@ class _TaskCardState extends State<TaskCard> {
                       widget._getAllTasksDone();
                     }
                     widget._getAllTasks();
-                  });
+                  
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Theme.of(context).primaryColor,
@@ -92,19 +92,20 @@ class _TaskCardState extends State<TaskCard> {
                           textColor: Colors.white,
                           label: 'Desfazer',
                           onPressed: () {
-                            setState(() {
+                            print(_lastRemoved.title);
+                            
                               widget.tasks
                                   .insert(_lastRemovedPos, _lastRemoved);
                               widget.helper.saveTask(_lastRemoved);
                               if (widget._getAllTasksDone != null) {
                                 widget._getAllTasksDone();
                               }
-                            });
+                          widget._getAllTasks();
                           }),
                       duration: const Duration(seconds: 2),
                     ),
                   );
-                } 
+                });
               },
               child: CardTask(
                   widget.tasks[index],

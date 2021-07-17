@@ -3,9 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:taskmanager/Assets/image/Image.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
-import 'package:taskmanager/View/TaskPage.dart';
 import 'package:taskmanager/Widgets/TaskCard.dart';
-import 'package:date_utils/date_utils.dart';
 import 'package:taskmanager/Controller/CalendarPage_controller.dart';
 
 // ignore: must_be_immutable
@@ -133,17 +131,13 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(top:20.0),
                                       child: Container(
-                                        height: MediaQuery.of(context).size.height/4,
+                                        height: MediaQuery.of(context).size.height/3.8,
                                         child: 
                                           
                                             ClipRRect(
                                                borderRadius: BorderRadius.circular(30),
                                               child: Image.asset( Assets.emptyState2),
                                             ),
-                                            
-                                            
-                                            
-                                        
                                       ),
                                     ),
                                     SizedBox(height: 10),
