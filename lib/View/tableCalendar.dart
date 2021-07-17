@@ -131,9 +131,9 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                 :  Column(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top:50.0),
+                                      padding: const EdgeInsets.only(top:20.0),
                                       child: Container(
-                                        height: MediaQuery.of(context).size.height/5,
+                                        height: MediaQuery.of(context).size.height/4,
                                         child: 
                                           
                                             ClipRRect(
@@ -146,14 +146,13 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                         
                                       ),
                                     ),
-                                    SizedBox(height: 20),
+                                    SizedBox(height: 10),
                                      Text(
-                                      "Não há tarefa para fazer!\nAproveite seu dia ou adicione uma tarefa.",
+                                      "Não há tarefa para fazer",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          ),
+                                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
                                     ),
+                                    Text("Aproveite seu dia ou adicione uma nova tarefa", style: TextStyle(fontSize: 16),)
                                   ],
                                 ),
                                 
