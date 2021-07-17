@@ -66,21 +66,22 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
               children: [
-                const SizedBox(),
-                TextButton(
-                  onPressed: () {
+               Spacer(),
+                GestureDetector(
+                  onTap: () {
                     UserPreferences().showPinned = !showPinned;
                     setState(() {
                       showPinned = UserPreferences().showPinned;
                     });
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
+                    padding: const EdgeInsets.only(right: 20.0,top: 10,bottom: 10),
                     child: Row(
                       children: [
-                        const Icon(Icons.access_time),
+                        Icon(Icons.wb_incandescent,color: tasksDoing.isNotEmpty ? Colors.yellow[700]:Colors.grey,),
+                        const SizedBox(width: 5,),
                         Text("Fazendo(${tasksDoing.length})"),
                         !showPinned
                             ? const Icon(Icons.keyboard_arrow_up)
