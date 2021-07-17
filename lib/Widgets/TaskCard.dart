@@ -1,6 +1,5 @@
-import 'package:community_material_icon/community_material_icon.dart';
+
 import 'package:flutter/material.dart';
-import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanager/Model/taskHelper.dart';
 
@@ -326,11 +325,11 @@ class _CardTaskState extends State<CardTask> {
                                   padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.amber[300],
+                                    color: Colors.orange,
                                   ),
                                   child:  Icon(
                                     Icons.wb_incandescent,
-                                    color: widget.tasks.pinned == 1 ? Colors.orange : Colors.white,
+                                    color: widget.tasks.pinned == 1 ? Colors.yellow : Colors.white,
                                   )),
                               onPressed: () {
                                 setState(() {
