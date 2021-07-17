@@ -265,7 +265,7 @@ class _CardTaskState extends State<CardTask> {
                                   children: [
                                     if (widget.tasks.priority != null)
                                       Icon(
-                                        Icons.priority_high,
+                                        Icons.flag,
                                         color: widget.tasks.priorityColor,
                                         size: 16,
                                       ),
@@ -380,7 +380,7 @@ class _CardTaskState extends State<CardTask> {
                       children: [
                         if (widget.tasks.priority != null)
                           Icon(
-                            Icons.priority_high,
+                            Icons.flag,
                             color: widget.tasks.priorityColor,
                             size: 16,
                           ),
