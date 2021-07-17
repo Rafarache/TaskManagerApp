@@ -138,11 +138,7 @@ class _TableCalendarPageState extends State<TableCalendarPage> {
                                           
                                             ClipRRect(
                                                borderRadius: BorderRadius.circular(30),
-                                              child: Image.asset(         
-                                                          (Theme.of(context).brightness == Brightness.dark)  
-                                                ? Assets.darkCalendar 
-                                                : Assets.lightCalendar,  
-                                              ),
+                                              child: Image.asset( Assets.emptyState2),
                                             ),
                                             
                                             
