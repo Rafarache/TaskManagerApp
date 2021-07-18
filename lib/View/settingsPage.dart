@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:taskmanager/blocs/theme.dart';
+
 
 class SettingsPage extends StatefulWidget {
   SettingsPage();
