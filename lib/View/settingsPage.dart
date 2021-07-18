@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 
-
 class SettingsPage extends StatefulWidget {
   SettingsPage();
   @override
