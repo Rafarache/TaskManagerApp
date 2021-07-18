@@ -325,7 +325,7 @@ class _CardTaskState extends State<CardTask> {
                                   padding: const EdgeInsets.all(4),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.orange,
+                                    color: Colors.deepOrange,
                                   ),
                                   child:  Icon(
                                     Icons.wb_incandescent,
