@@ -202,9 +202,9 @@ class _CardTaskState extends State<CardTask> {
                                       shape: BoxShape.circle,
                                       //color: Colors.green,
                                     ),
-                                    child: const Icon(
-                                      Icons.timer,
-                                      color: Colors.white,
+                                    child: Icon(
+                                      Icons.wb_incandescent,
+                                      color: Colors.yellow[700],
                                       size: 30,
                                     ),
                                   )
