@@ -64,7 +64,8 @@ class _TaskPageState extends State<TaskPage> {
                 return AlertDialog(
                   title: const Text("Descartar Alterações?",
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  content: const Text("Ao sair, as alterações serão descartadas."),
+                  content:
+                      const Text("Ao sair, as alterações serão descartadas."),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -308,10 +309,10 @@ class _TaskPageState extends State<TaskPage> {
       heading: const Text(
         'Selecione uma Cor',
       ),
-      subheading:const  Text(
+      subheading: const Text(
         'Tonalidade',
       ),
-      wheelSubheading:const Text(
+      wheelSubheading: const Text(
         'Selected color and its shades',
       ),
       showMaterialName: false,
