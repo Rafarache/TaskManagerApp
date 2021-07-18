@@ -359,7 +359,6 @@ class _TaskPageState extends State<TaskPage> {
           : _editedTask.dateDay != null
               ? _editedTask.dateDay
               : DateTime.now(),
-      //initialDate: _editedTask.dateStart,
       firstDate: _firstDay,
       lastDate: DateTime(DateTime.now().year + 2),
     ).then(
