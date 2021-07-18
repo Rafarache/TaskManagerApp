@@ -76,17 +76,19 @@ class _HomeState extends State<Home> {
                       showPinned = UserPreferences().showPinned;
                     });
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0,top: 10,bottom: 10),
-                    child: Row(
-                      children: [
-                        Icon(Icons.wb_incandescent,color: tasksDoing.isNotEmpty ? Colors.yellow[700]:Colors.grey,),
-                        const SizedBox(width: 5,),
-                        Text("Fazendo(${tasksDoing.length})"),
-                        !showPinned
-                            ? const Icon(Icons.keyboard_arrow_up)
-                            : const Icon(Icons.keyboard_arrow_down)
-                      ],
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20.0,top: 10,bottom: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.wb_incandescent,color: tasksDoing.isNotEmpty ? Colors.yellow[700]:Colors.grey,),
+                          const SizedBox(width: 5,),
+                          Text("Fazendo(${tasksDoing.length})"),
+                          !showPinned
+                              ? const Icon(Icons.keyboard_arrow_up)
+                              : const Icon(Icons.keyboard_arrow_down)
+                        ],
+                      ),
                     ),
                   ),
                 ),
